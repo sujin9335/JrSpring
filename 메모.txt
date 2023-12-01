@@ -1,0 +1,112 @@
+
+
+
+기본틀
+com.project.jr.main
+
+com.project.jr
+
+-로그인
+com.project.jr.user.controller     //로그인 기능 , 개인정보변경
+com.project.jr.user.repository				//DB DAO
+com.project.jr.user.model					//DB DTO
+
+-자격증
+com.project.jr.crt.controller
+crtCon
+admCON
+myCOn					//자격증, 일정, 추천, 나의 자격증
+com.project.jr.crt.repository
+com.project.jr.crt.model
+
+-교재
+com.project.jr.book.controller						//교재, 추천
+com.project.jr.book.repository
+com.project.jr.book.model
+
+-학원
+com.project.jr.academy.controller	
+com.project.jr.academy.repository
+com.project.jr.academy.model
+
+-직업(직업군)
+com.project.jr.job.controller						//직업, 적성검사(추천)
+com.project.jr.job.repository
+com.project.jr.job.model
+
+-게시판
+com.project.jr.board.controller	
+com.project.jr.board.repository
+com.project.jr.board.model
+
+-FAQ
+com.project.jr.faq.controller	
+com.project.jr.faq.repository
+com.project.jr.faq.model
+
+				
+
+
+-금지어
+com.project.jr.forbidden.controller	
+com.project.jr.forbidden.repository
+com.project.jr.forbidden.model
+
+
+
+-신고글
+com.project.jr.report.controller	
+com.project.jr.report.repository
+com.project.jr.report.model
+
+-관리자 정보
+com.project.jr.admin.controller	
+com.project.jr.admin.repository
+com.project.jr.admin.model
+
+
+-스터디
+com.project.jr.study.controller	
+com.project.jr.study.repository
+com.project.jr.study.model
+
+-문의 : question
+com.project.jr.qna.controller	
+com.project.jr.qna.repository
+com.project.jr.qna.model
+
+-좋아요
+com.project.jr.like.controller	
+com.project.jr.like.repository
+com.project.jr.like.model
+
+
+
+
+----------제외
+-기업서비스 ??
+com.project.jr.company.controller
+
+-포인트
+com.project.jr.point.controller	
+com.project.jr.point.repository
+com.project.jr.point.model
+
+
+
+-----------
+-AOP 권한관리
+com.project.jr.aspect
+
+
+mapper
+crt
+
+DTO
+DAO
+mapper
+
+ACrtDAO
+A
+M
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="index" template="/WEB-INF/views/template/index.jsp">
+	
+	</definition>
+	<definition name="about" template="/WEB-INF/views/template/about.jsp">
+	
+	</definition>
+	<definition name="contact" template="/WEB-INF/views/template/contact.jsp">
+	
+	</definition>
+	<definition name="jobDetails" template="/WEB-INF/views/template/job-details.jsp">
+	
+	</definition>
+	<definition name="jobListings" template="/WEB-INF/views/template/job-listings.jsp">
+	
+	</definition>
+
+
+	<definition name="*.*" template="/WEB-INF/views/layout/layout.jsp">
+		<put-attribute name="asset" value="/WEB-INF/views/inc/asset.jsp"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/views/inc/header.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp"></put-attribute>
+	</definition>
+	
+</tiles-definitions>
+
+
+
+
+
+
+
+
