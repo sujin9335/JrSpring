@@ -1,16 +1,18 @@
 package com.project.jr.board.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.jr.board.model.BoardDTO;
 import com.project.jr.board.model.PageDTO;
@@ -53,6 +55,34 @@ public class BoardController {
 		
 		return "board.list";
 	}
+	
+	@GetMapping(value = "/add.do")
+	public String addGet(Model model, HttpSession session) {
+		session.setAttribute("id", "N7sBxUcT"); //임시값
+		return "board.add";
+	}
+	
+	@PostMapping(value = "/add.do")
+	public String add(BoardDTO dto, HttpServletResponse resp) {
+		//id, 제목, 내용 받았음
+		int result = dao.add(dto);
+		if (result == 1) {
+			return "redirect:/board/list.do";
+		} else {
+			resp.setCharacterEncoding("UTF-8");
+			resp.setContentType("text/html; charset=UTF-8");
+			try {
+				PrintWriter writer = resp.getWriter();
+				writer.print("<script>alert('작성에 실패했습니다.');history.back();</script>");
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+			
+	}
+	
 
 	private void paging(PageDTO pdto) {
 		//검색여부

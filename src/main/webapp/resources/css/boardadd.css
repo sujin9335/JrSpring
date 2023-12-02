@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.site-header2 {
+	padding-bottom: 50px;
+}
+
+section {
+	background-color:#FFF;	
+}
+
+form > div > div.col-lg-4.col-md-4.col-6.mx-auto.d-flex.flex-row > button:nth-child(1) {
+	font-size: 1rem;
+    font-weight: 400;
+	margin-bottom: 24px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+}

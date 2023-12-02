@@ -10,5 +10,7 @@ public interface BoardDAO {
 	List<BoardDTO> list(PageDTO pdto);
 
 	int getTotalCount(PageDTO pdto);
+
+	int add(BoardDTO dto);
 	
 }
