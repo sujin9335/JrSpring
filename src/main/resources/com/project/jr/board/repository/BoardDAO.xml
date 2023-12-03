@@ -50,6 +50,10 @@
 		UPDATE tblBoard SET isBoardShow = 0 WHERE boardSeq = #{boardSeq}
 	</update>
 	
+	<!-- 게시글 수정 -->
+	<update id="edit" parameterType="com.project.jr.board.model.BoardDTO">
+		UPDATE tblBoard SET boardTitle = #{boardTitle}, boardContent = #{boardContent} WHERE boardSeq = #{boardSeq}
+	</update>
 	
 
 </mapper>

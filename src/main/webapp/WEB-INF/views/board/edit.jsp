@@ -9,7 +9,7 @@
 			<div class="row">
 
 				<div class="col-lg-12 col-12 text-center">
-					<h1 class="">게시글 작성</h1>
+					<h1 class="">게시글 수정</h1>
 
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb justify-content-center">
@@ -32,7 +32,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-12 mx-auto">
-					<form class="custom-form contact-form" action="/jr/board/add.do" method="POST"
+					<form class="custom-form contact-form" action="/jr/board/edit.do" method="POST"
 						role="form">
 
 						<div class="row">
@@ -40,19 +40,22 @@
 								<!-- <label for="first-name">제목</label> -->
 								<input type="text" maxlength="500"
 									name="boardTitle" id="full-name" class="form-control"
-									placeholder="제목을 입력해 주세요." required>
+									placeholder="제목을 입력해 주세요." required value="${dto.boardTitle}">
 							</div>
 
 							<div class="col-lg-12 col-12">
 								<!-- <label for="message">내용</label> -->
 
 								<textarea name="boardContent" rows="6" class="form-control" maxlength="3000"
-									id="message" placeholder="내용을 입력해 주세요." required></textarea>
+									id="message" placeholder="내용을 입력해 주세요." required>${dto.boardContent}</textarea>
+							</div>
+							<div>
+								<input type="hidden" name="boardSeq" value="${ dto.boardSeq }">
 							</div>
 
 							<div class="col-lg-4 col-md-4 col-6 mx-auto d-flex flex-row">
 								<button type="submit" class="form-control">등록</button>
-								<button type="button" class="form-control" onclick="location.href='/jr/board/list.do'">취소</button>
+								<button type="button" class="form-control" onclick="location.href='/jr/board/detail.do?boardSeq=${dto.boardSeq}';">취소</button>
 							</div>
 						</div>
 					</form>

@@ -23,5 +23,7 @@ public interface BoardDAO {
 	void updateReadcount(String boardSeq);
 
 	int del(String boardSeq);
+
+	int edit(BoardDTO dto);
 	
 }

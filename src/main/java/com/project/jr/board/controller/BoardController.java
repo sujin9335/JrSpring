@@ -94,8 +94,9 @@ public class BoardController {
 	 * @return
 	 */
 	@PostMapping(value = "/add.do")
-	public String add(BoardDTO dto, HttpServletResponse resp) {
+	public String add(BoardDTO dto, HttpServletResponse resp, HttpSession session) {
 		//id, 제목, 내용 받았음
+		dto.setId(session.getAttribute("id").toString());
 		
 		//금지어 검사
 		ArrayList<String> flist = fdao.list();
@@ -205,7 +206,61 @@ public class BoardController {
 		}
 	}
 	
+	/**
+	 * 게시글 수정 GET 요청
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(value = "/edit.do")
+	public String editPage(Model model, String boardSeq) {
+		BoardDTO dto = dao.get(boardSeq);
+		model.addAttribute("dto",dto);
+		return "board.edit";
+	}
 	
+	/**
+	 * 게시글 수정 POST 요청
+	 * @param model
+	 * @return
+	 */
+	@PostMapping(value = "/edit.do")
+	public String edit(Model model, BoardDTO dto, HttpServletResponse resp) {
+		
+		//금지어 검사
+		ArrayList<String> flist = fdao.list();
+		for (String word : flist) {
+			if (dto.getBoardContent().contains(word) || dto.getBoardTitle().contains(word)) {
+				resp.setContentType("text/html; charset=UTF-8");
+				
+				PrintWriter writer;
+				try {
+					writer = resp.getWriter();
+					writer.print("<script>alert('\\'" + word + "\\'는 입력할 수 없는 단어입니다.');history.back();</script>");
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				return null;
+			}
+		}
+		
+		int result = dao.edit(dto);
+		
+		if (result == 1) {
+			return String.format("redirect:/board/detail.do?boardSeq=%d", dto.getBoardSeq());
+		} else {
+			resp.setContentType("text/html; charset=UTF-8");
+			try {
+				PrintWriter writer = resp.getWriter();
+				writer.print("<script>alert('수정에 실패했습니다.');history.back();</script>");
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+	}
 	
 	
 	
