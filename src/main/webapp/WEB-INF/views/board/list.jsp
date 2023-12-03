@@ -74,7 +74,14 @@
 						</div>
 					</form>
 				</div>
-
+				<script>
+					//검색 중일 때 > select박스 값, text 값 유지
+					// #search, #column
+					<c:if test="${pdto.search == 'y'}">
+					$('select[name=column]').val('${pdto.column}');
+					$('input[name=word]').val('${pdto.word}');
+					</c:if>
+				</script>
 
 			</div>
 		</div>
@@ -109,10 +116,10 @@
 						<td>${status.count }</td>
 						<td>${ dto.id }</td>
 						<td>
-							<a href='/jr/board/boarddetail.do?boardSeq=${dto.boardSeq}&search=${pdto.search}&column=${pdto.column}&word=${pdto.word}'>
+							<a href='/jr/board/detail.do?boardSeq=${dto.boardSeq}&search=${pdto.search}&column=${pdto.column}&word=${pdto.word}'>
 							${ dto.boardTitle }</a>
-							<c:if test="${ dto1.ccnt > 0 }">
-								<span class="">(${ dto1.ccnt })</span>
+							<c:if test="${ dto.ccnt > 0 }">
+								<span class="">(${ dto.ccnt })</span>
 							</c:if>
 							<c:if test="${ dto.isnew == 1 }">
 								<span class="">new</span>
@@ -123,11 +130,16 @@
 						<td>${ dto.boardHits }</td>
 					</tr>
 				</c:forEach>
+				<c:if test="${ pdto.totalCount == 0 }">
+					<tr>
+						<td colspan="6">검색 결과가 없습니다.</td>
+					</tr>
+				</c:if>
 			</table>
 
 			<div class="col-lg-12 col-12">
 				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center mt-5">
+					<ul class="pagination justify-content-center mt-5 pb-5">
 						${ pdto.pagebar }
 					</ul>
 				</nav>

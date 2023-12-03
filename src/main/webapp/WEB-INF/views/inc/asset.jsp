@@ -37,4 +37,4 @@
 		<script src="<%=request.getContextPath() %>/resources/js/counter.js"></script>
 		<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
 		
-		<link rel="stylesheet" href="/jr/resources/css/boardadd.css">
+		<link rel="stylesheet" href="/jr/resources/css/board.css">

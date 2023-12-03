@@ -12,5 +12,11 @@ public interface BoardDAO {
 	int getTotalCount(PageDTO pdto);
 
 	int add(BoardDTO dto);
+
+	BoardDTO get(String boardSeq);
+
+	void updateReadcount(String boardSeq);
+
+	int del(String boardSeq);
 	
 }

@@ -16,3 +16,15 @@ form > div > div.col-lg-4.col-md-4.col-6.mx-auto.d-flex.flex-row > button:nth-ch
     padding-bottom: 15px;
     padding-left: 20px;
 }
+
+.board-content {
+	font-size: 1.1rem;
+    font-weight: normal;
+}
+
+a.bi-heart, a.bi-exclamation-triangle {
+	font-size:2rem;
+}
+
+
+
