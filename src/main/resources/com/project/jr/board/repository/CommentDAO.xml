@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.jr.board.repository.CommentDAO">
+
+	<!-- 댓글 목록 -->
+	<select id="list" parameterType="String" resultType="com.project.jr.board.model.CommentDTO">
+		SELECT * FROM tblComment WHERE boardSeq = #{boardSeq} AND isCommentShow = 1 ORDER BY commentSeq DESC
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="add" parameterType="com.project.jr.board.model.CommentDTO">
+		INSERT INTO tblComment
+				(commentSeq, boardSeq, id, commentContent, commentWDate, commentLike, commentReport, isCommentShow)
+			VALUES ((SELECT max(commentSeq) + 1 FROM tblComment),#{boardSeq},#{id},#{commentContent},sysdate,0,0,1)
+	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="del" parameterType="String">
+		DELETE FROM tblComment WHERE commentSeq = #{commentSeq}
+	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="edit" parameterType="com.project.jr.board.model.CommentDTO">
+		UPDATE tblComment SET commentContent = #{commentContent} WHERE commentSeq = #{commentSeq}
+	</update>
+	
+</mapper>
+
+
