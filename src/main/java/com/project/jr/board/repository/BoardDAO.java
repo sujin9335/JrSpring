@@ -5,6 +5,11 @@ import java.util.List;
 import com.project.jr.board.model.BoardDTO;
 import com.project.jr.board.model.PageDTO;
 
+/**
+ * 게시판 DB작업을 위한 인터페이스 매퍼
+ * @author eugene
+ *
+ */
 public interface BoardDAO {
 
 	List<BoardDTO> list(PageDTO pdto);

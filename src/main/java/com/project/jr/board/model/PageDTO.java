@@ -2,6 +2,11 @@ package com.project.jr.board.model;
 
 import lombok.Data;
 
+/**
+ * 게시판 목록에서 페이지 정보를 담는 DTO
+ * @author eugene
+ *
+ */
 @Data
 public class PageDTO {
 	

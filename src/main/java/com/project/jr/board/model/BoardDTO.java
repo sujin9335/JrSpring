@@ -2,6 +2,11 @@ package com.project.jr.board.model;
 
 import lombok.Data;
 
+/**
+ * 게시글 정보를 담는 DTO
+ * @author eugene
+ *
+ */
 @Data
 public class BoardDTO {
 	

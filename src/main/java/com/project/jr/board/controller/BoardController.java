@@ -22,6 +22,11 @@ import com.project.jr.board.model.PageDTO;
 import com.project.jr.board.repository.BoardDAO;
 import com.project.jr.forbidden.repository.ForbiddenDAO;
 
+/**
+ * 게시판 작업을 관리하는 컨트롤러
+ * @author eugene
+ *
+ */
 @Controller
 @RequestMapping(value = "/board")
 public class BoardController {
@@ -32,6 +37,13 @@ public class BoardController {
 	@Autowired
 	private ForbiddenDAO fdao;
 
+	/**
+	 * 게시판 목록에 대한 GET 요청
+	 * @param model
+	 * @param session
+	 * @param pdto
+	 * @return
+	 */
 	@GetMapping(value = "/list.do")
 	public String list(Model model, HttpSession session, PageDTO pdto) {
 
@@ -63,12 +75,24 @@ public class BoardController {
 		return "board.list";
 	}
 	
+	/**
+	 * 게시글 추가 GET 요청
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@GetMapping(value = "/add.do")
 	public String addGet(Model model, HttpSession session) {
 		session.setAttribute("id", "N7sBxUcT"); //임시값
 		return "board.add";
 	}
 	
+	/**
+	 * 게시글 추가 POST 요청
+	 * @param dto
+	 * @param resp
+	 * @return
+	 */
 	@PostMapping(value = "/add.do")
 	public String add(BoardDTO dto, HttpServletResponse resp) {
 		//id, 제목, 내용 받았음
@@ -110,6 +134,14 @@ public class BoardController {
 			
 	}
 	
+	/**
+	 * 게시글 상세 GET 요청
+	 * @param model
+	 * @param session
+	 * @param boardSeq
+	 * @param pdto
+	 * @return
+	 */
 	@GetMapping(value = "/detail.do")
 	public String detail(Model model, HttpSession session, String boardSeq, PageDTO pdto) {
 		
@@ -144,7 +176,13 @@ public class BoardController {
 		return "board.detail";
 	}
 	
-	
+	/**
+	 * 게시글 삭제 GET 요청
+	 * @param model
+	 * @param boardSeq
+	 * @param resp
+	 * @return
+	 */
 	@GetMapping(value = "/del.do")
 	public String del(Model model, String boardSeq, HttpServletResponse resp) {
 		
