@@ -25,5 +25,9 @@ public interface BoardDAO {
 	int del(String boardSeq);
 
 	int edit(BoardDTO dto);
+
+	int unlike(String boardSeq);
+	
+	int like(String boardSeq);
 	
 }

@@ -254,12 +254,14 @@ public class BoardController {
 		}
 		
 		ldto.setId(session.getAttribute("id").toString());
-		
-		//좋아요를 이미 누른 상태야 > 그럼 좋아요 삭제해
-		//좋아요를 안누른 상태야 > 그럼 좋아요 눌러
-		int result = liked != null ? ldao.unlike(ldto) : ldao.like(ldto);
-		
-		
+		int likeResult = (liked != null) ? ldao.unlike(ldto) : ldao.like(ldto);
+	    int result = 0;
+
+	    if (likeResult == 1) {
+	        // 좋아요가 잘 처리되면 board에서도 수정
+	        result = (liked != null) ? dao.unlike(boardSeq) : dao.like(boardSeq);
+	    }
+	    
 		if (result == 1) {			
 			return "redirect:/board/detail.do?boardSeq=" + boardSeq;
 		} else {
