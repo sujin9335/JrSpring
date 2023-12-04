@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.jr.like.repository.BoardLikeDAO">
+
+	<select id="isLiked" parameterType="com.project.jr.like.model.BoardLikeDTO" resultType="Integer">
+		SELECT count(*) FROM tblBoardLike WHERE boardSeq = #{boardSeq} AND id = #{id}
+	</select>
+
+	<delete id="unlike" parameterType="com.project.jr.like.model.BoardLikeDTO">
+		DELETE FROM tblBoardLike WHERE boardSeq = #{boardSeq} AND id = #{id} 
+	</delete>
+	
+	<insert id="like" parameterType="com.project.jr.like.model.BoardLikeDTO">
+		INSERT INTO tblBoardLike (boardLikeSeq, boardSeq, id)
+			VALUES ((SELECT max(boardLikeSeq) FROM tblBoardLike) + 1, #{boardSeq}, #{id})
+	</insert>
+
+</mapper>
+
+

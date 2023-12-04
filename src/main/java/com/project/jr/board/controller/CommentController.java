@@ -29,9 +29,6 @@ import com.project.jr.forbidden.repository.ForbiddenDAO;
 public class CommentController {
 
 	@Autowired
-	private BoardDAO bdao;
-	
-	@Autowired
 	private ForbiddenDAO fdao;
 	
 	@Autowired

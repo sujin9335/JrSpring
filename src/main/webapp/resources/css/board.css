@@ -22,9 +22,11 @@ form > div > div.col-lg-4.col-md-4.col-6.mx-auto.d-flex.flex-row > button:nth-ch
     font-weight: normal;
 }
 
-a.bi-heart, a.bi-exclamation-triangle {
+a.bi-heart, a.bi-heart-fill, a.bi-exclamation-circle {
 	font-size:2rem;
 }
 
-
+.heart {
+	color: #f65129 !important;
+}
 

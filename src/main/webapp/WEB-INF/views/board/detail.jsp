@@ -12,33 +12,36 @@
 				<div class="job-thumb job-thumb-detail">
 					<div
 						class="d-flex flex-wrap align-items-center border-bottom pt-lg-3 pt-2 pb-3 mb-4">
-						<p class="job-price mb-0 ">
-							<i class="custom-icon bi-person me-1"></i> ${ dto.id }
-						</p>
+						<p class="mb-0 ms-4"><i class="custom-icon bi-person me-1"></i> ${ dto.id }</p>
 
-						<p class="job-price mb-0">
-							<i class="custom-icon bi-clock me-1"></i> ${ dto.boardWriteDate }
-						</p>
+						<p class="mb-0 ms-4"><i class="custom-icon bi-clock me-1"></i> ${ dto.boardWriteDate }</p>
 
-						<p class="job-price mb-0 ">
+						<p class="mb-0 ms-4">
 							<i class="custom-icon bi-people me-1"></i> ${ dto.boardHits }
 						</p>
 
-						<p class="job-price mb-0 ">
+						<p class="mb-0 ms-4">
 							<i class="custom-icon bi-heart me-1"></i> ${ dto.boardLike }
 						</p>
 
-						<p class="job-price mb-0 me-auto">
-							<i class="custom-icon bi-exclamation-triangle me-1"></i> ${ dto.boardReport }
+						<p class="mb-0 ms-4 me-auto">
+							<i class="custom-icon bi-exclamation-circle me-1"></i> ${ dto.boardReport }
 						</p>
 
 						<div class="justify-content-end">
-							<a href="#" class="bi-heart"></a> <a href="#"
-								class="bi-exclamation-triangle"></a>
+							<!-- session id가 있는 사람만 좋아요 / 신고 가능하다 -->
+							<!-- 비회원 + 좋아요를 누르지 않은 회원은 그냥 하트 -->
+							<!-- 좋아요를 누른 회원은 색 하트 아이콘 -->
+							<!-- 페이지 호출 전 좋아요를 눌렀는지 검사하기 -->
+							<c:if test="${ not empty liked }"><!-- 좋아요를 눌렀다 -->
+							<a href="/jr/board/like.do?boardSeq=${ dto.boardSeq }&liked=y" class="bi-heart-fill ms-4 heart"></a>
+							</c:if>
+							<c:if test="${ empty liked }"><!-- 좋아요를 안눌렀다 -->
+							<a href="/jr/board/like.do?boardSeq=${ dto.boardSeq }" class="bi-heart ms-4"></a>
+							</c:if>
+							<a href="#"
+								class="bi-exclamation-circle ms-4 me-4"></a>
 						</div>
-
-
-
 					</div>
 
 					<div class="d-flex justify-content-center flex-wrap pt-4">
@@ -88,7 +91,7 @@
 <script>
 	<c:if test="${ empty id }">
 		$('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.');
-		$('#btn-comment').attr('disabled', true);
+		$('#btn-add-comment').attr('disabled', true);
 		
 	</c:if>
 </script>
