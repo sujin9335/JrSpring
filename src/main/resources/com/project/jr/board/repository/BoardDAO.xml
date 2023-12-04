@@ -55,5 +55,14 @@
 		UPDATE tblBoard SET boardTitle = #{boardTitle}, boardContent = #{boardContent} WHERE boardSeq = #{boardSeq}
 	</update>
 	
+	<!-- 게시글 좋아요 -->
+	<update id="like" parameterType="String">
+		UPDATE tblBoard SET boardLike = boardLike + 1 WHERE boardSeq = #{boardSeq}
+	</update>
+	
+	<!-- 게시글 좋아요 취소 -->
+	<update id="unlike" parameterType="String">
+		UPDATE tblBoard SET boardLike = boardLike - 1 WHERE boardSeq = #{boardSeq}
+	</update>
 
 </mapper>

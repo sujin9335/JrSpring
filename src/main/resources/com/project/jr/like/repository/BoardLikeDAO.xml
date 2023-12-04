@@ -4,18 +4,22 @@
 
 <mapper namespace="com.project.jr.like.repository.BoardLikeDAO">
 
+	<!-- 게시글 좋아요 여부 확인 -->
 	<select id="isLiked" parameterType="com.project.jr.like.model.BoardLikeDTO" resultType="Integer">
 		SELECT count(*) FROM tblBoardLike WHERE boardSeq = #{boardSeq} AND id = #{id}
 	</select>
 
+	<!-- 게시글 좋아요 취소 -->
 	<delete id="unlike" parameterType="com.project.jr.like.model.BoardLikeDTO">
 		DELETE FROM tblBoardLike WHERE boardSeq = #{boardSeq} AND id = #{id} 
 	</delete>
 	
+	<!-- 게시글 좋아요 -->
 	<insert id="like" parameterType="com.project.jr.like.model.BoardLikeDTO">
 		INSERT INTO tblBoardLike (boardLikeSeq, boardSeq, id)
 			VALUES ((SELECT max(boardLikeSeq) FROM tblBoardLike) + 1, #{boardSeq}, #{id})
 	</insert>
+	
 
 </mapper>
 
