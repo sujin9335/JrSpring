@@ -1,7 +1,5 @@
 package com.project.jr.board.controller;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -21,6 +19,8 @@ import com.project.jr.board.model.BoardDTO;
 import com.project.jr.board.model.PageDTO;
 import com.project.jr.board.repository.BoardDAO;
 import com.project.jr.forbidden.repository.ForbiddenDAO;
+import com.project.jr.like.model.BoardLikeDTO;
+import com.project.jr.like.repository.BoardLikeDAO;
 
 /**
  * 게시판 작업을 관리하는 컨트롤러
@@ -36,6 +36,9 @@ public class BoardController {
 	
 	@Autowired
 	private ForbiddenDAO fdao;
+	
+	@Autowired
+	private BoardLikeDAO ldao;
 
 	/**
 	 * 게시판 목록에 대한 GET 요청
@@ -102,17 +105,7 @@ public class BoardController {
 		ArrayList<String> flist = fdao.list();
 		for (String word : flist) {
 			if (dto.getBoardContent().contains(word) || dto.getBoardTitle().contains(word)) {
-				resp.setCharacterEncoding("UTF-8");
-				resp.setContentType("text/html; charset=UTF-8");
-				
-				PrintWriter writer;
-				try {
-					writer = resp.getWriter();
-					writer.print("<script>alert('\\'" + word + "\\'는 입력할 수 없는 단어입니다.');history.back();</script>");
-					writer.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				redirectWithMessage(resp, "\\'" + word + "\\'는 입력할 수 없는 단어입니다.");
 				return null;
 			}
 		}
@@ -121,15 +114,7 @@ public class BoardController {
 		if (result == 1) {
 			return "redirect:/board/list.do";
 		} else {
-			resp.setCharacterEncoding("UTF-8");
-			resp.setContentType("text/html; charset=UTF-8");
-			try {
-				PrintWriter writer = resp.getWriter();
-				writer.print("<script>alert('작성에 실패했습니다.');history.back();</script>");
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			redirectWithMessage(resp, "작성에 실패했습니다.");
 			return null;
 		}
 			
@@ -144,7 +129,7 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping(value = "/detail.do")
-	public String detail(Model model, HttpSession session, String boardSeq, PageDTO pdto) {
+	public String detail(Model model, HttpSession session, String boardSeq, PageDTO pdto, BoardLikeDTO ldto) {
 		
 		//조회수 증가
 		if ((session.getAttribute("read") == null
@@ -162,15 +147,28 @@ public class BoardController {
 		//게시글 정보 가져오기
 		BoardDTO dto = dao.get(boardSeq);
 		
-		//제목/내용 태그방지, 개행처리
-		dto.setBoardTitle(dto.getBoardTitle().replace("<", "&lt;").replace(">", "&gt;"));
-		dto.setBoardContent(dto.getBoardContent().replace("<", "&lt;").replace(">", "&gt;").replace("\r\n", "<br>"));
+		//제목/내용 태그방지, 공백, 개행처리
+		dto.setBoardTitle(dto.getBoardTitle().replace("<", "&lt;").replace(">", "&gt;").replace(" ", "&nbsp;"));
+		dto.setBoardContent(dto.getBoardContent().replace("<", "&lt;").replace(">", "&gt;").replace("\r\n", "<br>").replace(" ", "&nbsp;"));
 		
 		//내용으로 검색 > 검색어 강조
 		if (pdto.getSearch() != null && pdto.getSearch().equals("y") && pdto.getColumn().equals("boardContent")) {
 			dto.setBoardContent(dto.getBoardContent().replace(pdto.getWord(), "<span style=\"background-color:#0dcaf0; color:#FFF;\">" + pdto.getWord() + "</span>"));
 		}
 		
+		//좋아요 누른 글인지 확인
+		//BoardLike 테이블 불러와 > boardSeq랑 id같이 보내서 비교해
+		// 있어? > 좋아요글이야 > "like", "y"
+		// 없어? > 좋아요글 아니야 > 아무짓안함
+		//int result = ldao.liked();
+		if (session.getAttribute("id") != null) {
+			
+			ldto.setId(session.getAttribute("id").toString());
+			if (ldao.isLiked(ldto) == 1) {
+				model.addAttribute("liked", "y");
+			}
+			
+		}
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("pdto", pdto);
@@ -193,15 +191,7 @@ public class BoardController {
 		if (result == 1) {
 			return "redirect:/board/list.do";
 		} else {
-			resp.setCharacterEncoding("UTF-8");
-			resp.setContentType("text/html; charset=UTF-8");
-			try {
-				PrintWriter writer = resp.getWriter();
-				writer.print("<script>alert('삭제에 실패했습니다.');history.back();</script>");
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			redirectWithMessage(resp, "삭제에 실패했습니다.");
 			return null;
 		}
 	}
@@ -230,16 +220,8 @@ public class BoardController {
 		ArrayList<String> flist = fdao.list();
 		for (String word : flist) {
 			if (dto.getBoardContent().contains(word) || dto.getBoardTitle().contains(word)) {
-				resp.setContentType("text/html; charset=UTF-8");
 				
-				PrintWriter writer;
-				try {
-					writer = resp.getWriter();
-					writer.print("<script>alert('\\'" + word + "\\'는 입력할 수 없는 단어입니다.');history.back();</script>");
-					writer.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				redirectWithMessage(resp, "\\'" + word + "\\'는 입력할 수 없는 단어입니다.");
 				return null;
 			}
 		}
@@ -249,22 +231,46 @@ public class BoardController {
 		if (result == 1) {
 			return String.format("redirect:/board/detail.do?boardSeq=%d", dto.getBoardSeq());
 		} else {
-			resp.setContentType("text/html; charset=UTF-8");
-			try {
-				PrintWriter writer = resp.getWriter();
-				writer.print("<script>alert('수정에 실패했습니다.');history.back();</script>");
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			redirectWithMessage(resp, "수정에 실패했습니다.");
 			return null;
 		}
 		
 	}
 	
 	
+	/**
+	 * 게시글 좋아요 GET 요청
+	 * @param model
+	 * @return
+	 */
+	@GetMapping(value = "/like.do")
+	public String like(Model model, String boardSeq, HttpSession session, HttpServletResponse resp, BoardLikeDTO ldto, String liked) {
+		
+		//로그인한 사용자인지 확인
+		//로그인 안했다 > "로그인 후 이용할 수 있습니다." > 원래 페이지로 돌려보냄
+		if (session.getAttribute("id") == null) {
+			redirectWithMessage(resp, "로그인 후 이용할 수 있습니다.");
+			return null;
+		}
+		
+		ldto.setId(session.getAttribute("id").toString());
+		
+		//좋아요를 이미 누른 상태야 > 그럼 좋아요 삭제해
+		//좋아요를 안누른 상태야 > 그럼 좋아요 눌러
+		int result = liked != null ? ldao.unlike(ldto) : ldao.like(ldto);
+		
+		
+		if (result == 1) {			
+			return "redirect:/board/detail.do?boardSeq=" + boardSeq;
+		} else {
+			redirectWithMessage(resp, "실패했습니다.");
+			return null;
+		}
+	}
 	
 
+	
+	// 페이징
 	private void paging(PageDTO pdto) {
 		//검색여부
 		if ((pdto.getColumn() != null && pdto.getWord() != null)
@@ -358,4 +364,23 @@ public class BoardController {
 		}
 		pdto.setPagebar(sb.toString());
 	}
+	
+	
+	// DB작업 실패 > history.back();
+	private void redirectWithMessage(HttpServletResponse resp, String message) {
+	    resp.setContentType("text/html; charset=UTF-8");
+	    try {
+	        PrintWriter writer = resp.getWriter();
+	        writer.print("<script>alert('" + message + "');history.back();</script>");
+	        writer.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	
+	
+	
+	
+	
 }

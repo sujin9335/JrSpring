@@ -11,7 +11,6 @@
         <title>Jalang-I</title>
 
         <!-- CSS FILES -->
-        <link href="<%=request.getContextPath() %>/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
         
@@ -40,3 +39,6 @@
 		
 		<!-- font awesome -->
 		<script src="https://kit.fontawesome.com/1f653a59f2.js" crossorigin="anonymous"></script>
+		
+		
+        <link href="<%=request.getContextPath() %>/resources/css/board.css" rel="stylesheet"> 
