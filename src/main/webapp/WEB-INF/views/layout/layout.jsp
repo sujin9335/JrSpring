@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Jalang-I : Certify Your Skils, Unlock Your Future</title>
 <tiles:insertAttribute name="asset"/>
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');

@@ -5,12 +5,14 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="index.do">
-                    <img src="<%=request.getContextPath() %>/resources/images/logo.png" class="img-fluid logo-image">
-
+                   <%--  <img src="<%=request.getContextPath() %>/resources/images/logo.png" class="img-fluid logo-image"> --%>
+                    <img src="<%=request.getContextPath() %>/resources/images/LOGO3.png" class="img-fluid logo-image">
+					<!-- 
                     <div class="d-flex flex-column">
-                        <strong class="logo-text">자랑이</strong>
+                        <strong class="logo-text">자랑이2</strong>
                         <small class="logo-slogan">Online Job Portal</small>
                     </div>
+                     -->
                 </a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

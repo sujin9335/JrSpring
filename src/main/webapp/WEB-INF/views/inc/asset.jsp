@@ -8,9 +8,10 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Gotto Online Job Portal</title>
+        <title>Jalang-I</title>
 
         <!-- CSS FILES -->
+        <link href="<%=request.getContextPath() %>/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
         
@@ -37,4 +38,5 @@
 		<script src="<%=request.getContextPath() %>/resources/js/counter.js"></script>
 		<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
 		
-		<link rel="stylesheet" href="/jr/resources/css/board.css">
+		<!-- font awesome -->
+		<script src="https://kit.fontawesome.com/1f653a59f2.js" crossorigin="anonymous"></script>

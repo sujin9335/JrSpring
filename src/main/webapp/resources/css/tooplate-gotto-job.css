@@ -447,7 +447,7 @@ nav[aria-label="breadcrumb"] {
 
 .logo-image {
   display: block;
-  width: 65px;
+  width: 165px;
   margin-right: 15px;
 }
 
@@ -996,8 +996,7 @@ nav[aria-label="breadcrumb"] {
   transition: all 0.5s ease;
 }
 
-.job-thumb:hover,
-.job-thumb:nth-of-type(even) {
+.job-thumb:hover{
   background: var(--white-color);
   box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
 }
@@ -1381,7 +1380,7 @@ nav[aria-label="breadcrumb"] {
 -----------------------------------------*/
 @media screen and (min-width: 1025px) {
   .job-featured-section .job-thumb {
-    max-width: 1120px;
+    /* max-width: 1120px; */
     margin-right: auto;
     margin-left: auto;
   }
