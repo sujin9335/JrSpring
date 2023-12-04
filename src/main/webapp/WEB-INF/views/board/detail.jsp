@@ -193,6 +193,7 @@ $('#btn-add-comment').click(function() {
 		data: JSON.stringify(addObj),
 		dataType: 'json',
 		success: result => {
+			alert(result.result);
 			if(result.result == '1') { 
 				load(); // 목록 새로고침
 				$('#new-comment').val('');
@@ -271,12 +272,15 @@ function editCommentOk(commentSeq) {
 		url: '/jr/board/comment/' + commentSeq.toString(),
 		headers: {'Content-Type': 'application/json'},
 		data: JSON.stringify(editObj),
-		datatype: 'json',
+		dataType: 'json',
 		success: function(result) {
-			if (result) {
+			console.log(result);
+			if (result.result == '1') {
 				load(); // 목록 새로고침
-			} else {
+			} else if (result.result == '-1') {
 				alert("\'" + result.word + "\'는 입력할 수 없는 단어입니다.");
+			} else {
+				alert("수정에 실패했습니다.");
 			}
 		},
 		error: function(a, b, c) {

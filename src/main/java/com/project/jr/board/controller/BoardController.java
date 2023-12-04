@@ -162,9 +162,9 @@ public class BoardController {
 		//게시글 정보 가져오기
 		BoardDTO dto = dao.get(boardSeq);
 		
-		//제목/내용 태그방지, 개행처리
-		dto.setBoardTitle(dto.getBoardTitle().replace("<", "&lt;").replace(">", "&gt;"));
-		dto.setBoardContent(dto.getBoardContent().replace("<", "&lt;").replace(">", "&gt;").replace("\r\n", "<br>"));
+		//제목/내용 태그방지, 공백, 개행처리
+		dto.setBoardTitle(dto.getBoardTitle().replace("<", "&lt;").replace(">", "&gt;").replace(" ", "&nbsp;"));
+		dto.setBoardContent(dto.getBoardContent().replace("<", "&lt;").replace(">", "&gt;").replace("\r\n", "<br>").replace(" ", "&nbsp;"));
 		
 		//내용으로 검색 > 검색어 강조
 		if (pdto.getSearch() != null && pdto.getSearch().equals("y") && pdto.getColumn().equals("boardContent")) {

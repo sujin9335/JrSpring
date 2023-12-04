@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.jr.board.model.CommentDTO;
@@ -97,8 +98,23 @@ public class CommentController {
 	 * @return
 	 */
 	@PutMapping(value = "/{commentSeq}")
-	public int edit(@PathVariable("commentSeq") String commentSeq, @RequestBody CommentDTO dto) {
-		return cdao.edit(dto);
+	public @ResponseBody HashMap<String, String> edit(@PathVariable("commentSeq") String commentSeq, @RequestBody CommentDTO dto) {
+		
+		HashMap<String,String> map = new HashMap<String,String>();
+		
+		//금지어 검사
+		ArrayList<String> flist = fdao.list();
+		for (String word : flist) {
+			if (dto.getCommentContent().contains(word)) {
+				map.put("word", word);
+				map.put("result", "-1");
+				return map;
+			}
+		}
+		
+		map.put("result", Integer.toString(cdao.edit(dto)));
+		return map;
+		
 	}
 	
 	
