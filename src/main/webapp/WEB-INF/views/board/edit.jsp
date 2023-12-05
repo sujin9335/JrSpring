@@ -53,10 +53,15 @@
 								<input type="hidden" name="boardSeq" value="${ dto.boardSeq }">
 							</div>
 
-							<div class="col-lg-4 col-md-4 col-6 mx-auto d-flex flex-row">
-								<button type="submit" class="form-control">등록</button>
+							<div class="col-lg-4 col-md-5 col-sm-6 mx-auto d-flex flex-row">
+								<button type="submit" class="form-control me-1" id="btn-edit-board">등록</button>
 								<button type="button" class="form-control" onclick="location.href='/jr/board/detail.do?boardSeq=${dto.boardSeq}';">취소</button>
 							</div>
+							<!-- 
+							<div class="col-lg-4 col-md-5 col-sm-6 mx-auto d-flex flex-row">
+								<button type="submit" class="form-control me-1" id="btn-add-board">등록</button>
+								<button type="button" class="form-control" onclick="location.href='/jr/board/list.do'">취소</button>
+							</div> -->
 						</div>
 					</form>
 				</div>

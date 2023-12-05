@@ -8,7 +8,7 @@ section {
 	background-color:#FFF;	
 }
 
-form > div > div.col-lg-4.col-md-4.col-6.mx-auto.d-flex.flex-row > button:nth-child(1) {
+#btn-add-board, #btn-edit-board {
 	font-size: 1rem;
     font-weight: 400;
 	margin-bottom: 24px;
@@ -29,4 +29,46 @@ a.bi-heart, a.bi-heart-fill, a.bi-exclamation-circle {
 .heart {
 	color: #f65129 !important;
 }
+
+.table {
+	width: 100%;
+	white-space: nowrap;
+}
+
+/* td.board-title {
+	white-space: wrap;
+}
+ */
+
+ 
+#new-comment {
+	height: 80px;
+}
+
+.newsletter-form button[type="button"] {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  width: 42px;
+  height: 42px;
+}
+
+.custom-form button[type="button"] {
+  background: var(--primary-color);
+  border: none;
+  color: var(--white-color);
+  font-size: var(--p-font-size);
+  font-weight: var(--font-weight-normal);
+  transition: all 0.3s;
+  margin-bottom: 24px;
+}
+
+
+
 
