@@ -43,15 +43,15 @@
 									placeholder="제목을 입력해 주세요." required>
 							</div>
 
-							<div class="col-lg-12 col-12">
+							<div class="col-12">
 								<!-- <label for="message">내용</label> -->
 
 								<textarea name="boardContent" rows="6" class="form-control" maxlength="3000"
 									id="message" placeholder="내용을 입력해 주세요." required></textarea>
 							</div>
 
-							<div class="col-lg-4 col-md-4 col-6 mx-auto d-flex flex-row">
-								<button type="submit" class="form-control">등록</button>
+							<div class="col-lg-4 col-md-5 col-sm-6 mx-auto d-flex flex-row">
+								<button type="submit" class="form-control me-1" id="btn-add-board">등록</button>
 								<button type="button" class="form-control" onclick="location.href='/jr/board/list.do'">취소</button>
 							</div>
 						</div>

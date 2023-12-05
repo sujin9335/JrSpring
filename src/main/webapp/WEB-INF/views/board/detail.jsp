@@ -56,9 +56,9 @@
 						<a href="/jr/board/list.do" class="custom-btn btn mt-2 mb-5">목록</a>
 						<c:if test="${ id == dto.id }">
 						<a href="/jr/board/edit.do?boardSeq=${ dto.boardSeq }"
-							class="custom-btn custom-border-btn btn mt-2 mb-5 ms-lg-1 ms-3">수정</a>
+							class="custom-btn custom-border-btn btn mt-2 mb-5 ms-2">수정</a>
 						<a id="del-board"
-							class="custom-btn custom-border-btn btn mt-2 mb-5 ms-lg-1 ms-3">삭제</a>
+							class="custom-btn custom-border-btn btn mt-2 mb-5 ms-2">삭제</a>
 						</c:if>
 						<script>
 							$('#del-board')
@@ -81,13 +81,18 @@
 
 					<div>댓글(${ dto.ccnt })</div>
 					<!-- 댓글 쓰기 -->
-
-					<table id="add-comment">
+					<form class="custom-form newsletter-form">
+					<div class="input-group" id="add-comment">
+						<textarea name="comment" id="new-comment" class="form-control" placeholder="댓글을 입력해 주세요." required></textarea>
+						<button type="button" class="comment form-control" id="btn-add-comment"><i class="bi-send"></i></button>
+					</div>
+					<!-- <table id="add-comment">
 						<tr>
 							<td><textarea name="comment" id="new-comment"></textarea></td>
-							<td><button type="button" class="comment" id="btn-add-comment">댓글쓰기</button></td>
+							<td><button type="button" class="comment form-control" id="btn-add-comment"><i class="bi-send"></i></button></td>
 						</tr>
-					</table>
+					</table> -->
+					</form>
 <script>
 	<c:if test="${ empty id }">
 		$('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.');
@@ -144,15 +149,21 @@ function load() {
 				`;
 				
 	 			if (item.id == '${id}') {
+
 					temp += `
-							<td>
-						  	<c:if test="${not empty id}">
-							<div>
-								<button type="button" class="edit" onclick="editComment(\${item.commentSeq});">수정</button>
-								<button type="button" class="del" onclick="delComment(\${item.commentSeq});">삭제</button>
-							</div>					
-							</c:if>
-							</td>
+					<td>
+				  	<c:if test="${not empty id}">
+						<div class="d-flex">
+                          <p class="mb-0">
+                              <a href="javascript:void(0);" onclick="editComment(\${item.commentSeq})" class="badge">수정</a>
+                          </p>
+
+                          <p class="mb-0">
+                              <a href="javascript:delComment(\${item.commentSeq});" class="badge badge-level">삭제</a>
+                          </p>
+                      	</div>
+					</c:if>
+					</td>
 						`;
 				}
 	 			
@@ -240,21 +251,28 @@ function delComment(commentSeq) {
 function editComment(commentSeq) {
 	
 	//기존 댓글 내용 찾기
-	let val = $(event.target).parent().parent().parent().children().eq(0).children().eq(0).text();
+	let val = $(event.target).parent().parent().parent().parent().children().eq(0).children().eq(0).text();
 	
 	$('.edit-comment').remove();
 	
 	let temp = `
 		<tr class="edit-comment">
-		<td><input type="text" name="ecomment" id="ecomment" value="\${val}"></td>
+		<td><textarea name="edit-comment" id="edit-comment">\${val}</textarea></td>
 		<td>
-			<button type="button" class="edit" onclick="editCommentOk(\${commentSeq});">완료</button>
-			<button type="button" class="cancle" onclick="$('.edit-comment').prev().show();$('.edit-comment').remove();">취소</button>
+			<div class="d-flex">
+		        <p class="mb-0">
+		            <a href="javascript:void(0);" onclick="editCommentOk(\${commentSeq})" class="badge">완료</a>
+		        </p>
+		
+		        <p class="mb-0">
+		            <a href="javascript:void(0);" class="badge badge-level" onclick="$('.edit-comment').prev().show();$('.edit-comment').remove();">취소</a>
+		        </p>
+	    	</div>
 		</td>
 		</tr>
 	`;
 	
-	$(event.target).parent().parent().parent().after(temp);
+	$(event.target).parent().parent().parent().parent().after(temp);
 	
 	//기존 내용 숨기기
 	$('.edit-comment').prev().hide();
@@ -263,9 +281,16 @@ function editComment(commentSeq) {
 
 function editCommentOk(commentSeq) {
 
+	if ($('#edit-comment').val() == '') {
+		alert('댓글을 입력해 주세요.');
+		$('#edit-comment').focus();
+		return false;
+	}
+	
+	
 	let editObj = {
 		commentSeq: commentSeq,
-		commentContent: $('#ecomment').val()
+		commentContent: $('#edit-comment').val()
 	};
 	
 	$.ajax({
@@ -275,7 +300,7 @@ function editCommentOk(commentSeq) {
 		data: JSON.stringify(editObj),
 		dataType: 'json',
 		success: function(result) {
-			console.log(result);
+			
 			if (result.result == '1') {
 				load(); // 목록 새로고침
 			} else if (result.result == '-1') {
