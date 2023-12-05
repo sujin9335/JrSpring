@@ -94,28 +94,34 @@
 		<div class="container">
 
 
-		<div>
-			<input id="btn-list" type="button" value="목록"
-				onclick="location.href='/jr/board/list.do'">
-			<c:if test="${ id != null }">
-				<input id="btn-add" type="button" value="추가"
-					onclick="location.href='/jr/board/add.do'">
-			</c:if>
+		<div class="table-responsive"> <!-- 리스트 내용물 -->
+		
+			<div class="d-flex justify-content-end flex-wrap pt-4 pb-4">
+
+				<a href="/jr/board/list.do" class="custom-btn btn">목록</a>
+				<c:if test="${ id != null }">
+
+					<a href="/jr/board/add.do"
+							class="custom-btn custom-border-btn btn ms-2">작성</a>
+				</c:if>
+			</div>
 			
-			<table>
+			<table class="table table-hover fs-5">
+				<thead class="text-center">
 				<tr>
-					<th>번호</th>
-					<th>ID</th>
-					<th>제목</th>
-					<th>등록일</th>
-					<th>좋아요</th>
-					<th>조회수</th>
+					<th scope="col">번호</th>
+					<th scope="col">ID</th>
+					<th scope="col">제목</th>
+					<th scope="col">등록일</th>
+					<th scope="col">좋아요</th>
+					<th scope="col">조회수</th>
 				</tr>
+				</thead>
 				<c:forEach items="${ list }" var="dto" varStatus="status">
-					<tr>
-						<td>${status.count }</td>
+					<tr class="text-center">
+						<th scope="row">${status.count }</th>
 						<td>${ dto.id }</td>
-						<td>
+						<td class="text-start board-title">
 							<a href='/jr/board/detail.do?boardSeq=${dto.boardSeq}&search=${pdto.search}&column=${pdto.column}&word=${pdto.word}'>
 							${ dto.boardTitle }</a>
 							<c:if test="${ dto.ccnt > 0 }">
@@ -123,7 +129,7 @@
 							</c:if>
 							<c:if test="${ dto.isnew == 1 }">
 								<span class="">new</span>
-							</c:if></td>
+							</c:if>
 						</td>
 						<td>${ dto.boardWriteDate }</td>
 						<td>${ dto.boardLike }</td>
