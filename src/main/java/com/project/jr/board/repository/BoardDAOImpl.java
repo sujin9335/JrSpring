@@ -20,47 +20,74 @@ public class BoardDAOImpl implements BoardDAO {
 	@Autowired
 	private BoardMapper bmapper;
 
+	/**
+	 * 게시글 목록 DB 작업 메소드
+	 */
 	@Override
 	public List<BoardDTO> list(PageDTO pdto) {
 		return bmapper.list(pdto);
 	}
 	
+	/**
+	 * 게시글 추가 DB 작업 메소드
+	 */
 	@Override
 	public int add(BoardDTO dto) {
 		return bmapper.add(dto);
 	}
 	
+	/**
+	 * 게시글 조회수 카운팅 DB 작업 메소드
+	 */
 	@Override
 	public void updateReadcount(String boardSeq) {
 		bmapper.updateReadcount(boardSeq);
 	}
 	
+	/**
+	 * 게시글 상세정보 DB 작업 메소드
+	 */
 	@Override
 	public BoardDTO get(String boardSeq) {
 		
 		return bmapper.get(boardSeq);
 	}
 	
+	/**
+	 * 게시글 삭제 DB 작업 메소드
+	 */
 	@Override
 	public int del(String boardSeq) {
 		return bmapper.del(boardSeq);
 	}
 	
+	/**
+	 * 게시글 수정 DB 작업 메소드
+	 */
 	@Override
 	public int edit(BoardDTO dto) {
 		return bmapper.edit(dto);
 	}
 	
+	/**
+	 * tblBoard > 게시글 좋아요 취소 DB 작업 메소드
+	 */
 	@Override
 	public int unlike(String boardSeq) {
 		return bmapper.unlike(boardSeq);
 	}
 	
+	/**
+	 * tblBoard > 게시글 좋아요 DB 작업 메소드
+	 */
 	@Override
 	public int like(String boardSeq) {
 		return bmapper.like(boardSeq);
 	}
 	
+	/**
+	 * 게시글 개수 DB 작업 메소드
+	 */
 	@Override
 	public int getTotalCount(PageDTO pdto) {
 		return bmapper.getTotalCount(pdto);

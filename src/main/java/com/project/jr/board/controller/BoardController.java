@@ -1,6 +1,5 @@
 package com.project.jr.board.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.jr.board.model.BoardDTO;
 import com.project.jr.board.model.PageDTO;
-import com.project.jr.board.repository.BoardDAO;
+import com.project.jr.board.service.BoardLikeService;
+import com.project.jr.board.service.BoardService;
+import com.project.jr.board.service.ForbiddenService;
 import com.project.jr.board.service.MessageService;
 import com.project.jr.board.service.PageService;
-import com.project.jr.forbidden.repository.ForbiddenDAO;
 import com.project.jr.like.model.BoardLikeDTO;
-import com.project.jr.like.repository.BoardLikeDAO;
 
 /**
  * 게시판 작업을 관리하는 컨트롤러
@@ -32,19 +31,21 @@ import com.project.jr.like.repository.BoardLikeDAO;
 public class BoardController {
 
 	@Autowired
-	private BoardDAO dao;
-	
-	@Autowired
-	private ForbiddenDAO fdao;
-	
-	@Autowired
-	private BoardLikeDAO ldao;
-	
-	@Autowired
 	private MessageService mserv;
 	
 	@Autowired
 	private PageService pserv;
+	
+	@Autowired
+	private ForbiddenService fserv;
+	
+	@Autowired
+	private BoardService bserv;
+	
+	@Autowired
+	private BoardLikeService lserv;
+	
+
 
 	/**
 	 * 게시판 목록에 대한 GET 요청
@@ -66,23 +67,19 @@ public class BoardController {
 		// 새로고침 방지
 		session.setAttribute("read", "n");
 
+		//페이징
 		pserv.paging(pdto);
 		
-		
-		List<BoardDTO> list = dao.list(pdto);
-		
-		//제목가공
-		for (BoardDTO b : list) {
-			if (b.getBoardTitle().length() > 20) {
-				b.setBoardTitle(b.getBoardTitle().substring(0, 20) + "...");
-			}
-		}
+		//글 목록 가져오기
+		List<BoardDTO> list = bserv.boardList(pdto);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pdto", pdto);
 		
 		return "board.list";
 	}
+
+	
 	
 	/**
 	 * 게시글 추가 GET 요청
@@ -108,23 +105,15 @@ public class BoardController {
 		dto.setId(session.getAttribute("id").toString());
 		
 		//금지어 검사
-		ArrayList<String> flist = fdao.list();
-		for (String word : flist) {
-			if (dto.getBoardContent().contains(word) || dto.getBoardTitle().contains(word)) {
-				mserv.redirectWithMessage(resp, "\\'" + word + "\\'는 입력할 수 없는 단어입니다.");
-				return null;
-			}
-		}
-		
-		int result = dao.add(dto);
-		if (result == 1) {
-			return "redirect:/board/list.do";
-		} else {
-			mserv.redirectWithMessage(resp, "작성에 실패했습니다.");
+		if (fserv.checkForbidden(dto, resp)) {
 			return null;
 		}
+		
+		//게시글 추가 결과 redirect
+		return bserv.boardAdd(dto, resp);	
 			
 	}
+	
 	
 	/**
 	 * 게시글 상세 GET 요청
@@ -138,48 +127,19 @@ public class BoardController {
 	public String detail(Model model, HttpSession session, String boardSeq, PageDTO pdto, BoardLikeDTO ldto) {
 		
 		//조회수 증가
-		if ((session.getAttribute("read") == null
-				|| session.getAttribute("read").toString().equals("n")) 
-				&& session.getAttribute(boardSeq) == null) {
-			
-			dao.updateReadcount(boardSeq);
-			
-			//새로고침시 조회수 카운팅 방지
-			session.setAttribute("read", "y");
-			//같은 글 여러번 카운팅 방지
-			session.setAttribute(boardSeq, "y");
-		}
+		bserv.readCounting(session, boardSeq);
 		
 		//게시글 정보 가져오기
-		BoardDTO dto = dao.get(boardSeq);
+		BoardDTO dto = bserv.getDetail(boardSeq, pdto);
 		
-		//제목/내용 태그방지, 공백, 개행처리
-		dto.setBoardTitle(dto.getBoardTitle().replace("<", "&lt;").replace(">", "&gt;").replace(" ", "&nbsp;"));
-		dto.setBoardContent(dto.getBoardContent().replace("<", "&lt;").replace(">", "&gt;").replace("\r\n", "<br>").replace(" ", "&nbsp;"));
-		
-		//내용으로 검색 > 검색어 강조
-		if (pdto.getSearch() != null && pdto.getSearch().equals("y") && pdto.getColumn().equals("boardContent")) {
-			dto.setBoardContent(dto.getBoardContent().replace(pdto.getWord(), "<span style=\"background-color:#0dcaf0; color:#FFF;\">" + pdto.getWord() + "</span>"));
-		}
-		
-		//좋아요 누른 글인지 확인
-		//BoardLike 테이블 불러와 > boardSeq랑 id같이 보내서 비교해
-		// 있어? > 좋아요글이야 > "like", "y"
-		// 없어? > 좋아요글 아니야 > 아무짓안함
-		//int result = ldao.liked();
-		if (session.getAttribute("id") != null) {
-			
-			ldto.setId(session.getAttribute("id").toString());
-			if (ldao.isLiked(ldto) == 1) {
-				model.addAttribute("liked", "y");
-			}
-			
-		}
+		//좋아요 누른 게시글인지 확인
+		bserv.checkLiked(model, session, ldto);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("pdto", pdto);
 		return "board.detail";
 	}
+
 	
 	/**
 	 * 게시글 삭제 GET 요청
@@ -191,15 +151,8 @@ public class BoardController {
 	@GetMapping(value = "/del.do")
 	public String del(Model model, String boardSeq, HttpServletResponse resp) {
 		
-		//게시글 삭제 결과
-		int result = dao.del(boardSeq);
-		
-		if (result == 1) {
-			return "redirect:/board/list.do";
-		} else {
-			mserv.redirectWithMessage(resp, "삭제에 실패했습니다.");
-			return null;
-		}
+		//게시글 삭제 결과 redirect
+		return bserv.boardDel(boardSeq, resp);
 	}
 	
 	/**
@@ -209,7 +162,10 @@ public class BoardController {
 	 */
 	@GetMapping(value = "/edit.do")
 	public String editGet(Model model, String boardSeq) {
-		BoardDTO dto = dao.get(boardSeq);
+		
+		//수정할 글의 제목, 내용 가져오기
+		BoardDTO dto = bserv.getEditDetail(boardSeq);
+		
 		model.addAttribute("dto",dto);
 		return "board.edit";
 	}
@@ -223,23 +179,12 @@ public class BoardController {
 	public String edit(Model model, BoardDTO dto, HttpServletResponse resp) {
 		
 		//금지어 검사
-		ArrayList<String> flist = fdao.list();
-		for (String word : flist) {
-			if (dto.getBoardContent().contains(word) || dto.getBoardTitle().contains(word)) {
-				
-				mserv.redirectWithMessage(resp, "\\'" + word + "\\'는 입력할 수 없는 단어입니다.");
-				return null;
-			}
-		}
-		
-		int result = dao.edit(dto);
-		
-		if (result == 1) {
-			return String.format("redirect:/board/detail.do?boardSeq=%d", dto.getBoardSeq());
-		} else {
-			mserv.redirectWithMessage(resp, "수정에 실패했습니다.");
+		if (fserv.checkForbidden(dto, resp)) {
 			return null;
 		}
+		
+		//게시글 수정 결과 redirect
+		return bserv.boardEdit(dto, resp);
 		
 	}
 	
@@ -260,20 +205,11 @@ public class BoardController {
 		}
 		
 		ldto.setId(session.getAttribute("id").toString());
-		int likeResult = (liked != null) ? ldao.unlike(ldto) : ldao.like(ldto);
-	    int result = 0;
-
-	    if (likeResult == 1) {
-	        // 좋아요가 잘 처리되면 board에서도 수정
-	        result = (liked != null) ? dao.unlike(boardSeq) : dao.like(boardSeq);
-	    }
+		
+		//좋아요 결과 redirect
+		return lserv.likeBoard(boardSeq, ldto, liked, resp);
 	    
-		if (result == 1) {			
-			return "redirect:/board/detail.do?boardSeq=" + boardSeq;
-		} else {
-			mserv.redirectWithMessage(resp, "실패했습니다.");
-			return null;
-		}
+		
 	}
 
 	

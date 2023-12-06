@@ -17,16 +17,25 @@ public class BoardLikeDAOImpl implements BoardLikeDAO {
 	@Autowired
 	private BoardLikeMapper lmapper; 
 
+	/**
+	 * 게시글 좋아요 여부 DB 작업 메소드
+	 */
 	@Override
 	public int isLiked(BoardLikeDTO ldto) {
 		return lmapper.isLiked(ldto);
 	}
 	
+	/**
+	 * tblBoardLike > 게시글 좋아요 DB 작업 메소드
+	 */
 	@Override
 	public int like(BoardLikeDTO ldto) {
 		return lmapper.like(ldto);
 	}
 	
+	/**
+	 * tblBoardLike > 게시글 좋아요 취소 DB 작업 메소드
+	 */
 	@Override
 	public int unlike(BoardLikeDTO ldto) {
 		return lmapper.unlike(ldto);
