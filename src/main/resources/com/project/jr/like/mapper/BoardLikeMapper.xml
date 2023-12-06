@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.jr.like.repository.BoardLikeDAO">
+<mapper namespace="com.project.jr.like.mapper.BoardLikeMapper">
 
 	<!-- 게시글 좋아요 여부 확인 -->
 	<select id="isLiked" parameterType="com.project.jr.like.model.BoardLikeDTO" resultType="Integer">

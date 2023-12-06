@@ -6,12 +6,21 @@ import org.springframework.stereotype.Service;
 import com.project.jr.board.model.PageDTO;
 import com.project.jr.board.repository.BoardDAO;
 
+/**
+ * 게시판 페이징 서비스
+ * @author eugene
+ *
+ */
 @Service
 public class PageService {
 	
 	@Autowired
 	private BoardDAO dao;
 	
+	/**
+	 * 게시판 페이징 메소드
+	 * @param pdto
+	 */
 	public void paging(PageDTO pdto) {
 		//검색여부
 		if ((pdto.getColumn() != null && pdto.getWord() != null)

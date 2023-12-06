@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.jr.board.mapper.BoardMapper;
+import com.project.jr.board.mapper.CommentMapper;
 import com.project.jr.board.model.CommentDTO;
-import com.project.jr.board.repository.BoardDAO;
-import com.project.jr.board.repository.CommentDAO;
-import com.project.jr.forbidden.repository.ForbiddenDAO;
+import com.project.jr.forbidden.mapper.ForbiddenMapper;
 
 /**
  * REST API를 구현한 게시판 댓글 작업 컨트롤러
@@ -29,10 +29,10 @@ import com.project.jr.forbidden.repository.ForbiddenDAO;
 public class CommentController {
 
 	@Autowired
-	private ForbiddenDAO fdao;
+	private ForbiddenMapper fdao;
 	
 	@Autowired
-	private CommentDAO cdao;
+	private CommentMapper cdao;
 	
 	/**
 	 * 게시글 댓글 목록 GET 요청

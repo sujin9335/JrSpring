@@ -1,4 +1,4 @@
-package com.project.jr.board.repository;
+package com.project.jr.board.mapper;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import com.project.jr.board.model.CommentDTO;
  * @author eugene
  *
  */
-public interface CommentDAO {
+public interface CommentMapper {
 
 	ArrayList<CommentDTO> list(String boardSeq);
 
