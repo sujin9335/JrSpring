@@ -33,8 +33,8 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-lg-12 col-12">
-					<form class="custom-form hero-form" action="/jr/board/list.do" method="GET"
+				<div class="col-lg-12 col-12 ">
+					<form class="custom-form hero-form pb-2 pt-4" action="/jr/board/list.do" method="GET"
 						role="form">
 						<h3 class="text-white mb-3">게시판 검색</h3>
 
@@ -106,7 +106,7 @@
 				</c:if>
 			</div>
 			
-			<table class="table table-hover fs-5">
+			<table class="table table-hover fs-5 align-middle board">
 				<thead class="text-center">
 				<tr>
 					<th scope="col">번호</th>
@@ -119,8 +119,8 @@
 				</thead>
 				<c:forEach items="${ list }" var="dto" varStatus="status">
 					<tr class="text-center">
-						<th scope="row">${status.count }</th>
-						<td>${ dto.id }</td>
+						<th scope="row" class="">${status.count }</th>
+						<td class=""><p class="fw-lighter mb-0">${ dto.id }</p></td>
 						<td class="text-start board-title">
 							<a href='/jr/board/detail.do?boardSeq=${dto.boardSeq}&search=${pdto.search}&column=${pdto.column}&word=${pdto.word}'>
 							${ dto.boardTitle }</a>
@@ -128,7 +128,7 @@
 								<span class="">(${ dto.ccnt })</span>
 							</c:if>
 							<c:if test="${ dto.isnew == 1 }">
-								<span class="">new</span>
+								<span style="color:#f65129;">new</span>
 							</c:if>
 						</td>
 						<td>${ dto.boardWriteDate }</td>

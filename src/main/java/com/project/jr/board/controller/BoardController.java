@@ -1,7 +1,5 @@
 package com.project.jr.board.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.project.jr.board.model.BoardDTO;
 import com.project.jr.board.model.PageDTO;
 import com.project.jr.board.repository.BoardDAO;
+import com.project.jr.board.service.MessageService;
+import com.project.jr.board.service.PageService;
 import com.project.jr.forbidden.repository.ForbiddenDAO;
 import com.project.jr.like.model.BoardLikeDTO;
 import com.project.jr.like.repository.BoardLikeDAO;
@@ -39,6 +39,12 @@ public class BoardController {
 	
 	@Autowired
 	private BoardLikeDAO ldao;
+	
+	@Autowired
+	private MessageService mserv;
+	
+	@Autowired
+	private PageService pserv;
 
 	/**
 	 * 게시판 목록에 대한 GET 요청
@@ -60,7 +66,7 @@ public class BoardController {
 		// 새로고침 방지
 		session.setAttribute("read", "n");
 
-		paging(pdto);
+		pserv.paging(pdto);
 		
 		
 		List<BoardDTO> list = dao.list(pdto);
@@ -105,7 +111,7 @@ public class BoardController {
 		ArrayList<String> flist = fdao.list();
 		for (String word : flist) {
 			if (dto.getBoardContent().contains(word) || dto.getBoardTitle().contains(word)) {
-				redirectWithMessage(resp, "\\'" + word + "\\'는 입력할 수 없는 단어입니다.");
+				mserv.redirectWithMessage(resp, "\\'" + word + "\\'는 입력할 수 없는 단어입니다.");
 				return null;
 			}
 		}
@@ -114,7 +120,7 @@ public class BoardController {
 		if (result == 1) {
 			return "redirect:/board/list.do";
 		} else {
-			redirectWithMessage(resp, "작성에 실패했습니다.");
+			mserv.redirectWithMessage(resp, "작성에 실패했습니다.");
 			return null;
 		}
 			
@@ -191,7 +197,7 @@ public class BoardController {
 		if (result == 1) {
 			return "redirect:/board/list.do";
 		} else {
-			redirectWithMessage(resp, "삭제에 실패했습니다.");
+			mserv.redirectWithMessage(resp, "삭제에 실패했습니다.");
 			return null;
 		}
 	}
@@ -202,7 +208,7 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping(value = "/edit.do")
-	public String editPage(Model model, String boardSeq) {
+	public String editGet(Model model, String boardSeq) {
 		BoardDTO dto = dao.get(boardSeq);
 		model.addAttribute("dto",dto);
 		return "board.edit";
@@ -221,7 +227,7 @@ public class BoardController {
 		for (String word : flist) {
 			if (dto.getBoardContent().contains(word) || dto.getBoardTitle().contains(word)) {
 				
-				redirectWithMessage(resp, "\\'" + word + "\\'는 입력할 수 없는 단어입니다.");
+				mserv.redirectWithMessage(resp, "\\'" + word + "\\'는 입력할 수 없는 단어입니다.");
 				return null;
 			}
 		}
@@ -231,7 +237,7 @@ public class BoardController {
 		if (result == 1) {
 			return String.format("redirect:/board/detail.do?boardSeq=%d", dto.getBoardSeq());
 		} else {
-			redirectWithMessage(resp, "수정에 실패했습니다.");
+			mserv.redirectWithMessage(resp, "수정에 실패했습니다.");
 			return null;
 		}
 		
@@ -249,7 +255,7 @@ public class BoardController {
 		//로그인한 사용자인지 확인
 		//로그인 안했다 > "로그인 후 이용할 수 있습니다." > 원래 페이지로 돌려보냄
 		if (session.getAttribute("id") == null) {
-			redirectWithMessage(resp, "로그인 후 이용할 수 있습니다.");
+			mserv.redirectWithMessage(resp, "로그인 후 이용할 수 있습니다.");
 			return null;
 		}
 		
@@ -265,124 +271,11 @@ public class BoardController {
 		if (result == 1) {			
 			return "redirect:/board/detail.do?boardSeq=" + boardSeq;
 		} else {
-			redirectWithMessage(resp, "실패했습니다.");
+			mserv.redirectWithMessage(resp, "실패했습니다.");
 			return null;
 		}
 	}
-	
 
-	
-	// 페이징
-	private void paging(PageDTO pdto) {
-		//검색여부
-		if ((pdto.getColumn() != null && pdto.getWord() != null)
-			&& (!pdto.getColumn().isEmpty() && !pdto.getWord().isEmpty())) {
-			    pdto.setSearch("y");
-		}
-
-		//페이징
-		//현재페이지
-		if (pdto.getPage() == 0) {
-			pdto.setPage(1);
-		}
-		
-		//총 글의 개수
-		pdto.setTotalCount(dao.getTotalCount(pdto));
-		
-		//페이지당 글 개수
-		pdto.setPageSize(10);
-		
-		//총 페이지 개수
-		pdto.setTotalPage((int) Math.ceil((double) pdto.getTotalCount() / pdto.getPageSize()));
-		
-		//페이지 당 시작 ~ 끝 글번호
-		pdto.setBegin((pdto.getPage() - 1) * pdto.getPageSize() + 1);
-		pdto.setEnd(pdto.getBegin() + pdto.getPageSize() - 1);
-		
-		
-		//페이징
-		StringBuilder sb = new StringBuilder();
-		int loop = 1; // 루프 변수
-		int blockSize = 10; // 한번에 보이는 페이지 개수
-		int n = ((pdto.getPage() - 1) / blockSize) * blockSize + 1;
-		
-		
-		// 이전 10페이지
-		if (n == 1) {
-			sb.append("<li class='page-item'><a class='page-link' href='#!'\n"
-					+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
-					+ "	</a></li>");
-		} else {
-
-			if (pdto.getSearch() == null) {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d'\n"
-						+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
-						+ "	</a></li>", n - 1));
-			} else {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d&column=%s&word=%s'\n"
-						+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
-						+ "	</a></li>", n - 1, pdto.getColumn(), pdto.getWord()));
-			}
-
-		}
-
-		while (!(loop > blockSize || n > pdto.getTotalPage())) {
-
-			if (n == pdto.getPage()) {
-				sb.append(String.format("<li class='page-item active' aria-current='page'><a\n"
-											+ "	class='page-link' href=''>%d</a></li>", n));
-			} else {
-				if (pdto.getSearch() == null) {
-					sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d'>%d</a></li>", n, n));
-				} else {
-					sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d&column=%s&word=%s'>%d</a></li>", n,
-							pdto.getColumn(), pdto.getWord(), n));
-					
-				}
-			}
-			loop++;
-			n++;
-
-		}
-
-		// 다음 10페이지
-		if (n > pdto.getTotalPage()) {
-			sb.append("<li class='page-item'><a class='page-link' href='#!'\n"
-					+ "	aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
-					+ "	</a></li>");
-		} else {
-			if (pdto.getSearch() == null) {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d'\n"
-						+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
-						+ "						</a></li>", n));
-			} else {
-				sb.append(String.format(" <a href='/jr/board/list.do?page=%d&column=%s&word=%s'>[다음]</a>",
-						pdto.getColumn(), pdto.getWord(), n));
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d&column=%s&word=%s'\n"
-						+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
-						+ "						</a></li>",
-						n, pdto.getColumn(), pdto.getWord()));
-			}
-		}
-		pdto.setPagebar(sb.toString());
-	}
-	
-	
-	// DB작업 실패 > history.back();
-	private void redirectWithMessage(HttpServletResponse resp, String message) {
-	    resp.setContentType("text/html; charset=UTF-8");
-	    try {
-	        PrintWriter writer = resp.getWriter();
-	        writer.print("<script>alert('" + message + "');history.back();</script>");
-	        writer.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	}
-	
-	
-	
-	
 	
 	
 }
