@@ -175,4 +175,8 @@ public class BoardService {
 		}
 	}
 
+	public BoardDTO getBoardDetail(String boardSeq) {
+		return bdao.get(boardSeq);
+	}
+
 }

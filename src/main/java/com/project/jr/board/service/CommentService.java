@@ -10,6 +10,11 @@ import com.project.jr.board.model.CommentDTO;
 import com.project.jr.board.repository.CommentDAO;
 import com.project.jr.forbidden.repository.ForbiddenDAO;
 
+/**
+ * 댓글 관련 서비스
+ * @author eugene
+ *
+ */
 @Service
 public class CommentService {
 

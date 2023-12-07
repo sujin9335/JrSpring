@@ -40,4 +40,6 @@ public class BoardLikeDAOImpl implements BoardLikeDAO {
 	public int unlike(BoardLikeDTO ldto) {
 		return lmapper.unlike(ldto);
 	}
+	
 }
+
