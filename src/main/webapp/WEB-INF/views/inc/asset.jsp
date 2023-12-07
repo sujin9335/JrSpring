@@ -11,7 +11,6 @@
         <title>Jalang-I</title>
 
         <!-- CSS FILES -->
-        <link href="<%=request.getContextPath() %>/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
         

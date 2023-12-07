@@ -41,6 +41,8 @@
 	<context:component-scan base-package="com.project.jr.*.controller" />
 	<context:component-scan base-package="com.project.jr.*.repository" />
 	<context:component-scan base-package="com.project.jr.aspect" />
+	<context:component-scan base-package="com.project.jr.crt.controller" />
+	<context:component-scan base-package="com.project.jr.*.service" />
 	
 	
 	

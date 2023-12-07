@@ -102,11 +102,6 @@
 						</div>
 					</form>
 				</div>
-				<%-- 
-                        <div class="col-lg-6 col-12">
-                            <img src="<%=request.getContextPath() %>/resources/images/4557388.png" class="hero-image img-fluid" alt="">
-                        </div>
-						 --%>
 			</div>
 		</div>
 	</section>
@@ -165,7 +160,7 @@
 								class="job-body d-flex flex-wrap flex-auto align-items-center ms-4">
 								<div class="mb-3">
 									<h4 class="job-title mb-lg-0">
-										<a href="jobDetails.do" class="job-title-link">${dto.crtName}</a>
+										<a href='/jr/crt/crtdetail.do?crtSeq=${dto.crtSeq}' class="job-title-link">${dto.crtName}</a>
 									</h4>
 
 									<div class="d-flex flex-wrap align-items-center content">
@@ -190,9 +185,19 @@
 								</div>
 
 								<div class="job-section-btn-wrap">
-									<a href="crtLike.do" class="custom-btn btn likeBtn-wrap">
+									<!-- 
+									<button class="likeBtn-wrap">
 										<i class="fa-regular fa-heart likeBtn"></i>
-									</a>
+									</button>
+									 -->
+									<button class="likeBtn-wrap" onclick="liketoggle(${dto.crtSeq}, ${dto.crtlike})">
+									<c:if test="${dto.crtlike == 0}">
+									<i class="fa-regular fa-heart likeBtn"></i>
+									</c:if>
+									<c:if test="${dto.crtlike > 0}">
+									<i class="fa-solid fa-heart likeBtn"></i>
+									</c:if>
+									</button>
 								</div>
 							</div>
 						</div>
@@ -231,18 +236,67 @@
 	$('select[name=difficulty]').val('${pdto.difficulty}');
 	</c:if>
 
-	$('.liketoggle')
-	click(function() {
+	
+	//좋아요 버튼
+	function liketoggle(crtSeq, crtlike) {
 
-		var currentClass = $(this).hasClass("fa-regular") ? "fa-regular"
-				: "fa-solid";
+		var currentClass = $(event.target).hasClass("fa-regular") ? "fa-regular" : "fa-solid";
 
 		// 토글하여 반대 클래스를 적용합니다.
-		var newClass = currentClass === "fa-regular" ? "fa-solid"
-				: "fa-regular";
-
+		var newClass = currentClass === "fa-regular" ? "fa-solid" : "fa-regular";
+		
 		// 버튼의 클래스를 변경하여 색상을 토글합니다.
-		$(this).removeClass(currentClass).addClass(newClass);
-
-	});
+		$(event.target).removeClass(currentClass).addClass(newClass);
+		
+		let obj = {
+				crtSeq: crtSeq,
+				id: '${pdto.id}'
+		};
+		//자바스크립트 객체를 JSON 표기법으로 변환 :JSON.stringify
+		console.log(JSON.stringify(obj), crtlike);
+		
+		if ($(event.target).hasClass("fa-regular")) {
+			$.ajax({
+				type: 'DELETE',
+				url: '/jr/crt/crtlike/${pdto.id}/' + crtSeq,
+				//headers: {'Content-Type' : 'application/json'},
+				//data: JSON.stringify(obj),
+			  	dataType: 'json',
+			  	success: result =>{
+			  		if (result == 1) {
+			  			/* location.href = '/jr/crt/crtlist.do'; */
+			  			alert('my좋아요에서 삭제되었습니다.');
+			  		} else {
+			  			alert('failed');
+			  		}
+			  	},
+			  	error : (a,b,c) => {
+			  		console.log(a,b,c,);
+			  	}
+			});
+		} else {
+			$.ajax({
+				type: 'POST',
+				url: 'http://localhost:8090/jr/crt/crtlike',
+				headers: {'Content-Type' : 'application/json'},
+				data: JSON.stringify(obj),
+			  	dataType: 'json',
+			  	success: result =>{
+			  		if (result == 1) {
+			  			/* location.href = '/jr/crt/crtlist.do'; */
+			  			alert('my좋아요에 추가되었습니다.');
+			  		} else {
+			  			alert('로그인이 필요한 서비스입니다.');
+			  			location.href = '/jr/crt/crtlist.do';
+			  		}
+			  	},
+			  	error : (a,b,c) => {
+			  		console.log(a,b,c,);
+			  	}
+			});
+		}
+	}
+	
+	
+	
 </script>

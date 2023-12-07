@@ -25,6 +25,7 @@
 /* 좋아요 버튼 */
 .likeBtn-wrap {
 	background-color: #F1F3F7;
+	border: 0px;
 }
 .likeBtn-wrap:hover {
 	background-color: #fff;
@@ -41,15 +42,16 @@
 	color: black;
 	border: none;
 	border-radius: 4px;
-	font-size: 30px;
+	font-size: 40px;
 	cursor: pointer;
 	text-align: right; 
+	color: red;
 }
-
+/* 
 .fa-solid {
 	color: red;
 }
-
+ */
 
 
 
@@ -63,5 +65,77 @@
 
 
 /* --------------crtdetail.jsp--------------- */
+
+#kakao-link-btn img{
+	margin: 10px;
+	width: 45px;
+}
+
+/* 자격증 정보  */
+
+.small-title-size {
+	font-size: 18px;
+}
+
+
+.agency-wrap {
+	white-space: nowrap;
+}
+
+.agency-wrap p{
+	font-size: 22px;
+}
+
+
+
+/* 시험 정보  */
+
+#exam-table {
+	
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	border-collapse: collapse;
+	margin: 10px;
+}
+
+#exam-table th, td {
+	border: 1px solid;
+	text-align: center;
+	
+}
+
+#exam-table th {
+    font-size: var(--p-font-size);
+}
+
+#exam-table td, pre {
+	color: var(--p-color);
+    font-size: var(--p-font-size);
+    font-weight: var(--font-weight-light);
+}
+
+#exam-table td:nth-child(1) {
+	width: 170px;
+}
+
+#exam-table td:nth-child(2) {
+	width: auto;
+}
+
+#exam-table td:nth-child(3) {
+	width: 370px;
+}
+
+#exam-table td:nth-child(4) {
+	width: 170px;
+}
+
+#exam-table td:nth-child(5) {
+	width: 170px;
+}
+
+
+
+
 
 
