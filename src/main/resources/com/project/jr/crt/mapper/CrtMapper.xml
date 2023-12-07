@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.jr.crt.repository.CrtDAO">
+<mapper namespace="com.project.jr.crt.mapper.CrtMapper">
  	<select id="connectionTest" resultType="Integer">
  		select count(*) from tblCrt
  	</select>
@@ -64,7 +64,32 @@
  		SELECT * FROM tblagency
  	</select>
  
- 
+ 	
+ 	<insert id="crtLikeAdd" parameterType="com.project.jr.crt.model.CrtLikeDTO">
+ 		INSERT into tblcrtlike(crtLikeSeq, crtSeq, id) values (crtlikeseq.nextval, #{crtSeq}, #{id})
+ 	</insert>
+ 	
+ 	<delete id="crtLikeDel" parameterType="com.project.jr.crt.model.CrtLikeDTO">
+ 		delete tblcrtlike where crtSeq = #{crtSeq} and id = #{id}
+ 	</delete>
+ 	
+ 	
+ 	<!-- 자격증 상세조회 -->
+ 	<select id="get" parameterType="Integer" resultType="com.project.jr.crt.model.CrtDTO">
+ 		SELECT * FROM vwCrt where crtSeq = #{crtSeq}
+ 	</select>
+ 	
+ 	<!-- 자격증 응시료 조회 -->
+ 	<select id="plist" parameterType="Integer" resultType="com.project.jr.crt.model.CrtPayDTO">
+ 		SELECT * FROM vwCrtPay where crtSeq = #{crtSeq}
+ 	</select>
+ 	
+ 	<!-- 자격증 시험 상세조회 -->
+ 	<select id="testList" parameterType="Integer" resultType="com.project.jr.crt.model.CrtTestDTO">
+ 		SELECT * FROM vwCrtTest where crtSeq = #{crtSeq}
+ 	</select>
+ 	
+ 	
 </mapper>
 
 
