@@ -93,14 +93,31 @@ a.bi-heart-fill {
 	color: #717275;
 }
 
-
-
-@media (max-width: 640px) {
-	.table {
-		width: 430px;
+@media (min-width: 641px) {
+	
+	div.board-box {
+		display:none !important;
 	}
 	
-	.table tr {
+}
+
+@media (max-width: 640px) {
+	.board-table {
 		display: none;
 	}
+	
+	.board-box {
+		display: flex;
+		margin: 0 auto;
+	}
+	
+	.board-box > div:last-child {
+		border-bottom: 0 !important;
+	}
+	
+	.board-info p {
+		font-size: .9rem !important;
+		margin-bottom: 0;
+	}
+	
 }

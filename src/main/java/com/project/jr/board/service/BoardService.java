@@ -175,7 +175,7 @@ public class BoardService {
 		}
 	}
 
-	public BoardDTO countLike(String boardSeq) {
+	public BoardDTO getBoardDetail(String boardSeq) {
 		return bdao.get(boardSeq);
 	}
 

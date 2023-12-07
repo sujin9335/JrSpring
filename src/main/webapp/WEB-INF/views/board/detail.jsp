@@ -66,119 +66,6 @@
 								</div>
 <script>
 
-setLikeBtn();
-
-function setLikeBtn() {
-	let liked = '';
-	
-	<c:if test="${ not empty liked }">
-		liked = 'y';
-	</c:if>
-	
-	if (liked == 'y') {
-		$('#btn-unlike').show();
-	} else {
-		$('#btn-like').show();
-	}
-	
-	setLikeCnt();
-	
-}
-
-function setLikeCnt() {
-	
-	$.ajax({
-		type: 'GET',
-		url: '/jr/board/cntlike.do',
-		data: {
-			boardSeq: ${dto.boardSeq}
-		},
-		dataType: 'json',
-		success: boardLike => {
-			
-			// 현재 게시글의 좋아요 개수를 가져온다
-			if (boardLike != -1) {
-				$('.boardLike').html(`
-					<i class="custom-icon bi-heart me-1"></i>
-					\${boardLike}
-				`);
-			} else {
-				alert('실패했습니다.');
-			}
-		},
-		error: function(a, b, c) {
-			console.log(a, b, c);
-		}
-	});
-	
-
-}
-
-$('#btn-like').click(function() {
-	
-	//로그인 하지 않은 사용자는 반려를 때려버린다
-	<c:if test="${ empty id }">
-		alert('로그인 후 이용할 수 있습니다.');
-		return;
-	</c:if>
-	
-	//boardSeq와 id를 넘겨서 좋아요 DB 작업을 한다.
-	<c:if test="${ not empty id }">
-	$.ajax({
-		type: 'GET',
-		url: '/jr/board/like.do',
-		data: {
-			boardSeq: ${dto.boardSeq}
-		},
-		dataType: 'json',
-		success: result => {
-
-			//btn-unlike를 만들고 btn-like는 없애버린다
-			if (result) {
-				$('#btn-unlike').show();
-				$('#btn-like').hide();
-				setLikeCnt();
-			} else {
-				alert('실패했습니다.')
-			}
-				
-		},
-		error: function(a, b, c) {
-			console.log(a, b, c);
-		}
-	});
-	</c:if>
-});
-
-$('#btn-unlike').click(function() {
-
-	// 비회원은 애초에 누를 수 없음
-	
-	//boardSeq와 id를 넘겨서 좋아요 DB 작업을 한다.
-	$.ajax({
-		type: 'GET',
-		url: '/jr/board/unlike.do',
-		data: {
-			boardSeq: ${dto.boardSeq}
-		},
-		dataType: 'json',
-		success: result => {
-			//btn-like를 만들고 btn-unlike는 없애버린다
-			if (result) {
-				$('#btn-like').show();
-				$('#btn-unlike').hide();
-				setLikeCnt();
-			} else {
-				alert('실패했습니다.')
-			}
-				
-		},
-		error: function(a, b, c) {
-			console.log(a, b, c);
-		}
-	});
-});
-
 </script>
 
 								<div><a href="#" class="bi-exclamation-circle ms-4 me-4" id="report"></a></div>
@@ -220,7 +107,7 @@ $('#btn-unlike').click(function() {
 				<div class="col-12" id="comment-container">
 					<div class="job-thumb job-thumb-detail-box bg-white shadow-lg">
 
-						<div>댓글(${ dto.ccnt })</div>
+						<div id="ccnt"></div>
 						<!-- 댓글 쓰기 -->
 						<form class="custom-form newsletter-form board">
 							<div class="input-group" id="add-comment">
@@ -233,11 +120,7 @@ $('#btn-unlike').click(function() {
 							</div>
 						</form>
 <script>
-	<c:if test="${ empty id }">
-		$('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.');
-		$('#btn-add-comment').attr('disabled', true);
-		
-	</c:if>
+
 </script>
 
 						<!-- 댓글 목록 -->
@@ -259,6 +142,17 @@ $('#btn-unlike').click(function() {
 
 <script>
 
+
+/* 댓글 */
+
+/* 댓글 작성 > 회원만 */
+<c:if test="${ empty id }">
+	$('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.');
+	$('#btn-add-comment').attr('disabled', true);
+	
+</c:if>
+
+
 load();
 
 function load() { 
@@ -269,6 +163,8 @@ function load() {
 		data: 'boardSeq=${dto.boardSeq}',
 		dataType: 'json',
 		success: list => { // 댓글 목록
+
+			$('#ccnt').text(`댓글(\${list.length})`);
 			
 			$('#list-comment').html(''); //기존 내용 삭제
 			
@@ -306,8 +202,6 @@ function load() {
 				$('#list-comment').append(temp);
 	 			
 			});
-			
-			
 			
 		},
 		error: function(a,b,c) {
@@ -447,6 +341,118 @@ function editCommentOk(commentSeq) {
 	
 }
 
+
+/* 좋아요 */
+
+setLikeBtn();
+
+function setLikeBtn() {
+	let liked = '';
+	
+	<c:if test="${ not empty liked }">
+		liked = 'y';
+	</c:if>
+	
+	if (liked == 'y') {
+		$('#btn-unlike').show();
+	} else {
+		$('#btn-like').show();
+	}
+	
+	setLikeCnt();
+	
+}
+
+function setLikeCnt() {
+	
+	$.ajax({
+		type: 'GET',
+		url: '/jr/board/detail/${dto.boardSeq}',
+		dataType: 'json',
+		success: result => {
+			
+			// 현재 게시글의 좋아요 개수를 가져온다
+			if (result.boardLike != -1) {
+				$('.boardLike').html(`
+					<i class="custom-icon bi-heart me-1"></i>
+					\${result.boardLike}
+				`);
+			} else {
+				alert('실패했습니다.');
+			}
+		},
+		error: function(a, b, c) {
+			console.log(a, b, c);
+		}
+	});
+	
+
+}
+
+$('#btn-like').click(function() {
+	
+	//로그인 하지 않은 사용자는 반려를 때려버린다
+	<c:if test="${ empty id }">
+		alert('로그인 후 이용할 수 있습니다.');
+		return;
+	</c:if>
+	
+	//boardSeq와 id를 넘겨서 좋아요 DB 작업을 한다.
+	<c:if test="${ not empty id }">
+	$.ajax({
+		type: 'GET',
+		url: '/jr/board/like.do',
+		data: {
+			boardSeq: ${dto.boardSeq}
+		},
+		dataType: 'json',
+		success: result => {
+
+			//btn-unlike를 만들고 btn-like는 없애버린다
+			if (result) {
+				$('#btn-unlike').show();
+				$('#btn-like').hide();
+				setLikeCnt();
+			} else {
+				alert('실패했습니다.')
+			}
+				
+		},
+		error: function(a, b, c) {
+			console.log(a, b, c);
+		}
+	});
+	</c:if>
+});
+
+$('#btn-unlike').click(function() {
+
+	// 비회원은 애초에 누를 수 없음
+	
+	//boardSeq와 id를 넘겨서 좋아요 DB 작업을 한다.
+	$.ajax({
+		type: 'GET',
+		url: '/jr/board/unlike.do',
+		data: {
+			boardSeq: ${dto.boardSeq}
+		},
+		dataType: 'json',
+		success: result => {
+			//btn-like를 만들고 btn-unlike는 없애버린다
+			if (result) {
+				$('#btn-like').show();
+				$('#btn-unlike').hide();
+				setLikeCnt();
+			} else {
+				alert('실패했습니다.')
+			}
+				
+		},
+		error: function(a, b, c) {
+			console.log(a, b, c);
+		}
+	});
+});
 
 
 

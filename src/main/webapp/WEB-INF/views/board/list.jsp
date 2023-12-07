@@ -106,7 +106,7 @@
 				</c:if>
 			</div>
 			
-			<table class="table table-hover fs-5 align-middle board">
+			<table class="table table-hover fs-5 align-middle board-table">
 				<thead class="text-center">
 				<tr>
 					<th scope="col">번호</th>
@@ -142,12 +142,37 @@
 					</tr>
 				</c:if>
 			</table>
+			
+			<div class="d-flex flex-wrap board-box col-12 border border-light-subtle">
+			<c:forEach items="${ list }" var="dto">
+				<div class="border-bottom border-light-subtle w-100 p-3" onclick="location.href='/jr/board/detail.do?boardSeq=${dto.boardSeq}&search=${pdto.search}&column=${pdto.column}&word=${pdto.word}';">
+				
+				<div>
+					<div class="text-start board-title p-1">
+						${ dto.boardTitle }
+						<c:if test="${ dto.isnew == 1 }">
+							<span style="color:#f65129;">new</span>
+						</c:if>
+					</div>
+				</div>
+				<div>
+					<div class=" d-flex flex-wrap justify-content-around board-info">
+						<div><p><i class="custom-icon bi-person me-1"></i>${ dto.id }</p></div>
+						<div><p><i class="custom-icon bi-clock me-1"></i>${ dto.boardWriteDate }</p></div>
+						<div><p><i class="custom-icon bi-people me-1"></i>${ dto.boardHits }</p></div>
+						<div><p><i class="custom-icon bi-heart me-1"></i>${ dto.boardLike }</p></div>
+						<div><p><i class="custom-icon bi-chat me-1"></i>${ dto.ccnt }</p></div>
+					</div>
+				</div>
+				
+				</div>
+			</c:forEach>
+			</div>
+			
 
 			<div class="col-lg-12 col-12">
 				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center mt-5 pb-5">
-						${ pdto.pagebar }
-					</ul>
+					<ul class="pagination justify-content-center mt-5 pb-5">${ pdto.pagebar }</ul>
 				</nav>
 			</div>
 		</div><!-- 리스트 -->

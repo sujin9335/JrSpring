@@ -68,22 +68,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public int edit(BoardDTO dto) {
 		return bmapper.edit(dto);
 	}
-	
-//	/**
-//	 * tblBoard > 게시글 좋아요 취소 DB 작업 메소드
-//	 */
-//	@Override
-//	public int unlike(String boardSeq) {
-//		return bmapper.unlike(boardSeq);
-//	}
-	
-//	/**
-//	 * tblBoard > 게시글 좋아요 DB 작업 메소드
-//	 */
-//	@Override
-//	public int like(String boardSeq) {
-//		return bmapper.like(boardSeq);
-//	}
+
 	
 	/**
 	 * 게시글 개수 DB 작업 메소드
@@ -101,6 +86,9 @@ public class BoardDAOImpl implements BoardDAO {
 		return bmapper.like(boardSeq);
 	}
 	
+	/**
+	 * 게시글 좋아요 취소 DB 작업 메소드
+	 */
 	@Override
 	public int unlike(int boardSeq) {
 		return bmapper.unlike(boardSeq);

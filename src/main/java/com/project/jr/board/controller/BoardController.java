@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -227,18 +228,17 @@ public class BoardController {
 	}
 	
 	/**
-	 * 게시글 좋아요 개수 ajax GET 요청
+	 * REST API 게시글 상세정보 GET 요청
 	 * @param resp
 	 * @param boardSeq
 	 * @return
 	 */
-	@GetMapping(value = "/cntlike.do")
+	@GetMapping(value = "/detail/{boardSeq}")
 	@ResponseBody
-	public int cntlike(HttpServletResponse resp, String boardSeq) {
+	public BoardDTO getDetail(@PathVariable("boardSeq") String boardSeq) {
 		
-		BoardDTO bdto = bserv.countLike(boardSeq); 
-		//좋아요 개수를 ajax에 반환
-		return bdto.getBoardLike();
+		BoardDTO bdto = bserv.getBoardDetail(boardSeq); 
+		return bdto;
 	}
 
 	
