@@ -19,7 +19,7 @@
 		INSERT INTO tblBoardLike (boardLikeSeq, boardSeq, id)
 			VALUES ((SELECT max(boardLikeSeq) FROM tblBoardLike) + 1, #{boardSeq}, #{id})
 	</insert>
-	
+
 
 </mapper>
 

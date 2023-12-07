@@ -175,4 +175,8 @@ public class BoardService {
 		}
 	}
 
+	public BoardDTO countLike(String boardSeq) {
+		return bdao.get(boardSeq);
+	}
+
 }

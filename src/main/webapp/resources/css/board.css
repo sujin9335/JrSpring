@@ -46,7 +46,7 @@ a.bi-heart, a.bi-heart-fill, a.bi-exclamation-circle {
 }
 
 /* 좋아요 하트 색상 */
-.heart {
+a.bi-heart-fill {
 	color: #f65129 !important;
 }
 

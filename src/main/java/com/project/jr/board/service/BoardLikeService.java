@@ -26,30 +26,59 @@ public class BoardLikeService {
 	@Autowired
 	private MessageService mserv;
 	
+//	
+//	public String likeBoard(String boardSeq, BoardLikeDTO ldto, String liked, HttpServletResponse resp) {
+//		
+//		int likeResult = (liked != null) ? ldao.unlike(ldto) : ldao.like(ldto);
+//		int result = 0;
+//		
+//		if (likeResult == 1) {
+//			// 좋아요가 잘 처리되면 board에서도 수정
+//			result = (liked != null) ? bdao.unlike(boardSeq) : bdao.like(boardSeq);
+//		}
+//		
+//		if (result == 1) {			
+//			return "redirect:/board/detail.do?boardSeq=" + boardSeq;
+//		} else {
+//			mserv.redirectWithMessage(resp, "실패했습니다.");
+//			return null;
+//		}
+//	}
+
 	/**
-	 * 게시글에 좋아요를 누르거나 좋아요 취소한 결과를 반환하는 메소드
-	 * @param boardSeq
+	 * 게시글 좋아요 결과를 반환하는 메소드
 	 * @param ldto
-	 * @param liked
 	 * @param resp
 	 * @return
 	 */
-	public String likeBoard(String boardSeq, BoardLikeDTO ldto, String liked, HttpServletResponse resp) {
+	public int likeBoard(BoardLikeDTO ldto) {
 		
-		int likeResult = (liked != null) ? ldao.unlike(ldto) : ldao.like(ldto);
+		// tblBoradLike에서 수정 결과
+		int likeResult = ldao.like(ldto);
+		
 	    int result = 0;
 
 	    if (likeResult == 1) {
-	        // 좋아요가 잘 처리되면 board에서도 수정
-	        result = (liked != null) ? bdao.unlike(boardSeq) : bdao.like(boardSeq);
+	        // 좋아요가 잘 처리되면 tblBoard에서도 수정
+	        result = bdao.like(ldto.getBoardSeq());
 	    }
 	    
-		if (result == 1) {			
-			return "redirect:/board/detail.do?boardSeq=" + boardSeq;
-		} else {
-			mserv.redirectWithMessage(resp, "실패했습니다.");
-			return null;
+		return result;
+	}
+	
+	public int unlikeBoard(BoardLikeDTO ldto) {
+		
+		// tblBoradLike에서 수정 결과
+		int likeResult = ldao.unlike(ldto);
+		
+		int result = 0;
+		
+		if (likeResult == 1) {
+			// 좋아요가 잘 처리되면 tblBoard에서도 수정
+			result = bdao.unlike(ldto.getBoardSeq());
 		}
+		
+		return result;
 	}
 
 }

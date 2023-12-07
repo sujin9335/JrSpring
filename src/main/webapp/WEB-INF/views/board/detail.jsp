@@ -47,30 +47,141 @@
 								<i class="custom-icon bi-people me-1"></i> ${ dto.boardHits }
 							</p>
 
-							<p class="mb-0 ms-4">
-								<i class="custom-icon bi-heart me-1"></i> ${ dto.boardLike }
+							<p class="mb-0 ms-4 boardLike">
+								
 							</p>
 
 							<p class="mb-0 ms-4 me-auto">
 								<i class="custom-icon bi-exclamation-circle me-1"></i> ${ dto.boardReport }
 							</p>
 
-							<div class="justify-content-end">
+							<div class="justify-content-end d-flex">
 								<!-- session id가 있는 사람만 좋아요 / 신고 가능하다 -->
 								<!-- 비회원 + 좋아요를 누르지 않은 회원은 그냥 하트 -->
 								<!-- 좋아요를 누른 회원은 색 하트 아이콘 -->
 								<!-- 페이지 호출 전 좋아요를 눌렀는지 검사하기 -->
-								<c:if test="${ not empty liked }">
-									<!-- 좋아요를 눌렀다 -->
-									<a href="/jr/board/like.do?boardSeq=${ dto.boardSeq }&liked=y"
-										class="bi-heart-fill ms-4 heart"></a>
-								</c:if>
-								<c:if test="${ empty liked }">
-									<!-- 좋아요를 안눌렀다 -->
-									<a href="/jr/board/like.do?boardSeq=${ dto.boardSeq }"
-										class="bi-heart ms-4"></a>
-								</c:if>
-								<a href="#" class="bi-exclamation-circle ms-4 me-4"></a>
+								<div class="heart">
+									<a href="#!" id="btn-unlike" class="bi-heart-fill ms-4" style="display:none;"></a>
+									<a href="#!" id="btn-like" class="bi-heart ms-4" style="display:none;"></a>
+								</div>
+<script>
+
+setLikeBtn();
+
+function setLikeBtn() {
+	let liked = '';
+	
+	<c:if test="${ not empty liked }">
+		liked = 'y';
+	</c:if>
+	
+	if (liked == 'y') {
+		$('#btn-unlike').show();
+	} else {
+		$('#btn-like').show();
+	}
+	
+	setLikeCnt();
+	
+}
+
+function setLikeCnt() {
+	
+	$.ajax({
+		type: 'GET',
+		url: '/jr/board/cntlike.do',
+		data: {
+			boardSeq: ${dto.boardSeq}
+		},
+		dataType: 'json',
+		success: boardLike => {
+			
+			// 현재 게시글의 좋아요 개수를 가져온다
+			if (boardLike != -1) {
+				$('.boardLike').html(`
+					<i class="custom-icon bi-heart me-1"></i>
+					\${boardLike}
+				`);
+			} else {
+				alert('실패했습니다.');
+			}
+		},
+		error: function(a, b, c) {
+			console.log(a, b, c);
+		}
+	});
+	
+
+}
+
+$('#btn-like').click(function() {
+	
+	//로그인 하지 않은 사용자는 반려를 때려버린다
+	<c:if test="${ empty id }">
+		alert('로그인 후 이용할 수 있습니다.');
+		return;
+	</c:if>
+	
+	//boardSeq와 id를 넘겨서 좋아요 DB 작업을 한다.
+	<c:if test="${ not empty id }">
+	$.ajax({
+		type: 'GET',
+		url: '/jr/board/like.do',
+		data: {
+			boardSeq: ${dto.boardSeq}
+		},
+		dataType: 'json',
+		success: result => {
+
+			//btn-unlike를 만들고 btn-like는 없애버린다
+			if (result) {
+				$('#btn-unlike').show();
+				$('#btn-like').hide();
+				setLikeCnt();
+			} else {
+				alert('실패했습니다.')
+			}
+				
+		},
+		error: function(a, b, c) {
+			console.log(a, b, c);
+		}
+	});
+	</c:if>
+});
+
+$('#btn-unlike').click(function() {
+
+	// 비회원은 애초에 누를 수 없음
+	
+	//boardSeq와 id를 넘겨서 좋아요 DB 작업을 한다.
+	$.ajax({
+		type: 'GET',
+		url: '/jr/board/unlike.do',
+		data: {
+			boardSeq: ${dto.boardSeq}
+		},
+		dataType: 'json',
+		success: result => {
+			//btn-like를 만들고 btn-unlike는 없애버린다
+			if (result) {
+				$('#btn-like').show();
+				$('#btn-unlike').hide();
+				setLikeCnt();
+			} else {
+				alert('실패했습니다.')
+			}
+				
+		},
+		error: function(a, b, c) {
+			console.log(a, b, c);
+		}
+	});
+});
+
+</script>
+
+								<div><a href="#" class="bi-exclamation-circle ms-4 me-4" id="report"></a></div>
 							</div>
 						</div>
 
@@ -121,7 +232,7 @@
 								</button>
 							</div>
 						</form>
-						<script>
+<script>
 	<c:if test="${ empty id }">
 		$('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.');
 		$('#btn-add-comment').attr('disabled', true);

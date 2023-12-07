@@ -60,12 +60,12 @@
 	</update>
 	
 	<!-- 게시글 좋아요 -->
-	<update id="like" parameterType="String">
+	<update id="like" parameterType="Integer">
 		UPDATE tblBoard SET boardLike = boardLike + 1 WHERE boardSeq = #{boardSeq}
 	</update>
 	
 	<!-- 게시글 좋아요 취소 -->
-	<update id="unlike" parameterType="String">
+	<update id="unlike" parameterType="Integer">
 		UPDATE tblBoard SET boardLike = boardLike - 1 WHERE boardSeq = #{boardSeq}
 	</update>
 

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.jr.board.model.BoardDTO;
 import com.project.jr.board.model.PageDTO;
@@ -172,11 +173,12 @@ public class BoardController {
 	
 	/**
 	 * 게시글 수정 POST 요청
-	 * @param model
+	 * @param dto
+	 * @param resp
 	 * @return
 	 */
 	@PostMapping(value = "/edit.do")
-	public String edit(Model model, BoardDTO dto, HttpServletResponse resp) {
+	public String edit(BoardDTO dto, HttpServletResponse resp) {
 		
 		//금지어 검사
 		if (fserv.checkForbidden(dto, resp)) {
@@ -188,28 +190,55 @@ public class BoardController {
 		
 	}
 	
-	
 	/**
-	 * 게시글 좋아요 GET 요청
-	 * @param model
+	 * 게시글 좋아요 ajax GET 요청
+	 * @param session
+	 * @param ldto
 	 * @return
 	 */
 	@GetMapping(value = "/like.do")
-	public String like(Model model, String boardSeq, HttpSession session, HttpServletResponse resp, BoardLikeDTO ldto, String liked) {
+	@ResponseBody
+	public int like(HttpSession session, BoardLikeDTO ldto) {
 		
-		//로그인한 사용자인지 확인
-		//로그인 안했다 > "로그인 후 이용할 수 있습니다." > 원래 페이지로 돌려보냄
-		if (session.getAttribute("id") == null) {
-			mserv.redirectWithMessage(resp, "로그인 후 이용할 수 있습니다.");
-			return null;
-		}
+
+		ldto.setId(session.getAttribute("id").toString());
+		
+		//좋아요 결과를 ajax에게 반환
+		return lserv.likeBoard(ldto);
+	    
+	}
+	
+	/**
+	 * 게시글 좋아요 취소 ajax GET 요청 
+	 * @param session
+	 * @param ldto
+	 * @return
+	 */
+	@GetMapping(value = "/unlike.do")
+	@ResponseBody
+	public int unlike(HttpSession session, BoardLikeDTO ldto) {
+		
 		
 		ldto.setId(session.getAttribute("id").toString());
 		
-		//좋아요 결과 redirect
-		return lserv.likeBoard(boardSeq, ldto, liked, resp);
-	    
+		//좋아요 결과를 ajax에게 반환
+		return lserv.unlikeBoard(ldto);
 		
+	}
+	
+	/**
+	 * 게시글 좋아요 개수 ajax GET 요청
+	 * @param resp
+	 * @param boardSeq
+	 * @return
+	 */
+	@GetMapping(value = "/cntlike.do")
+	@ResponseBody
+	public int cntlike(HttpServletResponse resp, String boardSeq) {
+		
+		BoardDTO bdto = bserv.countLike(boardSeq); 
+		//좋아요 개수를 ajax에 반환
+		return bdto.getBoardLike();
 	}
 
 	

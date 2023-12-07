@@ -26,8 +26,8 @@ public interface BoardMapper {
 
 	int edit(BoardDTO dto);
 
-	int unlike(String boardSeq);
+	int unlike(int boardSeq);
 	
-	int like(String boardSeq);
+	int like(int boardSeq);
 	
 }
