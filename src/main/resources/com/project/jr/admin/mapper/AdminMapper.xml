@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.jr.admin.mapper.AdminMapper"> <!-- 사용할 인터페이스 경로 -->
+	
+	
+<insert id="CrtAdminAdd" parameterType="com.project.jr.admin.model.CrtAdminDTO"  >
+    insert into tblCrt(crtSeq, crtName, crtTypeSeq, expiration, agencySeq, isRoutine, difficulty, qualificationCate, qualification, crtInfo, jobDesc)
+    values (crtSeq.nextVal, #{crtName}, #{crtTypeSeq}, #{expiration}, #{agencySeq}, #{isRoutine}, #{difficulty}, #{qualificationCate}, #{qualification}, #{crtInfo}, #{jobDesc})
+</insert>
+
+<select id="CrtAdminDetail" parameterType="String" resultType="com.project.jr.admin.model.CrtAdminDTO">
+	select * from vwCrtDetails where crtSeq = #{crtSeq}
+</select>
+
+
+</mapper>
