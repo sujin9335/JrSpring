@@ -16,11 +16,17 @@ section {
 	padding : .6em;
 }
 
+/* 게시판 목록 정렬 박스 너비 */
+ul.dropdown-menu.board-sort {
+	min-width: 5.5rem;	
+}
+
 /* 게시판 목록 테이블 */
 .table.board {
 	width: 100%;
 	white-space: nowrap;
 }
+
 
 /* 게시판 추가, 수정 버튼 */
 #btn-add-board, #btn-edit-board {
@@ -93,7 +99,7 @@ a.bi-heart-fill {
 	color: #717275;
 }
 
-@media (min-width: 641px) {
+/* @media (min-width: 960px) {
 	
 	div.board-box {
 		display:none !important;
@@ -101,7 +107,7 @@ a.bi-heart-fill {
 	
 }
 
-@media (max-width: 640px) {
+@media (max-width: 959px) {
 	.board-table {
 		display: none;
 	}
@@ -120,4 +126,4 @@ a.bi-heart-fill {
 		margin-bottom: 0;
 	}
 	
-}
+} */

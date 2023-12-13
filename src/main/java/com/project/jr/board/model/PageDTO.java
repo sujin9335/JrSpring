@@ -13,6 +13,7 @@ public class PageDTO {
 	private String search;
 	private String column;
 	private String word;
+	private String sort;
 	
 	private int page;
 	private int totalCount;

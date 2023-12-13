@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.jr.board.mapper.NoticeBoardMapper">
+
+	<!-- 공지사항 목록 -->
+	<select id="list" resultType="com.project.jr.board.model.NoticeBoardDTO">
+		SELECT 
+			noticeBoardSeq,
+			noticeBoardTitle,
+			noticeBoardContent,
+			to_char(noticeBoardWriteDate, 'YYYY-MM-DD') AS noticeBoardWriteDate,
+			noticeBoardLike,
+			noticeBoardHits,
+		 	adminInfoId
+		FROM
+			(SELECT n.*, rownum AS rnum
+				FROM
+				(SELECT * FROM tblNoticeBoard ORDER BY noticeBoardSeq DESC) n)
+		WHERE rnum BETWEEN 1 AND 5
+		ORDER BY rnum DESC
+	</select>
+	
+	<!-- 공지사항 상세 -->
+	<select id="get" parameterType="Integer" resultType="com.project.jr.board.model.NoticeBoardDTO">
+		SELECT * FROM tblNoticeBoard WHERE noticeBoardSeq = #{noticeBoardSeq}
+	</select>
+	
+	<!-- 공지사항 상세보기 조회수 카운팅 -->
+	<update id="updateReadcount" parameterType="Integer">
+		UPDATE tblNoticeBoard SET noticeBoardHits = noticeBoardHits + 1 WHERE noticeBoardSeq = #{noticeBoardSeq} 
+	</update>
+	
+	
+	<!-- 공지사항 좋아요 -->
+	<update id="like" parameterType="Integer">
+		UPDATE tblNoticeBoard SET noticeBoardLike =
+		noticeBoardLike + 1 WHERE noticeBoardSeq = #{noticeBoardSeq}
+	</update>
+
+	<!-- 공지사항 좋아요 취소 -->
+	<update id="unlike" parameterType="Integer">
+		UPDATE tblNoticeBoard SET noticeBoardLike
+		= noticeBoardLike - 1 WHERE noticeBoardSeq = #{noticeBoardSeq}
+	</update>
+	
+
+</mapper>

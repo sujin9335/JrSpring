@@ -40,7 +40,7 @@ public class BoardDAOImpl implements BoardDAO {
 	 * 게시글 조회수 카운팅 DB 작업 메소드
 	 */
 	@Override
-	public void updateReadcount(String boardSeq) {
+	public void updateReadcount(int boardSeq) {
 		bmapper.updateReadcount(boardSeq);
 	}
 	
@@ -48,7 +48,7 @@ public class BoardDAOImpl implements BoardDAO {
 	 * 게시글 상세정보 DB 작업 메소드
 	 */
 	@Override
-	public BoardDTO get(String boardSeq) {
+	public BoardDTO get(int boardSeq) {
 		
 		return bmapper.get(boardSeq);
 	}
@@ -57,7 +57,7 @@ public class BoardDAOImpl implements BoardDAO {
 	 * 게시글 삭제 DB 작업 메소드
 	 */
 	@Override
-	public int del(String boardSeq) {
+	public int del(int boardSeq) {
 		return bmapper.del(boardSeq);
 	}
 	
@@ -79,18 +79,18 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	/**
-	 * 게시글 좋아요 DB 작업 메소드
+	 * tblBoard > 게시글 좋아요 DB 작업 메소드
 	 */
 	@Override
-	public int like(int boardSeq) {
+	public int likeBoard(int boardSeq) {
 		return bmapper.like(boardSeq);
 	}
 	
 	/**
-	 * 게시글 좋아요 취소 DB 작업 메소드
+	 * tblBoard > 게시글 좋아요 취소 DB 작업 메소드
 	 */
 	@Override
-	public int unlike(int boardSeq) {
+	public int unlikeBoard(int boardSeq) {
 		return bmapper.unlike(boardSeq);
 	}
 	

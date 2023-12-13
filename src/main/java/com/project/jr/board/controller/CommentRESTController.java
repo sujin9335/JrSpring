@@ -26,13 +26,7 @@ import com.project.jr.forbidden.repository.ForbiddenDAO;
  */
 @RestController
 @RequestMapping(value = "/board/comment")
-public class CommentController {
-
-	@Autowired
-	private ForbiddenDAO fdao;
-	
-	@Autowired
-	private CommentDAO cdao;
+public class CommentRESTController {
 	
 	@Autowired
 	private CommentService cserv;
@@ -91,7 +85,7 @@ public class CommentController {
 	 * @return
 	 */
 	@PutMapping(value = "/{commentSeq}")
-	public @ResponseBody HashMap<String, String> edit(@PathVariable("commentSeq") String commentSeq, @RequestBody CommentDTO dto) {
+	public HashMap<String, String> edit(@PathVariable("commentSeq") String commentSeq, @RequestBody CommentDTO dto) {
 
 		HashMap<String,String> map = cserv.checkForbidden(dto);
 		

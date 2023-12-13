@@ -1,72 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.jr.board.mapper.BoardMapper"> 
-	
+<mapper namespace="com.project.jr.board.mapper.BoardMapper">
+
 	<!-- 게시판 목록보기 > 게시글 정보 가져오기 -->
-	<select id="list" parameterType="com.project.jr.board.model.PageDTO" resultType="com.project.jr.board.model.BoardDTO">
-	SELECT
+	<select id="list"
+		parameterType="com.project.jr.board.model.PageDTO"
+		resultType="com.project.jr.board.model.BoardDTO">
+		SELECT
 		*
-	FROM (SELECT 
-				b.*, rownum AS rnum 
-			FROM (SELECT 
-					* 
-					FROM vwBoard 
-					WHERE isBoardShow = 1 AND boardType = 1
-					<if test="search != null">
-					    AND ${column} LIKE '%' || #{word} || '%'
-					</if>
-					ORDER BY boardSeq DESC) b)
-	WHERE rnum BETWEEN #{begin} AND #{end}
+		FROM (SELECT
+		b.*, rownum AS rnum
+		FROM (SELECT
+		*
+		FROM vwBoard
+		WHERE boardType = 1
+		<choose>
+			<when test='search == "y"'>
+			AND isBoardShow = 1
+			AND ${column} LIKE '%' || #{word} || '%'
+			</when>
+			<otherwise>
+			AND isBoardShow IN (0, 1)
+			</otherwise>
+		</choose>
+		ORDER BY 
+		<choose>
+			<when test='sort == "boardLike"'> boardLike </when>
+			<when test='sort == "boardHits"'> boardHits </when>
+			<otherwise> boardSeq </otherwise>
+		</choose>
+		<choose>
+			<when test='sort == "boardSeqOldest"'> ASC </when>
+			<otherwise> DESC</otherwise>
+		</choose>
+		) b)
+		WHERE rnum BETWEEN #{begin} AND #{end}
 	</select>
-	
-	<!-- 게시판 목록보기 > 총 글의 개수 -->
-	<select id="getTotalCount" parameterType="com.project.jr.board.model.PageDTO" resultType="Integer">
-		SELECT count(*) AS cnt FROM tblBoard 
-		WHERE isBoardShow = 1 AND boardType = 1
-		<if test="search != null">
-		    AND ${column} LIKE '%' || #{word} || '%'
+
+	<!-- 게시판 목록 페이징 > 총 글의 개수 -->
+	<select id="getTotalCount"
+		parameterType="com.project.jr.board.model.PageDTO"
+		resultType="Integer">
+		SELECT count(*) AS cnt FROM tblBoard
+		WHERE boardType = 1 AND isBoardShow IN (0, 1) 
+		<!-- 검색 -->
+		<if test="search eq 'y'.toString()">
+			AND ${column} LIKE '%' || #{word} || '%'
 		</if>
 	</select>
-	
+
 	<!-- 게시판 새 글 작성 -->
-	<insert id="add" parameterType="com.project.jr.board.model.BoardDTO">
-		INSERT INTO tblBoard (boardSeq, boardTitle, boardContent,id, boardWriteDate, boardLike, boardReport, boardHits, boardType, isBoardShow)
-				VALUES (((SELECT max(boardSeq) FROM tblBoard) + 1), #{boardTitle}, #{boardContent}, #{id}, sysdate, 0, 0, 0, 1, 1)
+	<insert id="add"
+		parameterType="com.project.jr.board.model.BoardDTO">
+		INSERT INTO tblBoard (boardSeq, boardTitle,
+		boardContent,id, boardWriteDate, boardLike, boardReport, boardHits,
+		boardType, isBoardShow)
+		VALUES (nvl((SELECT max(boardSeq) FROM tblBoard), 0) + 1, #{boardTitle},
+		#{boardContent}, #{id}, sysdate, 0, 0, 0, 1, 1)
 	</insert>
-	
+
 	<!-- 게시판 상세보기 > 글 상세정보 가져오기 -->
-	<select id="get" parameterType="String" resultType="com.project.jr.board.model.BoardDTO">
-		SELECT 
-			b.*,
-			(SELECT count(*) FROM tblComment WHERE boardSeq = b.boardSeq) AS ccnt
-		FROM tblBoard b 
+	<select id="get" parameterType="Integer"
+		resultType="com.project.jr.board.model.BoardDTO">
+		SELECT
+		b.*,
+		(SELECT count(*) FROM tblComment WHERE boardSeq = b.boardSeq) AS ccnt
+		FROM
+		tblBoard b
 		WHERE boardSeq = #{boardSeq}
 	</select>
-	
+
 	<!-- 게시판 상세보기 > 조회수 카운팅 -->
-	<update id="updateReadcount" parameterType="String" >
-		UPDATE tblBoard SET boardHits = boardHits + 1 WHERE boardSeq = #{boardSeq}
+	<update id="updateReadcount" parameterType="Integer">
+		UPDATE
+		tblBoard SET boardHits = boardHits + 1 WHERE boardSeq = #{boardSeq} AND isBoardShow = 1
 	</update>
-	
+
 	<!-- 게시글 삭제 -->
-	<update id="del" parameterType="String">
-		UPDATE tblBoard SET isBoardShow = 0 WHERE boardSeq = #{boardSeq}
+	<update id="del" parameterType="Integer">
+		UPDATE tblBoard SET isBoardShow = -1 WHERE boardSeq = #{boardSeq}
 	</update>
-	
+
 	<!-- 게시글 수정 -->
-	<update id="edit" parameterType="com.project.jr.board.model.BoardDTO">
-		UPDATE tblBoard SET boardTitle = #{boardTitle}, boardContent = #{boardContent} WHERE boardSeq = #{boardSeq}
+	<update id="edit"
+		parameterType="com.project.jr.board.model.BoardDTO">
+		UPDATE tblBoard SET boardTitle = #{boardTitle},
+		boardContent = #{boardContent} WHERE boardSeq = #{boardSeq}
 	</update>
-	
+
 	<!-- 게시글 좋아요 -->
 	<update id="like" parameterType="Integer">
-		UPDATE tblBoard SET boardLike = boardLike + 1 WHERE boardSeq = #{boardSeq}
+		UPDATE tblBoard SET boardLike =
+		boardLike + 1 WHERE boardSeq = #{boardSeq}
 	</update>
-	
+
 	<!-- 게시글 좋아요 취소 -->
 	<update id="unlike" parameterType="Integer">
-		UPDATE tblBoard SET boardLike = boardLike - 1 WHERE boardSeq = #{boardSeq}
+		UPDATE tblBoard SET boardLike
+		= boardLike - 1 WHERE boardSeq = #{boardSeq}
 	</update>
 
 </mapper>

@@ -18,11 +18,11 @@ public interface BoardMapper {
 
 	int add(BoardDTO dto);
 
-	BoardDTO get(String boardSeq);
+	BoardDTO get(int boardSeq);
 
-	void updateReadcount(String boardSeq);
+	void updateReadcount(int boardSeq);
 
-	int del(String boardSeq);
+	int del(int boardSeq);
 
 	int edit(BoardDTO dto);
 

@@ -16,17 +16,17 @@ public interface BoardDAO {
 
 	int add(BoardDTO dto);
 
-	void updateReadcount(String boardSeq);
+	void updateReadcount(int boardSeq);
 
-	BoardDTO get(String boardSeq);
+	BoardDTO get(int boardSeq);
 
-	int del(String boardSeq);
+	int del(int boardSeq);
 
 	int edit(BoardDTO dto);
 
-	int unlike(int boardSeq);
+	int likeBoard(int boardSeq);
 
-	int like(int boardSeq);
+	int unlikeBoard(int boardSeq);
 
 	int getTotalCount(PageDTO pdto);
 

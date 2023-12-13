@@ -13,7 +13,7 @@
 	<insert id="add" parameterType="com.project.jr.board.model.CommentDTO">
 		INSERT INTO tblComment
 				(commentSeq, boardSeq, id, commentContent, commentWDate, commentLike, commentReport, isCommentShow)
-			VALUES ((SELECT max(commentSeq) + 1 FROM tblComment),#{boardSeq},#{id},#{commentContent},sysdate,0,0,1)
+			VALUES (nvl((SELECT max(commentSeq) FROM tblComment), 0) + 1, #{boardSeq}, #{id}, #{commentContent}, sysdate, 0, 0, 1)
 	</insert>
 	
 	<!-- 댓글 삭제 -->

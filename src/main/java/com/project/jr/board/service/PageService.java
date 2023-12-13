@@ -21,13 +21,8 @@ public class PageService {
 	 * 게시판 페이징 메소드
 	 * @param pdto
 	 */
-	public void paging(PageDTO pdto) {
-		//검색여부
-		if ((pdto.getColumn() != null && pdto.getWord() != null)
-			&& (!pdto.getColumn().isEmpty() && !pdto.getWord().isEmpty())) {
-			    pdto.setSearch("y");
-		}
-
+	public void paging(PageDTO pdto, int totalCount, String url) {
+		
 		//페이징
 		//현재페이지
 		if (pdto.getPage() == 0) {
@@ -35,10 +30,10 @@ public class PageService {
 		}
 		
 		//총 글의 개수
-		pdto.setTotalCount(dao.getTotalCount(pdto));
+		pdto.setTotalCount(totalCount);
 		
 		//페이지당 글 개수
-		pdto.setPageSize(20);
+		pdto.setPageSize(15);
 		
 		//총 페이지 개수
 		pdto.setTotalPage((int) Math.ceil((double) pdto.getTotalCount() / pdto.getPageSize()));
@@ -61,17 +56,9 @@ public class PageService {
 					+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
 					+ "	</a></li>");
 		} else {
-
-			if (pdto.getSearch() == null) {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d'\n"
-						+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
-						+ "	</a></li>", n - 1));
-			} else {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d&column=%s&word=%s'\n"
-						+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
-						+ "	</a></li>", n - 1, pdto.getColumn(), pdto.getWord()));
-			}
-
+			sb.append(String.format("<li class='page-item'><a class='page-link' href='" + url + "?page=%d&column=%s&word=%s&sort=%s'\n"
+					+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
+					+ "	</a></li>", n - 1, pdto.getColumn(), pdto.getWord(), pdto.getSort()));
 		}
 
 		while (!(loop > blockSize || n > pdto.getTotalPage())) {
@@ -80,13 +67,8 @@ public class PageService {
 				sb.append(String.format("<li class='page-item active' aria-current='page'><a\n"
 											+ "	class='page-link' href=''>%d</a></li>", n));
 			} else {
-				if (pdto.getSearch() == null) {
-					sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d'>%d</a></li>", n, n));
-				} else {
-					sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d&column=%s&word=%s'>%d</a></li>", n,
-							pdto.getColumn(), pdto.getWord(), n));
-					
-				}
+				sb.append(String.format("<li class='page-item'><a class='page-link' href='"+url+"?page=%d&column=%s&word=%s&sort=%s'>%d</a></li>", n,
+						pdto.getColumn(), pdto.getWord(), pdto.getSort(), n));
 			}
 			loop++;
 			n++;
@@ -99,18 +81,10 @@ public class PageService {
 					+ "	aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
 					+ "	</a></li>");
 		} else {
-			if (pdto.getSearch() == null) {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d'\n"
-						+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
-						+ "						</a></li>", n));
-			} else {
-				sb.append(String.format(" <a href='/jr/board/list.do?page=%d&column=%s&word=%s'>[다음]</a>",
-						pdto.getColumn(), pdto.getWord(), n));
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/board/list.do?page=%d&column=%s&word=%s'\n"
-						+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
-						+ "						</a></li>",
-						n, pdto.getColumn(), pdto.getWord()));
-			}
+			sb.append(String.format("<li class='page-item'><a class='page-link' href='"+url+"?page=%d&column=%s&word=%s&sort=%s'\n"
+					+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
+					+ "						</a></li>",
+					n, pdto.getColumn(), pdto.getWord(), pdto.getSort()));
 		}
 		pdto.setPagebar(sb.toString());
 	}

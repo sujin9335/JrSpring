@@ -38,17 +38,28 @@ public class BoardService {
 	 * @return
 	 */
 	public List<BoardDTO> boardList(PageDTO pdto) {
+		
 
+		
 		List<BoardDTO> list = bdao.list(pdto);
 
 		// 제목가공
 		for (BoardDTO b : list) {
-
+			
+			//게시판이 숨김 처리된 글이다 > 제목 변경
+			if (b.getIsBoardShow() == 0) {
+				b.setBoardTitle("더이상 볼 수 없는 게시글 입니다.");
+				continue;
+			}
+			
+			//제목 길이 조정
 			if (b.getBoardTitle().length() > 20) {
 				b.setBoardTitle(b.getBoardTitle().substring(0, 20) + "...");
 			}
 
+
 			b.setBoardTitle(b.getBoardTitle().replace("<", "&lt;").replace(">", "&gt;").replace(" ", "&nbsp;"));
+			
 		}
 
 		return list;
@@ -75,17 +86,17 @@ public class BoardService {
 	 * @param session
 	 * @param boardSeq
 	 */
-	public void readCounting(HttpSession session, String boardSeq) {
+	public void readCounting(HttpSession session, int boardSeq) {
 		if ((session.getAttribute("read") == null
 				|| session.getAttribute("read").toString().equals("n")) 
-				&& session.getAttribute(boardSeq) == null) {
+				&& session.getAttribute(Integer.toString(boardSeq)) == null) {
 			
 			bdao.updateReadcount(boardSeq);
 			
 			//새로고침시 조회수 카운팅 방지
 			session.setAttribute("read", "y");
 			//같은 글 여러번 카운팅 방지
-			session.setAttribute(boardSeq, "y");
+			session.setAttribute(Integer.toString(boardSeq), "y");
 		}
 	}
 	
@@ -95,41 +106,45 @@ public class BoardService {
 	 * @param pdto
 	 * @return
 	 */
-	public BoardDTO getDetail(String boardSeq, PageDTO pdto) {
+	public BoardDTO getDetail(int boardSeq, PageDTO pdto) {
 		//게시글 정보 가져오기
-		BoardDTO dto = bdao.get(boardSeq);
+		BoardDTO bdto = bdao.get(boardSeq);
+		
+		//숨김처리 된 글 > 제목 내용 수정하기
+		if (bdto.getIsBoardShow() == 0) {
+			bdto.setBoardContent("더이상 볼 수 없는 글입니다.");
+			bdto.setBoardTitle("더이상 볼 수 없는 글입니다.");
+			return bdto;
+		}
 		
 		//제목/내용 태그방지, 공백, 개행처리
-		dto.setBoardTitle(dto.getBoardTitle().replace("<", "&lt;").replace(">", "&gt;").replace(" ", "&nbsp;"));
-		dto.setBoardContent(dto.getBoardContent().replace("<", "&lt;").replace(">", "&gt;").replace("\r\n", "<br>").replace(" ", "&nbsp;"));
+		bdto.setBoardTitle(bdto.getBoardTitle().replace("<", "&lt;").replace(">", "&gt;").replace(" ", "&nbsp;"));
+		bdto.setBoardContent(bdto.getBoardContent().replace("<", "&lt;").replace(">", "&gt;").replace("\r\n", "<br>").replace(" ", "&nbsp;"));
 		
 		//내용으로 검색 > 검색어 강조
 		if (pdto.getSearch() != null && pdto.getSearch().equals("y") && pdto.getColumn().equals("boardContent")) {
-			dto.setBoardContent(dto.getBoardContent().replace(pdto.getWord(), "<span style=\"background-color:#0dcaf0; color:#FFF;\">" + pdto.getWord() + "</span>"));
+			bdto.setBoardContent(bdto.getBoardContent().replace(pdto.getWord(), "<span style=\"background-color:#0dcaf0; color:#FFF;\">" + pdto.getWord() + "</span>"));
 		}
-		return dto;
+		return bdto;
 	}
 	
 	/**
 	 * 좋아요 클릭 여부를 확인하는 메소드
-	 * @param model
-	 * @param session
-	 * @param ldto
 	 */
-	public void checkLiked(Model model, HttpSession session, BoardLikeDTO ldto) {
+	public boolean isLiked(HttpSession session, BoardLikeDTO ldto) {
 		//좋아요 누른 글인지 확인
 		//BoardLike 테이블 불러와 > boardSeq랑 id같이 보내서 비교해
 		// 있어? > 좋아요글이야 > "like", "y"
 		// 없어? > 좋아요글 아니야 > 아무짓안함
 		//int result = ldao.liked();
 		if (session.getAttribute("id") != null) {
-			
 			ldto.setId(session.getAttribute("id").toString());
 			if (ldao.isLiked(ldto) == 1) {
-				model.addAttribute("liked", "y");
+				return true;
 			}
 			
 		}
+		return false;
 	}
 	
 	/**
@@ -138,7 +153,11 @@ public class BoardService {
 	 * @param resp
 	 * @return
 	 */
-	public String boardDel(String boardSeq, HttpServletResponse resp) {
+	public String boardDel(int boardSeq, HttpServletResponse resp) {
+		
+		//비회원 내쫓기	
+		
+		
 		int result = bdao.del(boardSeq);
 		
 		if (result == 1) {
@@ -154,7 +173,7 @@ public class BoardService {
 	 * @param boardSeq
 	 * @return
 	 */
-	public BoardDTO getEditDetail(String boardSeq) {
+	public BoardDTO getEditDetail(int boardSeq) {
 		return bdao.get(boardSeq);
 	}
 	
@@ -175,8 +194,41 @@ public class BoardService {
 		}
 	}
 
-	public BoardDTO getBoardDetail(String boardSeq) {
-		return bdao.get(boardSeq);
+
+	/**
+	 * 삭제된 글 여부를 반환하는 메소드
+	 * @param boardSeq
+	 * @param resp
+	 * @return
+	 */
+	public boolean isDeleted(int boardSeq) {
+		//삭제된 글인지 확인
+		BoardDTO bdto = bdao.get(boardSeq);
+		if (bdto.getIsBoardShow() == -1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isHided(int boardSeq) {
+		//숨김 글인지 확인
+		BoardDTO bdto = bdao.get(boardSeq);
+		if (bdto.getIsBoardShow() == 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isWrittenBy(int boardSeq, String id) {
+		BoardDTO bdto = bdao.get(boardSeq);
+		if (bdto.getId().equals(id)) {
+			return true;
+		}
+		return false;
+	}
+
+	public int getTotalCount(PageDTO pdto) {
+		return bdao.getTotalCount(pdto);
 	}
 
 }

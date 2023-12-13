@@ -30,54 +30,81 @@
 			<div class="row">
 
 				<div class="col-12">
-					<h2 class="job-title mb-0">${ dto.boardTitle }</h2>
+					<h2 class="job-title mb-0 text-break" id="board-title">${ dto.boardTitle }</h2>
 
 					<div class="job-thumb job-thumb-detail">
 						<div
 							class="d-flex flex-wrap align-items-center border-bottom pt-lg-3 pt-2 pb-3 mb-4">
 							<p class="mb-0 ms-4">
-								<i class="custom-icon bi-person me-1"></i> ${ dto.id }
+								<i class="custom-icon bi-person me-1"></i>
+								<span id="id"></span>
 							</p>
 
-							<p class="mb-0 ms-4">
-								<i class="custom-icon bi-clock me-1"></i> ${ dto.boardWriteDate }
+							<p class="boardWriteDate mb-0 ms-4">
+								<i class="custom-icon bi-clock me-1"></i>
+								<span id="board-write-date"></span>
 							</p>
 
-							<p class="mb-0 ms-4">
-								<i class="custom-icon bi-people me-1"></i> ${ dto.boardHits }
+							<p class="boardHits mb-0 ms-4">
+								<i class="custom-icon bi-people me-1"></i>
+								<span id="board-hits"></span>
 							</p>
 
 							<p class="mb-0 ms-4 boardLike">
-								
+								<i class="custom-icon bi-heart me-1"></i>
+								<span id="board-like"></span>
 							</p>
 
-							<p class="mb-0 ms-4 me-auto">
-								<i class="custom-icon bi-exclamation-circle me-1"></i> ${ dto.boardReport }
+							<p class="boardReport mb-0 ms-4 me-auto">
+								<i class="custom-icon bi-exclamation-circle me-1"></i>
+								<span id="board-report"></span>
 							</p>
 
 							<div class="justify-content-end d-flex">
-								<!-- session id가 있는 사람만 좋아요 / 신고 가능하다 -->
-								<!-- 비회원 + 좋아요를 누르지 않은 회원은 그냥 하트 -->
-								<!-- 좋아요를 누른 회원은 색 하트 아이콘 -->
-								<!-- 페이지 호출 전 좋아요를 눌렀는지 검사하기 -->
 								<div class="heart">
 									<a href="#!" id="btn-unlike" class="bi-heart-fill ms-4" style="display:none;"></a>
 									<a href="#!" id="btn-like" class="bi-heart ms-4" style="display:none;"></a>
 								</div>
-<script>
-
-</script>
 
 								<div><a href="#" class="bi-exclamation-circle ms-4 me-4" id="report"></a></div>
 							</div>
 						</div>
 
 						<div class="d-flex justify-content-center flex-wrap pt-4">
-							<div class="col-11 board-content">${ dto.boardContent }</div>
+							<div class="col-11 board-content text-break">
+							${ dto.boardContent }</div>
 
 						</div>
+<script>
 
+loadDetail();
 
+function loadDetail() {
+	$.ajax({
+		type: 'GET',
+		url: '/jr/board/' + ${dto.boardSeq},
+		data: 'pdto=${pdto}',
+		dataType: 'json',
+		success: bdto => {
+			
+			if (bdto) {
+				$('#id').text(bdto.id);
+				$('#board-write-date').text(bdto.boardWriteDate);
+				$('#board-like').text(bdto.boardLike);
+				$('#board-hits').text(bdto.boardHits);
+				$('#board-report').text(bdto.boardReport);
+			} else { // 반환이 제대로 안됨
+				
+			}
+			
+		},
+		error: (a,b,c) => {
+			console.log(a,b,c);
+		}
+	});
+}
+
+</script>
 						<div
 							class="d-flex justify-content-end flex-wrap mt-5 border-top pt-4">
 
@@ -88,15 +115,15 @@
 								<a id="del-board"
 									class="custom-btn custom-border-btn btn mt-2 mb-5 ms-2">삭제</a>
 							</c:if>
-							<script>
-							$('#del-board')
-									.click(
-											function() {
-												if (confirm('삭제 후 되돌릴 수 없습니다. 삭제하시겠습니까?')) {
-													location.href = '/jr/board/del.do?boardSeq=${dto.boardSeq}';
-												}
-											});
-						</script>
+<script>
+$('#del-board')
+		.click(
+				function() {
+					if (confirm('삭제 후 되돌릴 수 없습니다. 삭제하시겠습니까?')) {
+						location.href = '/jr/board/del.do?boardSeq=${dto.boardSeq}';
+					}
+				});
+</script>
 						</div>
 
 
@@ -119,9 +146,7 @@
 								</button>
 							</div>
 						</form>
-<script>
 
-</script>
 
 						<!-- 댓글 목록 -->
 						<div id="list-comment">
@@ -147,15 +172,20 @@
 
 /* 댓글 작성 > 회원만 */
 <c:if test="${ empty id }">
-	$('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.');
+	$('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.').attr('readOnly', true);
 	$('#btn-add-comment').attr('disabled', true);
-	
+</c:if>
+
+/* 숨김처리 글 > 댓글 입력, 버튼 클릭 불가 */
+<c:if test="${dto.isBoardShow == 0}">
+	$('#new-comment').attr('placeholder', '더이상 댓글을 작성할 수 없습니다.').attr('readOnly', true);
+	$('#btn-add-comment').attr('disabled', true);
 </c:if>
 
 
-load();
+loadComment();
 
-function load() { 
+function loadComment() { 
 	
 	$.ajax({
 		type: 'GET',
@@ -164,6 +194,10 @@ function load() {
 		dataType: 'json',
 		success: list => { // 댓글 목록
 
+			<c:if test="${dto.isBoardShow != 1}">
+			return;
+			</c:if>
+			
 			$('#ccnt').text(`댓글(\${list.length})`);
 			
 			$('#list-comment').html(''); //기존 내용 삭제
@@ -173,7 +207,7 @@ function load() {
 					<div class="comment d-flex ps-3 pe-3 pt-3 pb-3 border-bottom">
 						<div>
 						  	<div class="comment-id">\${item.id}</div>
-							<div class="comment-content pt-3 pb-3">\${item.commentContent}</div>									
+							<div class="comment-content pt-3 pb-3 text-break">\${item.commentContent}</div>									
 						  	<div class="comment-regdate">\${item.commentWDate}</div>
 						</div>
 				`;
@@ -210,9 +244,11 @@ function load() {
 	});
 }
 
+/* 댓글 작성 */
 $('#btn-add-comment').click(function() {
 	
-	if ($('#new-comment').val() == '') {
+	if ($('#new-comment').val() == ''
+			|| $('#new-comment').val().replace(/ /g, '').replace(/\n/g, '') == '') {
 		alert('댓글을 입력해 주세요.');
 		$('#new-comment').focus();
 		return false;
@@ -233,7 +269,7 @@ $('#btn-add-comment').click(function() {
 		success: result => {
 
 			if(result.result == '1') { 
-				load(); // 목록 새로고침
+				loadComment(); // 목록 새로고침
 				$('#new-comment').val('');
 			} else if (result.result == '-1') {
 				alert("\'" + result.word + "\'는 입력할 수 없는 단어입니다.");
@@ -260,7 +296,7 @@ function delComment(commentSeq) {
 				dataType: 'json',
 				success: function(result) {
 					if (result) {
-						load();
+						loadComment();
 					} else {
 						alert('삭제에 실패했습니다.');
 					}
@@ -306,7 +342,8 @@ function editComment(commentSeq) {
 
 function editCommentOk(commentSeq) {
 
-	if ($('#edit-comment').val() == '') {
+	if ($('#edit-comment').val() == ''
+			|| $('#edit-comment').val().replace(/ /g, '').replace(/\n/g, '') == '') {
 		alert('댓글을 입력해 주세요.');
 		$('#edit-comment').focus();
 		return false;
@@ -327,7 +364,7 @@ function editCommentOk(commentSeq) {
 		success: function(result) {
 			
 			if (result.result == '1') {
-				load(); // 목록 새로고침
+				loadComment(); // 목록 새로고침
 			} else if (result.result == '-1') {
 				alert("\'" + result.word + "\'는 입력할 수 없는 단어입니다.");
 			} else {
@@ -344,12 +381,15 @@ function editCommentOk(commentSeq) {
 
 /* 좋아요 */
 
+
+/* 좋아요 버튼 세팅 */
 setLikeBtn();
 
 function setLikeBtn() {
-	let liked = '';
 	
-	<c:if test="${ not empty liked }">
+	/* 좋아요 눌렀는지 확인 */
+	let liked = '';
+	<c:if test="${ not empty liked && dto.isBoardShow == 1}">
 		liked = 'y';
 	</c:if>
 	
@@ -359,37 +399,18 @@ function setLikeBtn() {
 		$('#btn-like').show();
 	}
 	
-	setLikeCnt();
+	loadDetail();
 	
 }
 
-function setLikeCnt() {
-	
-	$.ajax({
-		type: 'GET',
-		url: '/jr/board/detail/${dto.boardSeq}',
-		dataType: 'json',
-		success: result => {
-			
-			// 현재 게시글의 좋아요 개수를 가져온다
-			if (result.boardLike != -1) {
-				$('.boardLike').html(`
-					<i class="custom-icon bi-heart me-1"></i>
-					\${result.boardLike}
-				`);
-			} else {
-				alert('실패했습니다.');
-			}
-		},
-		error: function(a, b, c) {
-			console.log(a, b, c);
-		}
-	});
-	
 
-}
-
+/* 좋아요 */
 $('#btn-like').click(function() {
+	
+	//숨김처리 당한 글은 좋아요 누를 수 없다 (무반응)
+	<c:if test="${ dto.isBoardShow != 1 }">
+		return;
+	</c:if>
 	
 	//로그인 하지 않은 사용자는 반려를 때려버린다
 	<c:if test="${ empty id }">
@@ -397,7 +418,7 @@ $('#btn-like').click(function() {
 		return;
 	</c:if>
 	
-	//boardSeq와 id를 넘겨서 좋아요 DB 작업을 한다.
+	//boardSeq를 넘겨서 좋아요 DB 작업을 한다.
 	<c:if test="${ not empty id }">
 	$.ajax({
 		type: 'GET',
@@ -412,7 +433,7 @@ $('#btn-like').click(function() {
 			if (result) {
 				$('#btn-unlike').show();
 				$('#btn-like').hide();
-				setLikeCnt();
+				loadDetail();
 			} else {
 				alert('실패했습니다.')
 			}
@@ -425,11 +446,12 @@ $('#btn-like').click(function() {
 	</c:if>
 });
 
+/* 좋아요 취소 */
 $('#btn-unlike').click(function() {
 
 	// 비회원은 애초에 누를 수 없음
 	
-	//boardSeq와 id를 넘겨서 좋아요 DB 작업을 한다.
+	//boardSeq를 넘겨서 좋아요 DB 작업을 한다.
 	$.ajax({
 		type: 'GET',
 		url: '/jr/board/unlike.do',
@@ -442,7 +464,7 @@ $('#btn-unlike').click(function() {
 			if (result) {
 				$('#btn-like').show();
 				$('#btn-unlike').hide();
-				setLikeCnt();
+				loadDetail();
 			} else {
 				alert('실패했습니다.')
 			}

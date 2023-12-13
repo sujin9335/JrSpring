@@ -17,9 +17,25 @@
 	<!-- 게시글 좋아요 -->
 	<insert id="like" parameterType="com.project.jr.like.model.BoardLikeDTO">
 		INSERT INTO tblBoardLike (boardLikeSeq, boardSeq, id)
-			VALUES ((SELECT max(boardLikeSeq) FROM tblBoardLike) + 1, #{boardSeq}, #{id})
+			VALUES (nvl((SELECT max(boardLikeSeq) FROM tblBoardLike), 0) + 1, #{boardSeq}, #{id})
 	</insert>
 
+	<!-- 공지사항 좋아요 여부 확인 -->
+	<select id="isNoticeLiked" parameterType="com.project.jr.like.model.NoticeBoardLikeDTO" resultType="Integer">
+		SELECT count(*) FROM tblNoticeBoardLike WHERE noticeBoardSeq = #{noticeBoardSeq} AND id = #{id}
+	</select>
+	
+	<!-- 게시글 좋아요 취소 -->
+	<delete id="unlikeNotice" parameterType="com.project.jr.like.model.NoticeBoardLikeDTO">
+		DELETE FROM tblNoticeBoardLike WHERE noticeBoardSeq = #{noticeBoardSeq} AND id = #{id} 
+	</delete>
+	
+	<!-- 게시글 좋아요 -->
+	<insert id="likeNotice" parameterType="com.project.jr.like.model.NoticeBoardLikeDTO">
+		INSERT INTO tblNoticeBoardLike (noticeBoardLikeSeq, noticeBoardSeq, id)
+			VALUES (nvl((SELECT max(noticeBoardLikeSeq) FROM tblNoticeBoardLike), 0) + 1, #{noticeBoardSeq}, #{id})
+	</insert>
+	
 
 </mapper>
 
