@@ -4,6 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="<%=request.getContextPath() %>/resources/css/crt.css"
 	rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
         <main>
 
@@ -36,12 +39,9 @@
 			</div>
 		</header>
 			
-			<div style="height: 100px;"></div>
-
             <section>
                 <div class="container">
-                    <div class="row">
-
+                    <div class="row pt-5">
                         <div class="col-lg-8 col-12">
                             <div class="custom-text-block custom-border-radius-start">
                                 <h2 class="text-white mb-3">${dto.crtName}</h2>
@@ -49,22 +49,24 @@
                                 <p class="text-white">${dto.crtInfo}</p>
 
                                 <div class="d-flex mt-4">
-                                    <div class="counter-thumb"> 
-                                        <div class="d-flex">
-                                            <span class="counter-number" data-from="1" data-to="12" data-speed="1000"></span>
-                                            <span class="counter-number-text">M</span>
-                                        </div>
-
-                                        <span class="counter-text">Daily active users</span>
+                                    <div class="counter-thumb crtdetail"> 
+											<button class="likeBtn-wrap" onclick="liketoggle(${dto.crtSeq}, ${dto.crtlike})">
+											<c:if test="${dto.crtlike == 0}">
+											<i class="fa-regular fa-heart likeBtn"></i>
+											</c:if>
+											<c:if test="${dto.crtlike > 0}">
+											<i class="fa-solid fa-heart likeBtn"></i>
+											</c:if>
+											</button>
                                     </div> 
 
                                     <div class="counter-thumb">    
                                         <div class="d-flex">
-                                            <span class="counter-number" data-from="1" data-to="450" data-speed="1000"></span>
-                                            <span class="counter-number-text">k</span>
+                                            <!-- <span class="counter-number" data-from="1" data-to="450" data-speed="1000"></span> -->
+                                            <span id="crtlikecnt" class="counter-number-text">${dto.crtlikecnt}</span>
                                         </div>
 
-                                        <span class="counter-text">Opening jobs</span>
+                                       <!--  <span class="counter-text">Opening jobs</span> -->
                                     </div> 
                                 </div>
                             </div>
@@ -80,31 +82,63 @@
                     </div>
                 </div>
             </section>
+            
+            <section class="job-section pt-4 pb-0">
+            	<div class="container">
+            		<div class="d-flex board-link mb-2">
+            			<div><p><strong>자격증 후기가 궁금하다면</strong></p></div>
+            			
+            			<div>
+            				<button class="learn-more">
+							    <span class="circle" aria-hidden="true">
+							      <span class="icon arrow"></span>
+							    </span>
+							    <span class="button-text">자격증 후기게시판</span>
+							  </button>
+						</div>
+            		</div>
+            		<div class="d-flex board-link">
+            			<div><p><strong>혼자 준비하는 자격증 준비가 걱정된다면</strong></p></div>
+            			
+            			<div>
+            				<button class="learn-more">
+							    <span class="circle" aria-hidden="true">
+							      <span class="icon arrow"></span>
+							    </span>
+							    <span class="button-text">스터디 모집 게시판</span>
+							  </button>
+						</div>
+            		</div>
+					  
+            	</div>
+            </section>
 
             <section class="job-section section-padding pb-0">
                 <div class="container">
                     <div class="row">
 
                         <div class="col-lg-8 col-12">
-                            <h3 class="job-title mb-0">자격증 정보</h3>
+                            <h3 class="job-title mb-0"><i class="bi bi-info-circle"></i>  자격증 정보</h3>
 
                             <div class="job-thumb job-thumb-detail">
                                 <div class="d-flex flex-wrap align-items-center border-bottom pt-lg-3 pt-2 pb-3">
-                                    <p class="job-location mb-0">
-                                        <i class="custom-icon bi-geo-alt me-1"></i>
-                                        ${dto.crtCtg}
+                                    <p class="mb-0" style="margin-right:20px;">
+                                        <!-- <i class="custom-icon bi-geo-alt me-1"></i> -->
+                                        <i class="fa-regular fa-id-card custom-icon"></i>
+                                        ${dto.crtCtg} 자격
                                     </p>
 
                                     <p class="job-date mb-0">
-                                        <i class="custom-icon bi-clock me-1"></i>
+                                        <!-- <i class="custom-icon bi-clock me-1"></i> -->
+                                        <i class="fa-regular fa-building custom-icon"></i>
                                         ${dto.agency}
                                     </p>
-
+									<%-- 
                                     <p class="job-price mb-0">
                                         <i class="custom-icon bi-cash me-1"></i>
                                         ${dto.difficultyS}
                                     </p>
-
+									 --%>
                                     <div class="d-flex">
                                         <p class="mb-0">
                                             <a href="#" class="badge badge-level">직무 : 정보기술</a>
@@ -121,13 +155,11 @@
 		                                    <p class="mb-0">
 		                                        <span class="contact-info-small-title small-title-size">응시료</span>
 
-												<c:forEach items="${plist}" var="item">
+												<c:forEach items="${testlist}" var="item">
 													<c:if test="${item.crtTestTypeSeq == 1}">
-														<%-- 필기:&nbsp;${item.examPay}원 --%>
 														필기:&nbsp;<fmt:formatNumber value="${item.examPay}" pattern="#,##0"/>원
 													</c:if>
 													<c:if test="${item.crtTestTypeSeq == 2}">
-														<%-- 실기:&nbsp;${item.examPay}원 --%>
 														실기:&nbsp;<fmt:formatNumber value="${item.examPay}" pattern="#,##0"/>원
 													</c:if>
 												</c:forEach>
@@ -170,14 +202,16 @@
                             <div class="job-thumb job-thumb-detail-box bg-white shadow-lg">
                                 <div class="d-flex align-items-center">
                                 	<div class="d-flex align-items-center bg-white mb-3 agency-wrap">
-                                        <img src="<%=request.getContextPath() %>/resources/images/agency.png" class="me-3 img-fluid job-image-wrap shadow-lg " alt="">
+                                		<div class="job-image-wrap">
+                                       	 <img src="<%=request.getContextPath() %>/resources/images/agency/${dto.agency}.png" class="me-3 img-fluid  shadow-lg " id="agency-img" alt="">
+                                		</div>
                                         <p class="mb-0">${dto.agency}</p>
                                     </div>
                                 </div>
 
                                 <h6 class="mt-3 mb-2">About the Company</h6>
 
-                                <p>한국산업인력공단는 국가기술자격법에 근거하여, 근로자 평생학습 지원과 직업능력개발훈련, 자격검정, 기능장려 사업 및 고용촉진 등에 관한 사업을 수행하기 위하여 설립된 대한민국 고용노동부 산하 위탁집행형 준정부기관이다</p>
+                                <p></p>
 
                                 <h6 class="mt-4 mb-3">Contact Information</h6>
 
@@ -212,14 +246,35 @@
             </section>
 
 			
-            <section class="job-section section-padding">
+            <section class="job-section section-padding pb-0">
                 <div class="container">
                     <div class="row align-items-center">
 
-                            <h3 class="border-bottom pb-3">시험 정보</h3>
-                            	<h5 class="mt-4 mb-2">시험 과목</h5>
+                            <h3 class="border-bottom pb-3"><i class="bi bi-info-circle"></i> 시험 정보</h3>
                             	
-                            	<table id="exam-table">
+                            	<h5 class="mt-4 mb-4">응시 자격</h5>
+                            	<table id="qualification-table" class="testinfo-table table fs-5 align-middle">
+                            		<tr>
+                            			<th scope="col">응시 자격 분류</th>
+                            			<th scope="col">응시 자격</th>
+                            		</tr>
+                            		<c:forEach items="${dto.qualificationList}" var="item">
+	                            		<tr>
+	                            			<td>${item.qualificationCate}</td>
+	                            			<td>${item.qualification}</td>
+	                            		</tr>
+									</c:forEach>
+									<c:if test="${empty dto.qualificationList}">
+										<tr>
+											<td colspan="2">응시자격이 없습니다.</td>
+										</tr>
+									</c:if>
+                            		
+                            	</table>
+                            	
+                            	
+                            	<h5 class="mt-5 mb-4">시험 과목</h5>
+                            	<table id="exam-table" class="testinfo-table table fs-5 align-middle">
                             		<tr>
                             			<th>구분</th>
                             			<th>시험과목</th>
@@ -227,55 +282,70 @@
                             			<th>문항수</th>
                             			<th>시험시간</th>
                             		</tr>
-                            		<%-- 
-                            		<c:forEach items="${plist}" var="item">
-													<c:if test="${item.crtTestTypeSeq == 1}">
-														필기:&nbsp;${item.examPay}원
-														필기:&nbsp;<fmt:formatNumber value="${item.examPay}" pattern="#,##0"/>원
-													</c:if>
-													<c:if test="${item.crtTestTypeSeq == 2}">
-														실기:&nbsp;${item.examPay}원
-														실기:&nbsp;<fmt:formatNumber value="${item.examPay}" pattern="#,##0"/>원
-													</c:if>
-												</c:forEach>
-                            		 --%>
+                            		<c:forEach items="${testlist}" var="item">
+	                            		<tr>
+	                            			<td>${item.crtTestType}시험</td>
+	                            			<td>
+	                            			 ${item.testSubject}
+	                            			</td>
+	                            			<td>${item.questionType}</td>
+	                            			<td>${item.qustionNum} 문제</td>
+	                            			<td>${item.testTime}</td>
+	                            		</tr>
+									</c:forEach>
+								</table>
+								
+                            	<h5 class="mt-5 mb-4">유효기간</h5>
+                            	<table id="expiry-table" class="testinfo-table table fs-5 align-middle">
                             		<tr>
-                            			<td>필기시험</td>
-                            			<td>
-                            			<%-- 
-                            				<c:forEach items="${schlist}" var="item" varStatus="status">
-												<c:if test="${item.crtTestTypeSeq == 1}">
-													<li>필기:&nbsp;${item.testSubject}원 (${status.count })</li>
-												</c:if>
-												<c:if test="${item.crtTestTypeSeq == 2}">
-													<li>실기:&nbsp;${item.testSubject}원 (${status.count })</li>
-												</c:if>
-											</c:forEach>
-                            			 --%>
-                            			프로그래밍 언어 활용<br>
-                            			프로그래밍 언어 활용<br>
-                            			프로그래밍 언어 활용<br>
-                            			프로그래밍 언어 활용
-                            			</td>
-                            			<td>객관식  4 지 택일형</td>
-                            			<td>60 문제</td>
-                            			<td>60 분</td>
+                            			<th>구분</th>
+                            			<th>유효기간</th>
                             		</tr>
+                            		<c:forEach items="${testlist}" var="item">
+                            			<tr>
+                            				<td>${item.crtTestType}시험</td>
+                            				<td>${item.expiryDate}</td>
+                            			</tr>
+									</c:forEach>
                             	</table>
+                            	
+                            	<h5 class="mt-5 mb-4">최신 시험 일정</h5>
+								<ul style="margin-left: 25px;">
+									<c:forEach items="${schDdaylist}" var="item">
+										<li class="pb-2">${item.crtSchName}&nbsp;(시험접수일:&nbsp;${item.testRcStartDate} / 시험일: ${item.testStartDate})</li>
+									</c:forEach>
+									<c:if test="${empty schDdaylist}">
+										<li class="pb-2">최신 일정이 없습니다.</li>
+									</c:if>
+								</ul>
+
                             
                         
                     </div>
                 </div>
            	</section>
-				
-            <section class="job-section section-padding">
+			
+			<section class="job-section section-padding pb-0">
+				<div class="container">
+					<div class="row align-items-center">
+                            <h3 class="border-bottom pb-3"><i class="bi bi-graph-up"></i> 연도 별 ${dto.crtName} 합격자 추이</h3>
+							<%-- <canvas id="line-chart"  style="height:500px; width:90vw"></canvas> --%>
+							
+							<div class="chart-container" style="position: relative; height:500px; width:90vw">
+								<canvas id="myChart"></canvas>
+							</div>
+					</div>
+				</div>
+			</section>
+			
+            <section class="job-section section-padding pb-0">
                 <div class="container">
                     <div class="row align-items-center">
 
                         <div class="col-lg-6 col-12 mb-lg-4">
-                            <h3 class="border-bottom pb-3">추천 교재</h3>
+                            <h3 class="border-bottom pb-3"><i class="bi bi-check-circle"></i> 추천 교재</h3>
 
-                            <p><strong>Over 10k opening jobs</strong> Lorem Ipsum dolor sit amet, consectetur adipsicing kengan omeg kohm tokito adipcingi elit eismuod larehai</p>
+                            <p>자격증 별 인기있는 교재를 모았습니다!</p>
                         </div>
 
                         <div class="col-lg-4 col-12 d-flex ms-auto mb-5 mb-lg-4">
@@ -285,9 +355,6 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="job-thumb job-thumb-box">
                                 <div class="job-image-box-wrap">
-                                    <a href="job-details.html">
-                                        <img src="images/jobs/it-professional-works-startup-project.jpg" class="job-image img-fluid" alt="">
-                                    </a>
 
                                     <div class="job-image-box-wrap-info d-flex align-items-center">
                                         <p class="mb-0">
@@ -468,7 +535,35 @@
                     </div>
                 </div>
             </section>
+			
+			<section class="job-section section-padding pb-0">
+                <div class="container">
+                    <div class="row align-items-center">
 
+                        <div class="col-lg-6 col-12 mb-lg-4">
+                            <h3 class="border-bottom pb-3"><i class="bi bi-check-circle"></i> 추천 학원</h3>
+
+                            <p>자격증 별 인기있는 학원을 모았습니다!</p>
+                        </div>
+                        
+                    </div>
+                </div>
+             </section>
+			
+			<section class="job-section section-padding pb-0">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-6 col-12 mb-lg-4">
+                            <h3 class="border-bottom pb-3"><i class="bi bi-question-circle"></i> ${dto.crtName} Q&A</h3>
+
+                            <p>자격증 별 인기있는 학원을 모았습니다!</p>
+                        </div>
+                        
+                    </div>
+                </div>
+             </section>
+                
 
         </main>
 
@@ -480,6 +575,183 @@
         <script src="<%=request.getContextPath() %>/resources/js/counter.js"></script>
         <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
 
+
+		<script>
+		function liketoggle(crtSeq, crtlike) {
+
+			var currentClass = $(event.target).hasClass("fa-regular") ? "fa-regular" : "fa-solid";
+
+			// 토글하여 반대 클래스를 적용합니다.
+			var newClass = currentClass === "fa-regular" ? "fa-solid" : "fa-regular";
+			
+			// 버튼의 클래스를 변경하여 색상을 토글합니다.
+			$(event.target).removeClass(currentClass).addClass(newClass);
+			
+			let obj = {
+					crtSeq: crtSeq,
+					id: '${id}'
+			};
+			//자바스크립트 객체를 JSON 표기법으로 변환 :JSON.stringify
+			console.log(JSON.stringify(obj), crtlike);
+			
+			if ($(event.target).hasClass("fa-regular")) {
+				$.ajax({
+					type: 'DELETE',
+					url: '/jr/crt/crtlike/${id}/' + crtSeq,
+					//headers: {'Content-Type' : 'application/json'},
+					//data: JSON.stringify(obj),
+				  	dataType: 'json',
+				  	success: result =>{
+				  		if (result == 1) {
+				  			/* location.href = '/jr/crt/crtlist.do'; */
+				  			alert('my좋아요에서 삭제되었습니다.');
+				  			/* $('#crtlikecnt').text($('#crtlikecnt').text() -1); */
+				  			$('#crtlikecnt').text(parseInt($('#crtlikecnt').text(), 10) -1);
+				  		} else {
+				  			alert('failed / 로그인이 필요한 서비스입니다.');
+				  			location.href = '/jr/crt/crtlist.do';
+				  		}
+				  	},
+				  	error : (a,b,c) => {
+				  		console.log(a,b,c,);
+				  	}
+				});
+			} else {
+				$.ajax({
+					type: 'POST',
+					url: 'http://localhost:8090/jr/crt/crtlike',
+					headers: {'Content-Type' : 'application/json'},
+					data: JSON.stringify(obj),
+				  	dataType: 'json',
+				  	success: result =>{
+				  		if (result == 1) {
+				  			/* location.href = '/jr/crt/crtlist.do'; */
+				  			alert('my좋아요에 추가되었습니다.');
+				  			/* $('#crtlikecnt').text($('#crtlikecnt').text() +1); */
+				  			$('#crtlikecnt').text(parseInt($('#crtlikecnt').text(), 10) +1);
+				  		} else {
+				  			alert('로그인이 필요한 서비스입니다.');
+				  			location.href = '/jr/crt/crtlist.do';
+				  		}
+				  	},
+				  	error : (a,b,c) => {
+				  		console.log(a,b,c,);
+				  	}
+				});
+			}
+		}
+		
+		
+		var ctx = document.getElementById('myChart');
+		  
+		var config = {
+				type: 'line',
+				data: {
+					labels: [2018,2019,2020,2021,2022],
+					datasets: [{
+						label: "필기 응시자 수(단위 : 명)",
+						backgroundColor: 'rgba(75, 192, 192, 1)',
+						borderColor: 'rgba(75, 192, 192, 1)',
+						fill: false,
+						data: [${crtGraphDto.starein18},${crtGraphDto.starein19},${crtGraphDto.starein20},${crtGraphDto.starein21},${crtGraphDto.starein22}],
+				        
+					}, {
+						label: "필기 합격자 수(단위 : 명)",
+						backgroundColor: 'rgba(255, 99, 132, 1)',
+						borderColor: 'rgba(255, 99, 132, 1)',
+						fill: false,
+						 data: [${crtGraphDto.passin18},${crtGraphDto.passin19},${crtGraphDto.passin20},${crtGraphDto.passin21},${crtGraphDto.passin22}],
+					        
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+					title: {
+						display: true,
+						text: '2018년~2022년 시험(필기) 합격자 추이',
+						fontSize: 22,
+		                fontColor: '#333'
+					},
+					scales: {
+						yAxes: [{
+							scaleLabel: {
+								display: true
+							}
+						}]
+					},
+				}
+			};
+		
+		var myChart = new Chart(ctx, config);
+/* 
+		new Chart(document.getElementById("line-chart"), {
+			  type: 'line',
+			  data: {
+			    labels: [2018,2019,2020,2021,2022],
+			    datasets: [{ 
+			        data: [${crtGraphDto.starein18},${crtGraphDto.starein19},${crtGraphDto.starein20},${crtGraphDto.starein21},${crtGraphDto.starein22}],
+			        label: "필기 응시자 수(단위 : 명)",
+			        borderColor: "#3e95cd",
+			        fill: false
+			      }, { 
+			        data: [${crtGraphDto.passin18},${crtGraphDto.passin19},${crtGraphDto.passin20},${crtGraphDto.passin21},${crtGraphDto.passin22}],
+			        label: "필기 합격자 수(단위 : 명)",
+			        borderColor: "#8e5ea2",
+			        fill: false
+			      }
+			    ]
+			  },
+			  options: {
+	              title: {
+	                  display: true,
+	                  text: '2018년~2022년 시험(필기) 합격자 추이',
+	                  fontSize: 14,
+	                  fontColor: '#333'
+	              },
+	              legend: {
+	                  display: true,
+	                  labels: {
+	                      fontColor: '#555'
+	                  }
+	              },
+	              scales: {
+	                  x: [{
+	                      ticks: {
+	                          fontColor: '#555', // X-axis ticks color
+	                          fontSize: 12      // X-axis ticks font size
+	                      },
+	                      scaleLabel: {
+	                          display: true,
+	                          labelString: '년도',
+	                          fontColor: '#555',
+	                          fontSize: 14      // X-axis label font size
+	                      }
+	                  }],
+	                  y: [{
+	                      ticks: {
+	                          fontColor: '#555', // Y-axis ticks color
+	                          fontSize: 12      // Y-axis ticks font size
+	                      },
+	                      scaleLabel: {
+	                          display: true,
+	                          labelString: '수',
+	                          fontColor: '#555',
+	                          fontSize: 18      // Y-axis label font size
+	                      }
+	                  }]
+	              }
+	          }
+	      });
+		 */
+		
+		</script>
+
+
+
+
+
+
+<!-- 카카오톡 공유하기 BTN -->
 		<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
 			integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
 			crossorigin="anonymous"></script>

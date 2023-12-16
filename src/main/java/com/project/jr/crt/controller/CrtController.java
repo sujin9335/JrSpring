@@ -1,6 +1,8 @@
 package com.project.jr.crt.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.project.jr.crt.model.CrtDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
+import com.project.jr.crt.model.CrtPassRateDTO;
 import com.project.jr.crt.model.CrtPayDTO;
+import com.project.jr.crt.model.CrtSchDdayDTO;
 import com.project.jr.crt.model.CrtTestDTO;
 import com.project.jr.crt.service.CrtService;
 
@@ -46,15 +50,31 @@ public class CrtController {
 	
 	
 	@GetMapping(value = "/crtdetail.do")
-	public String crtDetail(Model model, int crtSeq) {
+	public String crtDetail(Model model, HttpSession session, int crtSeq) {
 		
-		CrtDTO dto = cservice.crtGet(crtSeq);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("crtSeq", crtSeq+"");
+		map.put("id", session.getAttribute("id").toString());
+		
+		//CrtDTO dto = cservice.crtGet(crtSeq);
+		CrtDTO dto = cservice.crtGet(map);
+		
 		List<CrtTestDTO> testlist = cservice.crtTestList(crtSeq);
 		List<CrtPayDTO> plist = cservice.crtPlist(crtSeq);
+		List<CrtSchDdayDTO> schDdaylist = cservice.crtSchDday(crtSeq);
+		CrtPassRateDTO crtGraphDto = cservice.crtGraph(crtSeq);
+		
+		
+		//좋아요 버튼을 누르기 위한 회원 임시값
+		session.setAttribute("id", "N7sBxUcT");
+		//dto.setId(session.getAttribute("id").toString());
+		model.addAttribute("id", session.getAttribute("id"));
 		
 		model.addAttribute("dto", dto);
-		model.addAttribute("testlist", testlist);
-		model.addAttribute("plist", plist);
+		model.addAttribute("testlist", testlist);		//시험 상세 리스트
+		model.addAttribute("plist", plist);				//응시료 리스트
+		model.addAttribute("schDdaylist", schDdaylist);
+		model.addAttribute("crtGraphDto", crtGraphDto);
 		
 		return "crt.crtdetail";
 

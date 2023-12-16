@@ -40,7 +40,8 @@
 					<form class="custom-form hero-form hero-form-padding"
 						action="/jr/crt/crtlist.do" method="get" role="form">
 						<h3 class="text-white mb-3">자격증 검색</h3>
-
+						
+						
 						<div class="row">
 							<div class="col-lg-12 col-md-6 col-12">
 								<div class="input-group">
@@ -151,9 +152,11 @@
 					<c:forEach items="${list}" var="dto">
 						<div class="job-thumb d-flex content-wrap">
 							<div class="job-image-wrap bg-white shadow-lg">
-								<img
-									src="<%=request.getContextPath() %>/resources/images/logos/google.png"
-									class="job-image img-fluid" alt="">
+								<div class="job-image-wrap">
+									<img
+									src="<%=request.getContextPath() %>/resources/images/agency/${dto.agency}.png"
+									class="me-3 img-fluid  shadow-lg " id="agency-img" alt="">
+								</div>
 							</div>
 
 							<div
@@ -165,11 +168,11 @@
 
 									<div class="d-flex flex-wrap align-items-center content">
 										<p class="job-location mb-0">
-											<i class="custom-icon bi-geo-alt me-1"></i> ${dto.crtCtg}
+											<i class="fa-regular fa-id-card custom-icon"></i> ${dto.crtCtg} 자격
 										</p>
 
 										<p class="job-date mb-0">
-											<i class="custom-icon bi-clock me-1"></i> ${dto.agency}
+											<i class="fa-regular fa-building custom-icon"></i> ${dto.agency}
 										</p>
 
 										<p class="job-price mb-0">
@@ -184,12 +187,7 @@
 									</div>
 								</div>
 
-								<div class="job-section-btn-wrap">
-									<!-- 
-									<button class="likeBtn-wrap">
-										<i class="fa-regular fa-heart likeBtn"></i>
-									</button>
-									 -->
+								<div class="job-section-btn-wrap crtlist">
 									<button class="likeBtn-wrap" onclick="liketoggle(${dto.crtSeq}, ${dto.crtlike})">
 									<c:if test="${dto.crtlike == 0}">
 									<i class="fa-regular fa-heart likeBtn"></i>

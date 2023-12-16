@@ -1,5 +1,8 @@
 package com.project.jr.crt.model;
 
+import java.util.HashMap;
+import java.util.List;
+
 import lombok.Data;
 @Data
 public class CrtDTO {
@@ -28,7 +31,8 @@ public class CrtDTO {
 	private String likeCntS;
 	private String totalCntS;
 	
-	private int crtlike;
+	private int crtlike;		//좋아요 여부
+	private int crtlikecnt;		//좋아요 누적수
 	
 	private String crtType; //자격증 분류
 	private String agencyName; //시행기관
@@ -42,6 +46,9 @@ public class CrtDTO {
 	private String testRcStartDate;
 	private int ddDay;
 	
+	//private HashMap<String, String> qual;
+	
+	private List<CrtQualificationDTO> qualificationList;
 	
 	
 }

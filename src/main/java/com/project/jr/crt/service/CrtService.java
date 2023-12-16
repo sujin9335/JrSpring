@@ -1,5 +1,7 @@
 package com.project.jr.crt.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.project.jr.crt.model.CrtDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
+import com.project.jr.crt.model.CrtPassRateDTO;
 import com.project.jr.crt.model.CrtPayDTO;
+import com.project.jr.crt.model.CrtQualificationDTO;
+import com.project.jr.crt.model.CrtSchDdayDTO;
 import com.project.jr.crt.model.CrtTestDTO;
 import com.project.jr.crt.repository.CrtDAO;
 
@@ -135,8 +140,8 @@ public class CrtService {
 	
 	
 	
-	public CrtDTO crtGet(int crtSeq){
-		CrtDTO dto = dao.get(crtSeq);
+	public CrtDTO crtGet(HashMap<String, String> map){
+		CrtDTO dto = dao.get(map);
 		
 		//난이도 가공
 		String difficultyS ="";
@@ -164,8 +169,42 @@ public class CrtService {
 		}
 		dto.setIsRoutineS(isRoutineS);
 		
+		
+		//응시자격 나누기
+		String[] qualificationCateArr = dto.getQualificationCate().split("/");
+		String[] qualificationArr = dto.getQualification().split("/");
+		if (qualificationArr.length > 1) {
+			
+			List<CrtQualificationDTO> cqlist = new ArrayList<CrtQualificationDTO>();;
+			for (int i=0; i<qualificationArr.length; i++) {
+				CrtQualificationDTO cqdto = new CrtQualificationDTO();
+				
+				cqdto.setQualification(qualificationArr[i]);
+				cqdto.setQualificationCate(qualificationCateArr[i]);
+				
+				
+				cqlist.add(cqdto);
+			}
+			dto.setQualificationList(cqlist);
+			
+			for (CrtQualificationDTO cqdto : dto.getQualificationList()) {
+				cqdto.setQualification(cqdto.getQualification().replace("\r\n", "<br>").replace("\r", "<br>").replace("\n", "<br>").replace(" ", "&nbsp;"));
+				cqdto.setQualificationCate(cqdto.getQualificationCate().replace("\r\n", "<br>").replace("\r", "<br>").replace("\n", "<br>").replace(" ", "&nbsp;"));
+				
+				if(cqdto.getQualification().startsWith("<br>")) {
+					cqdto.setQualification(cqdto.getQualification().replaceFirst("<br>", ""));
+				}
+				if(cqdto.getQualificationCate().startsWith("<br>")) {
+					cqdto.setQualificationCate(cqdto.getQualificationCate().replaceFirst("<br>", ""));
+				}
+			}
+			
+			
+		}
+		
 		return dto;
-	}
+	} //crtGet
+	
 	
 	public List<CrtPayDTO> crtPlist(int crtSeq) {
 		List<CrtPayDTO> plist = dao.plist(crtSeq);
@@ -179,22 +218,46 @@ public class CrtService {
 		return plist;
 	}
 	
-	
+	/**
+	 * 자격증 조회 페이지의 시행기관 리스트
+	 * @return
+	 */
 	public List<CrtListDTO> crtAgencyList() {
 		List<CrtListDTO> agencyList = dao.agencyList();
 		return agencyList;
 	}
 	
+	//자격증 시험(필기/실기)
 	public List<CrtTestDTO> crtTestList(int crtSeq) {
 		List<CrtTestDTO> testList = dao.testList(crtSeq);
 		
+		// 개행처리
 		for (CrtTestDTO dto : testList) {
-			
+			dto.setTestSubject(dto.getTestSubject().replace(",", "<br>").replace(" ", "&nbsp;"));
 		}
-		
-		
 		return testList;
 	}
 	
+	//자격증 최신 시험 일정
+	public List<CrtSchDdayDTO> crtSchDday(int crtSeq) {
+		List<CrtSchDdayDTO> schDday = dao.schDday(crtSeq);
+		
+		//날짜 가공
+		for (CrtSchDdayDTO dto : schDday) {
+			String testrcstartdate = dto.getTestRcStartDate();
+			String teststartdate = dto.getTestStartDate();
+			
+			dto.setTestRcStartDate(testrcstartdate.substring(0,10));
+			dto.setTestStartDate(teststartdate.substring(0,10));
+		}
+		
+		return schDday;
+	}
+	
+	//자격증 추이 그래프
+	public CrtPassRateDTO crtGraph(int crtSeq) {
+		CrtPassRateDTO crtGraphDto  = dao.crtGraphDto(crtSeq);
+		return crtGraphDto;
+	}
 	
 }
