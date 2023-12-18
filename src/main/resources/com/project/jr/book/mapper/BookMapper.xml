@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.jr.book.mapper.BookMapper">
+
+
+ 
+ <!-- 쿼리문 -->
+    <select id="list" parameterType="com.project.jr.book.model.BookPageDTO" resultType="com.project.jr.book.model.BookDTO">
+
+   	      
+	SELECT
+	    b.*, (select count(*) from tblbooklike where bookseq = b.bookseq and id like '%' || #{id} || '%') as booklike2
+	FROM
+	    (select
+	        a.*, rownum as rnum from tblbook a
+	        <if test="search != null">
+                      AND ${column} LIKE '%' || #{word} || '%'
+                  </if>
+                  <if test="price == null">
+                  ORDER BY bookname DESC
+                  </if>
+                  <if test="price == 'low'">
+                  ORDER BY price ASC
+                  </if>
+                  <if test="price == 'high'">
+                  ORDER BY price DESC
+                  </if>) b
+	WHERE rnum between #{begin} AND #{end}
+   
+   </select>
+
+    
+    
+    
+    
+        
+    <!-- 교재 상세조회 -->
+    
+   <select id="getBookTItle" parameterType="java.util.HashMap" resultType="com.project.jr.book.model.BookDTO">
+       select * from tblindex where bookseq=#{seq}
+    </select> 
+    
+    
+    
+    
+   <!-- 게시판 목록보기 > 총 글의 개수 -->
+   <select id="getTotalCount" parameterType="com.project.jr.book.model.BookPageDTO" resultType="Integer">
+      SELECT count(*) AS cnt FROM tblbook 
+      <if test="search != null">
+          AND ${column} LIKE '%' || #{word} || '%'
+      </if>
+   </select>
+   
+   <select id="getBook" parameterType="java.util.HashMap" resultType="com.project.jr.book.model.BookDTO">
+      select * from vwbookinfo where bookSeq=#{seq}
+   </select>
+   
+   <insert id="booklike" parameterType="com.project.jr.book.model.BookLikeDTO">
+ insert into tblbooklike (booklikeseq, bookseq, id) values ((select max(booklikeseq)+1 from tblbooklike),#{bookSeq},#{id})
+   </insert>
+ 
+ 	<delete id="booklikedel" parameterType="com.project.jr.book.model.BookLikeDTO">
+ 	delete tblbooklike where bookseq=#{bookSeq} and id = #{id}
+ 	</delete>
+ 	
+ 	<select id="bookmarklist" resultType="com.project.jr.book.model.BookLikeDTO">
+ 	select * from tblbooklike
+ 	</select>
+ 
+</mapper>
+
