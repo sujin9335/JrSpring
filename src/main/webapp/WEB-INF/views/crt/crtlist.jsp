@@ -180,9 +180,11 @@
 										</p>
 
 										<div class="d-flex">
+											<c:forEach items="${dto.jobKeywords}" var="item">
 											<p class="mb-0">
-												<a href="jobListings.do" class="badge badge-level">정보기술</a>
+												<a href="#" class="badge badge-level" style="padding-bottom: 8px;">${item}</a>
 											</p>
+											</c:forEach>
 										</div>
 									</div>
 								</div>

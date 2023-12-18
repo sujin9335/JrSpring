@@ -19,4 +19,7 @@ public class CrtSchListDTO {
 	private int examPay;			//응시료
 	private int isPast;				//시험 종료 여부(0: 진행형, 1: 종료)
 	
+	private String jobKeyword;
+	private String[] jobKeywords;
+	
 }

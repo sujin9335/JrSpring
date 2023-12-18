@@ -1,6 +1,6 @@
 package com.project.jr.crt.model;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -23,6 +23,12 @@ public class CrtDTO {
 	private String crtCtg;
 	private String agency;
 	private String agencyUrl;
+	private String agencyTel;
+	private String agencyInfo;
+	
+	private String jobKeyword;
+	private String[] jobKeywords;
+	
 	private int result;
 	
 	

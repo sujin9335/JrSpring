@@ -1,5 +1,7 @@
 package com.project.jr.crt.model;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 
 /**
@@ -20,6 +22,9 @@ public class CrtListDTO {
 	private String likeCntS;
 	
 	private int crtlike;
+	
+	private String jobKeyword;
+	private String[] jobKeywords;
 	
 	
 }

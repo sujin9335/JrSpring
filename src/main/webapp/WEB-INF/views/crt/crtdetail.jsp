@@ -140,11 +140,12 @@
                                     </p>
 									 --%>
                                     <div class="d-flex">
-                                        <p class="mb-0">
-                                            <a href="#" class="badge badge-level">직무 : 정보기술</a>
-                                        </p>
-
-                                    </div>
+											<c:forEach items="${dto.jobKeywords}" var="item">
+											<p class="mb-0">
+												<a href="#" class="badge badge-level" style="padding-bottom: 8px;">${item}</a>
+											</p>
+											</c:forEach>
+										</div>
                                 </div>
 
 		 						<div class="mx-auto">
@@ -211,7 +212,7 @@
 
                                 <h6 class="mt-3 mb-2">About the Company</h6>
 
-                                <p></p>
+                                <p>${dto.agencyInfo}</p>
 
                                 <h6 class="mt-4 mb-3">Contact Information</h6>
 
@@ -227,10 +228,10 @@
                                     <i class="custom-icon bi-telephone me-1"></i>
 
                                     <a class="site-footer-link">
-                                        305-240-9671
+                                        ${dto.agencyTel}
                                     </a>
                                 </p>
-
+<!-- 
                                 <p>
                                     <i class="custom-icon bi-envelope me-1"></i>
 
@@ -238,6 +239,7 @@
                                         info@jobportal.co
                                     </a>
                                 </p>
+                                 -->
                             </div>
                         </div>
 

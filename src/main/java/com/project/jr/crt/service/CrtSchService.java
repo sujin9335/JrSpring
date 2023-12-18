@@ -107,6 +107,10 @@ public class CrtSchService {
 			dto.setTestRcEndDate(testrcenddate.substring(0,10));
 			dto.setTestStartDate(teststartdate.substring(0,10));
 			dto.setTestEndDate(testenddate.substring(0,10));
+			
+			//키워드 가공
+			String[] keywords = dto.getJobKeyword().split(",");
+			dto.setJobKeywords(keywords);
 		}
 		return list;
 	}

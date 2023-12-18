@@ -22,20 +22,24 @@ public class CrtService {
 	
 	@Autowired
 	CrtDAO dao;
-	
 
 	public List<CrtListDTO> crtList(CrtPageDTO pdto) {
 		
 		List<CrtListDTO> list = dao.list(pdto);
 		
-		// 난이도 가공
 		for (CrtListDTO dto : list) {
+			// 난이도 가공
 			String difficultyS ="";
 			int difficulty = dto.getDifficulty();
 			for (int i=1; i<=difficulty; i++) {
 				difficultyS += "★";
 			}
 			dto.setDifficultyS(difficultyS);
+			
+			
+			//키워드 가공
+			String[] keywords = dto.getJobKeyword().split(",");
+			dto.setJobKeywords(keywords);
 		}
 		
 		return list;
@@ -84,7 +88,11 @@ public class CrtService {
 					+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
 					+ "	</a></li>");
 		} else {
-
+			
+			sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d&word=%s&crtCtg=%s&agency=%s&difficulty=%s'\n"
+					+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
+					+ "	</a></li>", n - 1, pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty()));
+			/*
 			if (pdto.getSearch() == null) {
 				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d'\n"
 						+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
@@ -94,6 +102,7 @@ public class CrtService {
 						+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
 						+ "	</a></li>", n - 1, pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty()));
 			}
+			*/
 
 		}
 
@@ -103,6 +112,10 @@ public class CrtService {
 				sb.append(String.format("<li class='page-item active' aria-current='page'><a\n"
 											+ "	class='page-link' href=''>%d</a></li>", n));
 			} else {
+				
+				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d&word=%s&crtCtg=%s&agency=%s&difficulty=%s'>%d</a></li>", n,
+						pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty(), n));
+				/*
 				if (pdto.getSearch() == null) {
 					sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d'>%d</a></li>", n, n));
 				} else {
@@ -110,6 +123,7 @@ public class CrtService {
 							pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty(), n));
 					
 				}
+				*/
 			}
 			loop++;
 			n++;
@@ -122,18 +136,26 @@ public class CrtService {
 					+ "	aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
 					+ "	</a></li>");
 		} else {
+			
+			sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d&word=%s&crtCtg=%s&agency=%s&difficulty=%s'\n"
+					+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
+					+ "						</a></li>",
+					n, pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty()));
+			/*
 			if (pdto.getSearch() == null) {
 				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d'\n"
 						+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
 						+ "						</a></li>", n));
 			} else {
-				sb.append(String.format(" <a href='/jr/crt/crtlist.do?page=%d&column=%s&word=%s'>[다음]</a>",
+				sb.append(String.format(" <a href='/jr/crt/crtlist.do?page=%d&column=%s&word=%s'>Next</a>",
 						pdto.getColumn(), pdto.getWord(), n));
 				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d&word=%s&crtCtg=%s&agency=%s&difficulty=%s'\n"
 						+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
 						+ "						</a></li>",
 						n, pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty()));
 			}
+			
+			*/
 		}
 		pdto.setPagebar(sb.toString());
 	}	//pageing
@@ -169,6 +191,9 @@ public class CrtService {
 		}
 		dto.setIsRoutineS(isRoutineS);
 		
+		//키워드 가공
+		String[] keywords = dto.getJobKeyword().split(",");
+		dto.setJobKeywords(keywords);
 		
 		//응시자격 나누기
 		String[] qualificationCateArr = dto.getQualificationCate().split("/");
