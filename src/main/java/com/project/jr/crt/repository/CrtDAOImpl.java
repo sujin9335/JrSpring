@@ -1,5 +1,6 @@
 package com.project.jr.crt.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,10 @@ import com.project.jr.crt.model.CrtDTO;
 import com.project.jr.crt.model.CrtLikeDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
+import com.project.jr.crt.model.CrtPassRateDTO;
 import com.project.jr.crt.model.CrtPayDTO;
+import com.project.jr.crt.model.CrtSchDdayDTO;
+import com.project.jr.crt.model.CrtTestDTO;
 
 @Repository
 public class CrtDAOImpl implements CrtDAO{
@@ -46,15 +50,35 @@ public class CrtDAOImpl implements CrtDAO{
 	public int crtLikeDel(CrtLikeDTO dto) {
 		return cmapper.crtLikeDel(dto);
 	}
-
+	/*
 	@Override
 	public CrtDTO get(int crtseq) {
 		return cmapper.get(crtseq);
+	}
+	*/
+	@Override
+	public CrtDTO get(HashMap<String, String> map) {
+		return cmapper.get(map);
 	}
 
 	@Override
 	public List<CrtPayDTO> plist(int crtSeq) {
 		return cmapper.plist(crtSeq);
+	}
+	
+	@Override
+	public List<CrtTestDTO> testList(int crtSeq) {
+		return cmapper.testList(crtSeq);
+	}
+	
+	@Override
+	public List<CrtSchDdayDTO> schDday(int crtSeq) {
+		return cmapper.schDday(crtSeq);
+	}
+	
+	@Override
+	public CrtPassRateDTO crtGraphDto(int crtSeq) {
+		return cmapper.crtGraphDto(crtSeq);
 	}
 
 }

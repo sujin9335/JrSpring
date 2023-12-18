@@ -75,8 +75,12 @@
  	
  	
  	<!-- 자격증 상세조회 -->
- 	<select id="get" parameterType="Integer" resultType="com.project.jr.crt.model.CrtDTO">
- 		SELECT * FROM vwCrt where crtSeq = #{crtSeq}
+ 	<select id="get" parameterType="map" resultType="com.project.jr.crt.model.CrtDTO">
+ 		SELECT b.*, 
+ 			(SELECT count(*) FROM tblCrtLike WHERE crtSeq = #{crtSeq}) as crtlikecnt ,
+ 			(SELECT count(*) FROM tblCrtLike WHERE crtSeq = #{crtSeq} and id = #{id}) as crtlike 
+ 		FROM vwCrt b 
+ 		where crtSeq = #{crtSeq}
  	</select>
  	
  	<!-- 자격증 응시료 조회 -->
@@ -86,9 +90,18 @@
  	
  	<!-- 자격증 시험 상세조회 -->
  	<select id="testList" parameterType="Integer" resultType="com.project.jr.crt.model.CrtTestDTO">
- 		SELECT * FROM vwCrtTest where crtSeq = #{crtSeq}
+ 		SELECT * FROM vwCrtTest where crtSeq = #{crtSeq} ORDER BY crtTestTypeSeq
  	</select>
  	
+ 	<!-- 자격증 최신일정 -->
+ 	<select id="schDday" parameterType="Integer" resultType="com.project.jr.crt.model.CrtSchDdayDTO">
+ 		SELECT b.* FROM (SELECT a.*, rownum as rnum FROM vwCrtSchDday a WHERE crtSeq = #{crtSeq}) b WHERE rnum between 1 and 2
+ 	</select>
+ 	
+ 	<!-- 자격증 추이 그래프 -->
+ 	<select id="crtGraphDto" parameterType="Integer" resultType="com.project.jr.crt.model.CrtPassRateDTO">
+ 		SELECT * FROM vwCrtPassRate WHERE crtSeq = #{crtSeq}
+ 	</select>
  	
 </mapper>
 
