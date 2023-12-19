@@ -127,3 +127,44 @@ a.bi-heart-fill {
 	}
 	
 } */
+
+
+
+.map_wrap {
+	position:relative;
+}
+
+/* 지도 현위치 버튼 */
+#curLoc {
+	width: 40px;
+	height: 40px;
+	background-color: #FFF;
+	border: solid 1px #CCC;
+	border-radius: .2rem;
+	position:absolute;
+	bottom: 30px;
+  	right: 30px;
+	z-index: 3;
+	outline-style: none;
+
+}
+
+#curLoc svg {
+
+	font-size: 2rem;
+}
+
+h6 > span {
+	font-size: 1rem;
+	font-weight: lighter;
+}
+div > div > div > h6 {
+	color: #333;
+}
+#message {
+	font-size: 1.5rem;
+}
+#message > span{
+	font-weight: bold;
+	color: #5d52ba;
+}

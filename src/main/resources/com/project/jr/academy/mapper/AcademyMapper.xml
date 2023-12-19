@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.jr.academy.mapper.AcademyMapper">
+	
+	<resultMap type="com.project.jr.academy.model.AcademyDTO" id="academyMap">
+		<id property="academySeq" column="academySeq"/>
+		<result property="academyName" column="academyName"/>
+		<result property="academyLocation" column="academyLocation"/>
+		<result property="academyTel" column="academyTel"/>
+		<result property="academyStar" column="academyStar"/>
+		<result property="lat" column="lat"/>
+		<result property="lng" column="lng"/>
+		<collection property="eduList" resultMap="eduMap"></collection>
+	</resultMap>
+	
+	<resultMap type="com.project.jr.academy.model.AcademyEduDTO" id="eduMap">
+		<id property="academyEduSeq" column="academyEduSeq"/>
+		<result property="academySeq" column="academySeq"/>
+		<result property="crtSeq" column="crtSeq"/>
+		<result property="crtName" column="crtName"/>
+		<result property="eduName" column="eduName"/>
+		<result property="eduRcStartDate" column="eduRcStartDate"/>
+		<result property="eduRcEndDate" column="eduRcEndDate"/>
+		<result property="eduStartDate" column="eduStartDate"/>
+		<result property="eduEndDate" column="eduEndDate"/>
+		<result property="eduLink" column="eduLink"/>
+	</resultMap>
+	
+	<select id="list" resultMap="academyMap">
+		SELECT 
+			a.academySeq,
+			a.academyName,
+			a.academylocation,
+			a.academytel,
+			a.academystar,
+			a.lat,
+			a.lng,
+			(SELECT count(*) FROM tblAcademyEdu
+			WHERE tblAcademyEdu.academySeq = a.academySeq) AS eduCnt,
+			e.academyeduseq,
+			e.crtseq,
+			(SELECT crtName FROM tblCrt c
+	WHERE c.crtseq = e.crtseq) AS crtName,
+			e.eduname,
+			e.edurcstartdate,
+			e.edurcenddate,
+			to_char(e.edustartdate, 'YYYY-MM-DD')AS eduStartDate,
+			to_char(e.eduenddate, 'YYYY-MM-DD') AS eduEndDate,
+			e.edulink
+		FROM tblAcademy a 
+		INNER JOIN tblAcademyEdu e 
+		ON a.academySeq = e.academySeq
+	</select>
+	
+</mapper>
+
