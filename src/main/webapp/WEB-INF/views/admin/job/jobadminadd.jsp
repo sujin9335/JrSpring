@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="76x76"
 	href="<%=request.getContextPath()%>/resources/adminAssets/img/apple-icon.png">
 <link rel="icon" type="image/png" href="/img/favicon.png">
-<title>Argon Dashboard 2 by Creative Tim</title>
+<title>직업 관리</title>
 <!--     Fonts and icons     -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
@@ -36,52 +36,13 @@
 </head>
 
 <Style>
-body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>thead>tr>th.text-uppercase.text-secondary.text-xxs.font-weight-bolder.opacity-7.ps-2
-	{
-	text-align: center;
+body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt-0.pb-2 > div > form > table > thead > tr > td > input[type=text] {
+	width: 500px;
+	text-align: left;
 }
 
-body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>tbody>tr
-	{
-	text-align: center;
-}
-
-body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>tbody>tr:nth-child(1)>td:nth-child(4)
-	{
-	align-content: center;
-}
-
-body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>thead>tr>th:nth-child(1)
-	{
-	width: 280px;
-	text-align: center;
-	font-size: 13px;
-}
-
-body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>thead>tr>th:nth-child(2)
-	{
-	width: 280px;
-	text-align: center;
-	font-size: 13px;
-}
-
-body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>thead>tr>th:nth-child(3)
-	{
-	width: 280px;
-	text-align: center;
-	font-size: 13px;
-}
-
-body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>thead>tr>th:nth-child(4)
-	{
-	width: 280px;
-	text-align: center;
-	font-size: 13px;
-}
-
-body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>tbody>tr>td
-	{
-	font-size: 13px;
+body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt-0.pb-2 > div > table > tbody > tr > th {
+	text-align: left;
 }
 
 .button-79 {
@@ -112,9 +73,10 @@ body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>
 	margin-left: 785px;
 	margin-top: 10px;
 	margin: 0 3px;
-	margin-left: 1100px; .
-	button-79: disabled{
-  color: #787878;
+}
+
+.button-79:disabled {
+	color: #787878;
 	cursor: auto;
 }
 
@@ -148,6 +110,11 @@ body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>
 .button-79:not(:disabled):active {
 	transform: translateY(.125rem);
 }
+
+.button-group {
+	margin-top: 5px; /* 버튼 그룹과 표 간의 간격 조정 */
+	text-align: right;
+}
 </Style>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -155,81 +122,66 @@ body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>
 	<aside
 		class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
 		id="sidenav-main">
-		<div class="sidenav-header">
-			<i
-				class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-				aria-hidden="true" id="iconSidenav"></i> <a class="navbar-brand m-0"
-				href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html "
-				target="_blank"> <img
-				src="<%=request.getContextPath()%>/resources/adminAssets/img/logo-ct-dark.png"
-				class="navbar-brand-img h-100" alt="main_logo"> <span
-				class="ms-1 font-weight-bold">Argon Dashboard 2</span>
-			</a>
-		</div>
 		<hr class="horizontal dark mt-0">
 		<div class="collapse navbar-collapse  w-auto "
 			id="sidenav-collapse-main">
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link "
-					href="../pages/dashboard.html">
-						<div
-							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-							<i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Dashboard</span>
-				</a></li>
+
 				<li class="nav-item"><a class="nav-link active"
-					href="/jr/admin/crtadminlist.do">
+					href="/jr/admin/crt/crtadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
 						</div> <span class="nav-link-text ms-1">자격증</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link "
-					href="../pages/billing.html">
+				<li class="nav-item"><a class="nav-link book"
+					href="/jr/admin/book/bookadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Billing</span>
+						</div> <span class="nav-link-text ms-1">교재</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link "
-					href="../pages/virtual-reality.html">
+					href="/jr/admin/academy/academyadminlist.do">
+						<div
+							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+							<i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+						</div> <span class="nav-link-text ms-1">학원</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link "
+					href="/jr/admin/board/boardadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-app text-info text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Virtual Reality</span>
+						</div> <span class="nav-link-text ms-1">게시판</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link "
-					href="../pages/rtl.html">
+					href="/jr/admin//forbidden/forbiddenadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">RTL</span>
+						</div> <span class="nav-link-text ms-1">금지어</span>
 				</a></li>
-				<li class="nav-item mt-3">
-					<h6
-						class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account
-						pages</h6>
-				</li>
 				<li class="nav-item"><a class="nav-link "
-					href="../pages/profile.html">
+					href="/jr/admin/user/useradminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Profile</span>
+						</div> <span class="nav-link-text ms-1">회원</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link "
-					href="../pages/sign-in.html">
+					href="/jr/admin/job/jobadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Sign In</span>
+						</div> <span class="nav-link-text ms-1">직업</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link "
-					href="../pages/sign-up.html">
+					href="/jr/admin/depart/departadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-collection text-info text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Sign Up</span>
+						</div> <span class="nav-link-text ms-1">학과</span>
 				</a></li>
 			</ul>
 		</div>
@@ -263,11 +215,11 @@ body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>
 					<ol
 						class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
 						<li class="breadcrumb-item text-sm"><a
-							class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+							class="opacity-5 text-white" href="javascript:;">관리자</a></li>
 						<li class="breadcrumb-item text-sm text-white active"
-							aria-current="page">Tables</li>
+							aria-current="page">직업</li>
 					</ol>
-					<h6 class="font-weight-bolder text-white mb-0">Tables</h6>
+					<h6 class="font-weight-bolder text-white mb-0">등록페이지</h6>
 				</nav>
 				<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
 					id="navbar">
@@ -393,96 +345,77 @@ body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>
 				<div class="col-12">
 					<div class="card mb-4">
 						<div class="card-header pb-0">
-							<h6>자격증</h6>
+							<h6>직업</h6>
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
 							<div class="table-responsive p-0">
-								<button class="button-79" role="button"
-									onclick="location.href='/jr/admin/crtadminadd.do';">등록하기</button>
-								<table class="table align-items-center mb-0">
-									<thead>
-										<tr>
-											<th
-												class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">자격증번호</th>
-											<th
-												class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">자격증명</th>
-											<th
-												class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">자격증
-												분류</th>
-											<th
-												class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">시행기관</th>
-											<th class="text-secondary opacity-7"></th>
-										</tr>
-									</thead>
-									<tbody>
-										<table class="board-table">
-											<tbody>
-												<tr>
-													<th>자격증명</th>
-													<td>${dto.crtName}</td>
-												</tr>
-												<tr>
-													<th>자격증 분류 번호</th>
-													<td>${dto.crtTypeSeq}</td>
-												</tr>
-												<tr>
-													<th>유효기간</th>
-													<td>${dto.expiration}</td>
-												</tr>
-												<tr>
-													<th>시행기관 번호</th>
-													<td>${dto.agencySeq}</td>
-												</tr>
-												<tr>
-													<th>정기유무</th>
-													<td>${dto.isRoutine}</td>
-												</tr>
-												<tr>
-													<th>난이도</th>
-													<td>${dto.difficulty}</td>
-												</tr>
-												<tr>
-													<th>좋아요수</th>
-													<td>${dto.likeCnt}</td>
-												</tr>
-												<tr>
-													<th>응시자격 분류</th>
-													<td>${dto.qualificationCate}</td>
-												</tr>
-												<tr>
-													<th>응시자격</th>
-													<td>${dto.qualification}</td>
-												</tr>
-												<tr>
-													<th>자격증 설명</th>
-													<td>${dto.crtInfo}</td>
-												</tr>
-												<tr>
-													<th>누적 응시자수</th>
-													<td>${dto.totalCnt}</td>
-												</tr>
-												<tr>
-													<th>직무 내용</th>
-													<td>${dto.jobDesc}</td>
-												</tr>
-												<tr>
-													<th>시험 일정</th>
-													<td><a
-														href="/jr/crt/admin/crttestadminlist.do?crtSeq=${dto.crtSeq}">시험
-															일정</td>
-												</tr>
-											</tbody>
-										</table>
-										<div class="button-group">
-											<button class="button-79" role="button"
-												onclick="location.href='/jr/crt/admin/crtadminlist.do';">목록</button>
-											<button class="button-79" role="button"
-												onclick="location.href='/jr/crt/admin/crtadminedit.do?crtSeq=${dto.crtSeq}';">수정</button>
-											<button class="button-79" role="button"
-												onclick="location.href='/jr/crt/admin/crtadmindel.do?crtSeq=${dto.crtSeq}';">삭제</button>
-										</div>
-									</tbody>
-								</table>
+								<form method="POST" action="/jr/admin/jobadminaddok.do">
+									<table class="table align-items-center mb-0">
+										<thead>
+											<tr>
+												<th
+													class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">직업군 번호
+												</th>
+												<td><input type="text" name="jobgroupSeq" required
+													value="${dto.jobgroupSeq}"></td>
+											</tr>
+											<tr>
+												<th
+													class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">직업명
+												</th>
+												<td><input type="text" name="jobName" required
+													value="${dto.jobName}"></td>
+											</tr>
+											<tr>
+												<th
+													class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">핵심업무
+												</th>
+												<td><input type="text" name="keyTask" required
+													value="${dto.keyTask}"></td>
+											</tr>
+											<tr>
+												<th
+													class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">연봉</th>
+												<td><input type="text" name="salary" required
+													value="${dto.salary}"></td>
+											</tr>
+											<tr>
+												<th
+													class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">전망
+												</th>
+												<td><input type="text" name="prospect" required
+													value="${dto.prospect}"></td>
+											</tr>
+											<tr>
+												<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">발전가능성</th>
+												<td><input type="text" name="dvlPossibility" required value="${dto.dvlPossibility}"></td>
+											</tr>
+											<tr>
+												<th
+													class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">적성 및 흥미
+												</th>
+												<td><input type="text" name="aptitude" required
+													value="${dto.aptitude}"></td>
+											</tr>
+											<tr>
+												<th
+													class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">하는일
+												</th>
+												<td><input type="text" name="task" required
+													value="${dto.task}"></td>
+											</tr>
+										</tbody>
+									</table>
+
+
+									<div class="button-group">
+										<button class="button-79" role="button">등록하기</button>
+										<button class="button-79" role="button"
+											onclick="location.href='/jr/admin/job/jobadminlist.do';">돌아가기</button>
+									</div>
+								</form>
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}">
 							</div>
 						</div>
 					</div>

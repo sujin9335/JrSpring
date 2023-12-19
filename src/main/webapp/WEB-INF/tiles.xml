@@ -24,7 +24,7 @@
 		template="/WEB-INF/views/template/job-listings.jsp">
 
 	</definition>
-	
+
 
 
 	<definition name="*.*"
@@ -39,13 +39,68 @@
 			value="/WEB-INF/views/inc/footer.jsp"></put-attribute>
 	</definition>
 
-	<definition name="crtadminlist"
-		template="/WEB-INF/views/admin/crtadminlist.jsp"></definition>
-		
-	<definition name="crtadminadd"
-		template="/WEB-INF/views/admin/crtadminadd.jsp"></definition>
+	<definition name="crt/crtadminlist"
+		template="/WEB-INF/views/admin//crt/crtadminlist.jsp"></definition>
 
+	<definition name="crt/crtadminadd"
+		template="/WEB-INF/views/admin//crt/crtadminadd.jsp"></definition>
 
+	<definition name="crt/crtadmindetail"
+		template="/WEB-INF/views/admin//crt/crtadmindetail.jsp"></definition>
+
+	<definition name="book/bookadminlist"
+		template="/WEB-INF/views/admin/book/bookadminlist.jsp"></definition>
+
+	<definition name="book/bookadmindetail"
+		template="/WEB-INF/views/admin/book/bookadmindetail.jsp"></definition>
+
+	<definition name="book/bookadminadd"
+		template="/WEB-INF/views/admin/book/bookadminadd.jsp"></definition>
+
+	<definition name="academy/academyadminlist"
+		template="/WEB-INF/views/admin/academy/academyadminlist.jsp"></definition>
+
+	<definition name="academy/academyadmindetail"
+		template="/WEB-INF/views/admin/academy/academyadmindetail.jsp"></definition>
+
+	<definition name="academy/academyadminadd"
+		template="/WEB-INF/views/admin/academy/academyadminadd.jsp"></definition>
+
+	<definition name="board/boardadminlist"
+		template="/WEB-INF/views/admin/board/boardadminlist.jsp"></definition>
+
+	<definition name="board/boardadmindetail"
+		template="/WEB-INF/views/admin/board/boardadmindetail.jsp"></definition>
+
+	<definition name="forbidden/forbiddenadminlist"
+		template="/WEB-INF/views/admin/forbidden/forbiddenadminlist.jsp"></definition>
+
+	<definition name="forbidden/forbiddenadminadd"
+		template="/WEB-INF/views/admin/forbidden/forbiddenadminadd.jsp"></definition>
+
+	<definition name="job/jobadminlist"
+		template="/WEB-INF/views/admin/job/jobadminlist.jsp"></definition>
+
+	<definition name="job/jobadmindetail"
+		template="/WEB-INF/views/admin/job/jobadmindetail.jsp"></definition>
+
+	<definition name="job/jobadminadd"
+		template="/WEB-INF/views/admin/job/jobadminadd.jsp"></definition>
+
+	<definition name="depart/departadminlist"
+		template="/WEB-INF/views/admin/depart/departadminlist.jsp"></definition>
+
+	<definition name="depart/departadmindetail"
+		template="/WEB-INF/views/admin/depart/departadmindetail.jsp"></definition>
+
+	<definition name="depart/departadminadd"
+		template="/WEB-INF/views/admin/depart/departadminadd.jsp"></definition>
+
+	<definition name="user/useradminlist"
+		template="/WEB-INF/views/admin/user/useradminlist.jsp"></definition>
+
+	<definition name="user/useradmindetail"
+		template="/WEB-INF/views/admin/user/useradmindetail.jsp"></definition>
 
 
 </tiles-definitions>

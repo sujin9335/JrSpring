@@ -25,5 +25,7 @@ public class CrtAdminDTO {
 			private String crtTestName; //시험이름
 			private String expiryDate; //시험이름
 			private String passLine; //시험이름
+			private String begin;
+			private String end; 
 			
 }

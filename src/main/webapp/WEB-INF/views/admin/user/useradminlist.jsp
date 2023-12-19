@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,7 @@
 <link rel="apple-touch-icon" sizes="76x76"
 	href="<%=request.getContextPath()%>/resources/adminAssets/img/apple-icon.png">
 <link rel="icon" type="image/png" href="/img/favicon.png">
-<title>Argon Dashboard 2 by Creative Tim</title>
+<title>회원 관리</title>
 <!--     Fonts and icons     -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
@@ -33,116 +34,140 @@
 <link id="pagestyle"
 	href="<%=request.getContextPath()%>/resources/adminAssets/css/argon-dashboard.css?v=2.0.4"
 	rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 
 <Style>
-
-body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt-0.pb-2 > div > table > thead > tr > th.text-uppercase.text-secondary.text-xxs.font-weight-bolder.opacity-7.ps-2 {
-	text-align: center;
-}
-
-body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt-0.pb-2 > div > table > tbody > tr {
-	text-align: center;
-}
-
-body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>tbody>tr:nth-child(1)>td:nth-child(4)
+body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>thead>tr>th:nth-child(1)
 	{
-	align-content: center;
+	width: 30px;
 }
 
-body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt-0.pb-2 > div > table > thead > tr > th:nth-child(1) {
-	width: 280px;
+body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>thead>tr>th
+	{
+	text-align: center;
+}
+
+body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>tbody>tr>td:nth-child(1)
+	{
 	text-align: center;
 	font-size: 13px;
+	width: 50px;
 }
 
-body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt-0.pb-2 > div > table > thead > tr > th:nth-child(2) {
-	width: 280px;
+body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>tbody>tr>td:nth-child(2)
+	{
 	text-align: center;
 	font-size: 13px;
+	width: 50px;
 }
 
-body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt-0.pb-2 > div > table > thead > tr > th:nth-child(3) {
-	width: 280px;
+body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>tbody>tr>td:nth-child(3)
+	{
 	text-align: center;
 	font-size: 13px;
+	width: 50px;
 }
 
-body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt-0.pb-2 > div > table > thead > tr > th:nth-child(4) {
-	width: 280px;
+body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>tbody>tr>td:nth-child(4)
+	{
 	text-align: center;
 	font-size: 13px;
+	width: 50px;
 }
 
-body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt-0.pb-2 > div > table > tbody > tr > td {
+body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>table>tbody>tr>td:nth-child(5)
+	{
+	text-align: center;
 	font-size: 13px;
+	width: 50px;
+}
+
+  .hoverable-row:hover {
+    text-decoration: underline;
+    cursor: pointer; /* 추가: 마우스를 올릴 때 포인터 모양으로 변경 */
+  }
+
+.navbar-vertical.bg-white .navbar-nav>.nav-item .nav-link.user {
+	box-shadow: none;
+	background-color: #f6f9fc;
+}
+
+.navbar-vertical .navbar-nav .nav-link.user {
+	font-weight: 600;
+	box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
+	border-radius: 0.5rem;
 }
 
 .button-79 {
-  backface-visibility: hidden;
-  background: #5E72E4;
-  border: 0;
-  border-radius: .375rem;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Circular,Helvetica,sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -.01em;
-  line-height: 1.3;
-  /* padding: 1rem 1.25rem; */
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transform: translateZ(0) scale(1);
-  transition: transform .2s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: 90px;
-  height: 40px;
-  margin-left: 785px;
-  margin-top: 10px;
-  margin: 0 3px;
-  margin-left: 1100px;
-
-
-.button-79:disabled {
+	backface-visibility: hidden;
+	background: #5E72E4;
+	border: 0;
+	border-radius: .375rem;
+	box-sizing: border-box;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-family: Circular, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: -.01em;
+	line-height: 1.3;
+	/* padding: 1rem 1.25rem; */
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	transform: translateZ(0) scale(1);
+	transition: transform .2s;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	width: 90px;
+	height: 40px;
+	margin-left: 785px;
+	margin-top: 10px;
+	margin: 0 3px;
+	margin-left: 1080px; .
+	button-79: disabled{
   color: #787878;
-  cursor: auto;
+	cursor: auto;
 }
 
 .button-79:not(:disabled):hover {
-  transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 .button-79:not(:disabled):hover:active {
-  transform: scale(1.05) translateY(.125rem);
+	transform: scale(1.05) translateY(.125rem);
 }
 
 .button-79:focus {
-  outline: 0 solid transparent;
+	outline: 0 solid transparent;
 }
 
 .button-79:focus:before {
-  border-width: .125rem;
-  content: "";
-  left: calc(-1*.375rem);
-  pointer-events: none;
-  position: absolute;
-  top: calc(-1*.375rem);
-  transition: border-radius;
-  user-select: none;
+	border-width: .125rem;
+	content: "";
+	left: calc(-1 * .375rem);
+	pointer-events: none;
+	position: absolute;
+	top: calc(-1 * .375rem);
+	transition: border-radius;
+	user-select: none;
 }
 
 .button-79:focus:not(:focus-visible) {
-  outline: 0 solid transparent;
+	outline: 0 solid transparent;
 }
 
 .button-79:not(:disabled):active {
-  transform: translateY(.125rem);
+	transform: translateY(.125rem);
+}
+
+.hoverable-row:hover {
+	cursor: pointer;
+	text-decoration: underline;
 }
 </Style>
 
@@ -151,81 +176,66 @@ body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt
 	<aside
 		class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
 		id="sidenav-main">
-		<div class="sidenav-header">
-			<i
-				class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-				aria-hidden="true" id="iconSidenav"></i> <a class="navbar-brand m-0"
-				href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html "
-				target="_blank"> <img
-				src="<%=request.getContextPath()%>/resources/adminAssets/img/logo-ct-dark.png"
-				class="navbar-brand-img h-100" alt="main_logo"> <span
-				class="ms-1 font-weight-bold">Argon Dashboard 2</span>
-			</a>
-		</div>
 		<hr class="horizontal dark mt-0">
 		<div class="collapse navbar-collapse  w-auto "
 			id="sidenav-collapse-main">
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link "
-					href="../pages/dashboard.html">
-						<div
-							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-							<i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Dashboard</span>
-				</a></li>
+
 				<li class="nav-item"><a class="nav-link active"
-					href="/jr/admin/crtadminlist.do">
+					href="/jr/admin/crt/crtadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
 						</div> <span class="nav-link-text ms-1">자격증</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link "
-					href="../pages/billing.html">
+				<li class="nav-item"><a class="nav-link book"
+					href="/jr/admin/book/bookadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Billing</span>
+						</div> <span class="nav-link-text ms-1">교재</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link "
-					href="../pages/virtual-reality.html">
+					href="/jr/admin/academy/academyadminlist.do">
+						<div
+							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+							<i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+						</div> <span class="nav-link-text ms-1">학원</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link board"
+					href="/jr/admin/board/boardadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-app text-info text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Virtual Reality</span>
+						</div> <span class="nav-link-text ms-1">게시판</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link "
-					href="../pages/rtl.html">
+					href="/jr/admin//forbidden/forbiddenadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">RTL</span>
+						</div> <span class="nav-link-text ms-1">금지어</span>
 				</a></li>
-				<li class="nav-item mt-3">
-					<h6
-						class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account
-						pages</h6>
-				</li>
-				<li class="nav-item"><a class="nav-link "
-					href="../pages/profile.html">
+				<li class="nav-item"><a class="nav-link user"
+					href="/jr/admin/user/useradminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Profile</span>
+						</div> <span class="nav-link-text ms-1">회원</span>
 				</a></li>
 				<li class="nav-item"><a class="nav-link "
-					href="../pages/sign-in.html">
+					href="/jr/admin/job/jobadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Sign In</span>
+						</div> <span class="nav-link-text ms-1">직업</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link "
-					href="../pages/sign-up.html">
+				<li class="nav-item"><a class="nav-link depart"
+					href="/jr/admin/depart/departadminlist.do">
 						<div
 							class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
 							<i class="ni ni-collection text-info text-sm opacity-10"></i>
-						</div> <span class="nav-link-text ms-1">Sign Up</span>
+						</div> <span class="nav-link-text ms-1">학과</span>
 				</a></li>
 			</ul>
 		</div>
@@ -259,11 +269,11 @@ body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt
 					<ol
 						class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
 						<li class="breadcrumb-item text-sm"><a
-							class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+							class="opacity-5 text-white" href="javascript:;">관리자</a></li>
 						<li class="breadcrumb-item text-sm text-white active"
-							aria-current="page">Tables</li>
+							aria-current="page">회원</li>
 					</ol>
-					<h6 class="font-weight-bolder text-white mb-0">Tables</h6>
+					<h6 class="font-weight-bolder text-white mb-0">목록페이지</h6>
 				</nav>
 				<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
 					id="navbar">
@@ -389,37 +399,38 @@ body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt
 				<div class="col-12">
 					<div class="card mb-4">
 						<div class="card-header pb-0">
-							<h6>자격증</h6>
+							<h6>회원</h6>
 						</div>
 						<div class="card-body px-0 pt-0 pb-2">
 							<div class="table-responsive p-0">
-								<button class="button-79" role="button" onclick="location.href='/jr/admin/crtadminadd.do';">등록하기</button>
 								<table class="table align-items-center mb-0">
 									<thead>
 										<tr>
 											<th
-												class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">자격증번호</th>
+												class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">아이디</th>
 											<th
-												class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">자격증명</th>
+												class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">이름</th>
 											<th
-												class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">자격증
-												분류</th>
-											<th
-												class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">시행기관</th>
-											<th class="text-secondary opacity-7"></th>
+												class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">가입일자</th>
 										</tr>
+
 									</thead>
 									<tbody>
 										<c:forEach items="${list}" var="dto" varStatus="status">
-											<tr>
-												<td>${dto.crtSeq}</td>${dto.crtName}
-												<td><a href="/jr/admin/crtadmindetail.do?crtSeq=${dto.crtSeq}" /></td>
-												<td>${dto.crtType}</td>
-												<td>${dto.agencyName}</td>
+											<tr class="hoverable-row"
+												onclick="window.location='/jr/admin/user/useradmindetail.do?id=${dto.id}'">
+												<td>${dto.id}</td>
+												<td>${dto.name}</td>
+												<td>${dto.joinDate}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
+								<div class="col-lg-12 col-12">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-center mt-5 pb-5">${pdto.pagebar}</ul>
+									</nav>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -554,6 +565,36 @@ body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt
 			</div>
 		</div>
 	</div>
+
+	<script>
+		$('.Private').on('change', function() {
+			// 체크박스 상태 확인
+			var isChecked = $(this).prop('checked');
+			//console.log(isChecked);
+
+			var boardSeq = $(this).closest('tr').find('td:first-child').text();
+			//console.log(boardSeq);
+
+			// Ajax 요청
+			$.ajax({
+				url : '/jr/admin/boardprivate.do', // 백엔드 엔드포인트 지정
+				method : 'POST',
+				data : {
+					isChecked : isChecked,
+					boardSeq : boardSeq
+				}, // 체크박스 상태를 서버에 전달
+				success : function(response) {
+					console.log(response);
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.error('Error:', textStatus, errorThrown);
+
+					// 더 자세한 에러 정보를 확인하려면 jqXHR 객체를 출력
+					console.error('jqXHR:', jqXHR);
+				}
+			});
+		});
+	</script>
 	<!--   Core JS Files   -->
 	<script
 		src="<%=request.getContextPath()%>/resources/adminAssets/js/core/popper.min.js"></script>

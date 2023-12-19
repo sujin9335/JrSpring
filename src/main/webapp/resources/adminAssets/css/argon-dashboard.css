@@ -9379,7 +9379,7 @@ fieldset:disabled .btn {
 }
 
 .mt-5 {
-  margin-top: 3rem !important;
+  margin-top: 0px;
 }
 
 .mt-6 {
@@ -20678,6 +20678,13 @@ fieldset:disabled .btn {
   color: #fff;
 }
 
+input, button, select, optgroup, textarea {
+	
+	border: 1px solid #8392AB;
+    border-radius: 4px;
+	
+}
+
 .btn-outline-dark {
   box-shadow: none;
 }
@@ -23330,20 +23337,20 @@ hr.horizontal.gray-light {
   }
 }
 
-.navbar-vertical.bg-white {
+ .navbar-vertical.bg-white {
   box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
 }
 
-.navbar-vertical.bg-white .navbar-nav>.nav-item .nav-link.active {
-  background-color: #f6f9fc;
+/* .navbar-vertical.bg-white .navbar-nav>.nav-item .nav-link.active {
+
   box-shadow: none;
-}
+} 
 
 .navbar-vertical .navbar-nav .nav-link.active {
   font-weight: 600;
   box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
   border-radius: 0.5rem;
-}
+} */
 
 .navbar-vertical .navbar-nav>.nav-item .nav-link.active {
   color: #344767;
@@ -24922,10 +24929,6 @@ p,
 
 .text-xs {
   font-size: 0.75rem !important;
-}
-
-.text-xxs {
-  font-size: 0.65rem !important;
 }
 
 p {
