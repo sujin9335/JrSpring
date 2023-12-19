@@ -1,95 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <style>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+#bookimg {
+    width: 300px; /* Set your desired fixed width */
+    height: 300px;
+}
 
-        <meta name="description" content="">
-        <meta name="author" content="">
+.job-body{
+	
+	width: 400px;
+	height: 320px;
+}
+</style>
 
-        <title>Gotto Online Job Portal</title>
-
-        <!-- CSS FILES -->
-        <link href="<%=request.getContextPath() %>/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-        <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600;700&display=swap" rel="stylesheet">
-
-        <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
-
-        <link href="<%=request.getContextPath() %>/resources/css/bootstrap-icons.css" rel="stylesheet">
-
-        <link href="<%=request.getContextPath() %>/resources/css/owl.carousel.min.css" rel="stylesheet">
-
-        <link href="<%=request.getContextPath() %>/resources/css/owl.theme.default.min.css" rel="stylesheet">
-
-        <link href="<%=request.getContextPath() %>/resources/css/tooplate-gotto-job.css" rel="stylesheet">
-        
-        <link href="<%=request.getContextPath() %>/resources/css/listings.css" rel="stylesheet"> 
-
-
-
-</head>
- --%>
- <%--    <body class="job-listings-page" id="top">
-
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="index.html">
-                    <img src="<%=request.getContextPath() %>/resources/<%=request.getContextPath() %>/resources/images/logo.png" class="img-fluid logo-image">
-
-                    <div class="d-flex flex-column">
-                        <strong class="logo-text">Gotto</strong>
-                        <small class="logo-slogan">Online Job Portal</small>
-                    </div>
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav align-items-center ms-lg-5">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Homepage</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About Gotto</a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
-
-                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                <li><a class="dropdown-item active" href="job-listings.html">Job Listings</a></li>
-
-                                <li><a class="dropdown-item" href="job-details.html">Job Details</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-
-                        <li class="nav-item ms-lg-auto">
-                            <a class="nav-link" href="#">Register</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link custom-btn btn" href="#">Login</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav> --%>
 
         <main>
 
@@ -208,7 +137,6 @@
 
                                     <li><a class="dropdown-item" href="/jr/book/list.do?price=high">가격 높은순</a></li>
 
-                                    <li><a class="dropdown-item" href="#">Internship Jobs</a></li>
                                 </ul>
                             </div>
 
@@ -224,7 +152,7 @@
                             <div class="job-thumb job-thumb-box">
                                 <div class="job-image-box-wrap">
                                     <a href="/jr/book/detail.do?seq=${dto.bookSeq }">
-                                        <img src="${dto.bookImg }" class="job-image img-fluid" alt="">
+                                        <img src="${dto.bookImg }" class="job-image img-fluid" id="bookimg" alt="">
                                     </a>
                                 </div>
                                 
@@ -236,7 +164,6 @@
 
                                     <div class="d-flex align-items-center">
                               <p class="mb-0">
-                                        관련 자격증: ${dto.crtName}
                            <br>
                               출판사: ${dto.publisher }</p>
                            </div>
@@ -251,7 +178,7 @@
 										<div class = "" style="display: flex; justify-content: space-between;">
                                         <p class="job-date">
                                             <i class="custom-icon bi-cash me-1"></i>
-                                            가격: ${dto.price }
+                                            가격: ${dto.price }원
                                         </p>
                                         <c:if test="${dto.booklike2 == 0}">
                                         <i class="bookmark-button fa-regular fa-heart" onclick="bookmark(${dto.bookSeq})">                                        
@@ -282,7 +209,7 @@
             </section>
 
 
-            <section class="cta-section">
+<!--             <section class="cta-section">
                 <div class="section-overlay"></div>
 
                 <div class="container">
@@ -306,7 +233,7 @@
                     </div>
                 </div>
             </section>
-        </main>
+ -->        </main>
 
        <!-- JAVASCRIPT FILES -->
         <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>

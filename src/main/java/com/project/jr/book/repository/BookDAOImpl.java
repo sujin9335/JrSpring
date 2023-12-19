@@ -42,28 +42,43 @@ public class BookDAOImpl implements BookDAO {
       return bmapper.getBookTItle(map);
    }
 
-@Override
-public int booklike(BookLikeDTO dto) {
-	return bmapper.booklike(dto);
-}
+	@Override
+	public int booklike(BookLikeDTO dto) {
+		return bmapper.booklike(dto);
+	}
 
+	@Override
+	public int booklikedel(BookLikeDTO dto) {
+		return bmapper.booklikedel(dto);
+	}
 
-@Override
-public int booklikedel(BookLikeDTO dto) {
-	return bmapper.booklikedel(dto);
-}
+	@Override
+	public List<BookLikeDTO> bookmarklist() {
 
-@Override
-public List<BookLikeDTO> bookmarklist() {
+		return bmapper.bookmarklist();
+	}
+
+	@Override
+	public ArrayList<BookDTO> getBookTitle2(int bookSeq) {
+		return bmapper.getBookTitle2(bookSeq);
+	}
 	
-	return bmapper.bookmarklist();
-}
+	@Override
+	public int mybookadd(BookDTO dto) {
+		return bmapper.mybookadd(dto);
+	}
  
    
-//   @Override
-//   public BookDTO get(int bookSeq) {
-//      return bmapper.get(bookSeq);
-//   }
+   @Override
+   public BookDTO get(int bookSeq) {
+      return bmapper.get(bookSeq);
+   }
+
+@Override
+public ArrayList<BookDTO> getBookDetail(HashMap<String, Object> map) {
+	// TODO Auto-generated method stub
+	return null;
+}
    
 
    

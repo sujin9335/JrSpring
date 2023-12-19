@@ -42,7 +42,31 @@
        select * from tblindex where bookseq=#{seq}
     </select> 
     
+    <!-- 상세보기 좋아요 -->
+         <select id="like" parameterType="com.project.jr.book.model.BookPageDTO" resultType="com.project.jr.book.model.BookDTO">
+	SELECT
+	    b.*, (select count(*) from tblbooklike where bookseq = b.bookseq and id like '%' || #{id} || '%') as booklike2
+	FROM
+	    (select
+	        a.*, rownum as rnum from tblbook a
+    </select>
+  
     
+    
+     
+   <select id="getBookTitle2" resultType="com.project.jr.book.model.BookDTO">
+       select i.indexseq, i.bookseq, i.listnum, i.list, i.titlestep, bp.id
+FROM TBLINDEX i
+JOIN TBLBOOKPRGBYUSER bp ON i.INDEXSEQ = bp.INDEXSEQ
+ where bookSeq=#{bookSeq}
+    </select> 
+    
+    
+    <!-- my교재 추가하기 -->
+    
+    <insert id="mybookadd" parameterType="com.project.jr.book.model.BookDTO">
+    	insert into tblbookprgbyuser(bookprcbyuserseq, id, indexseq, learncheck) values (bookprcbyuserseq.nextVal, #{id}, #{indexSeq}, 0)
+    </insert>
     
     
    <!-- 게시판 목록보기 > 총 글의 개수 -->
@@ -68,6 +92,11 @@
  	<select id="bookmarklist" resultType="com.project.jr.book.model.BookLikeDTO">
  	select * from tblbooklike
  	</select>
- 
+ 	
+ 	
+<!--  	<insert id="addBook" resultType="com.project.jr.book.model.BookDTO">
+ 		insert into tblx
+ 	</insert>
+ --> 
 </mapper>
 

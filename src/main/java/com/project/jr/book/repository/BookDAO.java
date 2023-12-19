@@ -28,9 +28,13 @@ public interface BookDAO {
 
 	List<BookLikeDTO> bookmarklist();
 
-	//ArrayList<BookDTO> getBookDetail(HashMap<String, Object> map);
+	ArrayList<BookDTO> getBookTitle2(int bookSeq);
 
-	//BookDTO get(int bookSeq);
+	int mybookadd(BookDTO dto);
+
+	ArrayList<BookDTO> getBookDetail(HashMap<String, Object> map);
+
+	BookDTO get(int bookSeq);
 
 
 }
