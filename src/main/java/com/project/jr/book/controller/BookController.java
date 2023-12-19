@@ -2,7 +2,6 @@ package com.project.jr.book.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,14 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.jr.book.model.BookDTO;
 import com.project.jr.book.model.BookLikeDTO;
 import com.project.jr.book.model.BookPageDTO;
 import com.project.jr.book.repository.BookDAO;
 import com.project.jr.book.service.BookPageService;
+import com.project.jr.book.service.BookService;
 
 @Controller
 @RequestMapping(value = "/book")
@@ -29,6 +31,9 @@ public class BookController {
 
    @Autowired
    private BookPageService bookPageService;
+   
+   @Autowired
+   private BookService bservice;
 
    @GetMapping(value = "/list.do")
    public String list(Model model, HttpSession session, @RequestParam(defaultValue="") String price, BookPageDTO pdto) {
@@ -77,11 +82,41 @@ public class BookController {
       //교재 학습 목록
       ArrayList<BookDTO> list=dao.getBookTitle(map);
       
-      model.addAttribute("list", list);
+//      추가
+   List<BookLikeDTO> booklikelist = dao.bookmarklist();
+//      
+model.addAttribute("bookmark", booklikelist);
       
+      //
+      
+      model.addAttribute("list", list);
       
       return "book.detail";
    }
+   
+   @PostMapping(value = "/mybookadd.do")
+   @ResponseBody
+	public int mybookadd(int bookSeq) {
+	   
+	   System.out.println(1111);
+	   
+	   System.out.println(bookSeq);
+	   //해당 교재의 목차 가져오기
+	   ArrayList<BookDTO> list=bservice.getBookTitle2(bookSeq);
+	   
+	   System.out.println(list.size());
+	   
+	   //tblbookprgbyuser 값 추가하기
+	   int result =0;
+	   for (BookDTO dto : list) {
+		   System.out.println(dto);
+		   result += bservice.mybookadd(dto);  
+	   }
+	   
+	  // int result = bservice.mybookadd(list);
+	
+		return result;
+	}
     
 
 }
