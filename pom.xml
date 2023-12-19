@@ -207,6 +207,25 @@
 			<artifactId>tiles-servlet</artifactId>
 			<version>3.0.8</version>
 		</dependency>
+		
+		<!-- 웹소캣 -->
+		<dependency>
+         	<groupId>org.springframework</groupId>
+         	<artifactId>spring-websocket</artifactId>
+         	<version>${org.springframework-version}</version>
+      	</dependency>   
+      
+      	<dependency>
+      	   <groupId>javax.websocket</groupId>
+      	   <artifactId>javax.websocket-api</artifactId>
+      	   <version>1.1</version>
+     	</dependency>
+		
+		<dependency>
+      	   <groupId>com.google.code.gson</groupId>
+      	   <artifactId>gson</artifactId>
+      	   <version>2.10.1</version>
+     	</dependency>
 
 	</dependencies>
 	<build>

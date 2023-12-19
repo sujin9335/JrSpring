@@ -27,6 +27,9 @@
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp"></put-attribute>
 	</definition>
+	<definition name="chat" template="/WEB-INF/views/study/chat.jsp">
+	
+	</definition>
 	
 </tiles-definitions>
 
