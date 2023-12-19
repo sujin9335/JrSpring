@@ -59,6 +59,7 @@ public class PageService {
 			sb.append(String.format("<li class='page-item'><a class='page-link' href='" + url + "?page=%d&column=%s&word=%s&sort=%s'\n"
 					+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
 					+ "	</a></li>", n - 1, pdto.getColumn(), pdto.getWord(), pdto.getSort()));
+		
 		}
 
 		while (!(loop > blockSize || n > pdto.getTotalPage())) {

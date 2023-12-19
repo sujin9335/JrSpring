@@ -15,9 +15,6 @@ import com.project.jr.crt.service.CrtLikeService;
 public class CrtLikeController {
 	
 	@Autowired
-	private CrtDAO dao;
-	
-	@Autowired
 	private CrtLikeService clservice;
 	
 	//좋아요 추가
@@ -27,14 +24,9 @@ public class CrtLikeController {
 		System.out.println("CrtLikeController id : " + dto.getId());
 		
 		if (dto.getId() == "null") {
-			//resp.setContentType("text/html; charset=UTF-8");
-	         
-	         //PrintWriter writer = resp.getWriter();
-	         //writer.print("<script>alert('로그인이 필요한 서비스입니다. 로그인 화면으로 이동합니다.');location.href='/jr/crt/crtlist.do';</script>");
 	         return 0;
 		}
 		
-		//return dao.crtLikeAdd(dto);
 		return clservice.crtLikeAdd(dto);
 	}
 	
@@ -49,7 +41,6 @@ public class CrtLikeController {
 		CrtLikeDTO dto = new CrtLikeDTO();
 		dto.setId(id);
 		dto.setCrtSeq(crtseq);
-		//return dao.crtLikeDel(dto);
 		return clservice.crtLikeDel(dto);
 	}
 	

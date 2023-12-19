@@ -9,11 +9,9 @@ import lombok.Data;
 @Data
 public class CrtPageDTO {
 	private String search;
-	private String column;	//필요없을걸?
+	private String column;
 	private String word;
-	private String crtCtg;
-	private String agency;
-	private String difficulty;
+	private String sort;
 	
 	private int page;
 	private int totalCount;
@@ -24,5 +22,15 @@ public class CrtPageDTO {
 	private String pagebar;
 	
 	private String id;
+	
+	/* 자격증 조회*/
+	private String crtCtg;
+	private String agency;
+	private String difficulty;
+	
+	/* 자격증 후기게시판 조회*/
+	private int crtSeq;
+	private String crtName;
+	
 
 }

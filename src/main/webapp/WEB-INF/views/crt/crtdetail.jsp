@@ -89,7 +89,7 @@
             			<div><p><strong>자격증 후기가 궁금하다면</strong></p></div>
             			
             			<div>
-            				<button class="learn-more">
+            				<button class="learn-more" onclick = "location.href='/jr/crt/crtboardlist.do?crtSeq=${dto.crtSeq}'">
 							    <span class="circle" aria-hidden="true">
 							      <span class="icon arrow"></span>
 							    </span>
