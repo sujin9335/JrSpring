@@ -6,7 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Jalang-I : Certify Your Skils, Unlock Your Future</title>
+<title>자랑이</title>
+<!-- Favicons -->
+<link href="<%=request.getContextPath() %>/resources/images/favicon.ico" rel="icon">
 <tiles:insertAttribute name="asset"/>
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');

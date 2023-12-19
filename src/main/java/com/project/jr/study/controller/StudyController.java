@@ -100,7 +100,7 @@ public class StudyController {
 	public @ResponseBody int name(Model model, int list, boolean learnCheck) {
 		String id="N7sBxUcT";
 		
-		//System.out.println(list + " " + learnCheck);
+		System.out.println(list + " " + learnCheck);
 		
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		
