@@ -42,9 +42,8 @@
        select * from tblindex where bookseq=#{seq}
     </select> 
     
-<<<<<<< HEAD
     <!-- 상세보기 좋아요 -->
-         <select id="like" parameterType="com.project.jr.book.model.BookPageDTO" resultType="com.project.jr.book.model.BookDTO">
+    <select id="like" parameterType="com.project.jr.book.model.BookPageDTO" resultType="com.project.jr.book.model.BookDTO">
 	SELECT
 	    b.*, (select count(*) from tblbooklike where bookseq = b.bookseq and id like '%' || #{id} || '%') as booklike2
 	FROM
@@ -68,11 +67,7 @@ JOIN TBLBOOKPRGBYUSER bp ON i.INDEXSEQ = bp.INDEXSEQ
     <insert id="mybookadd" parameterType="com.project.jr.book.model.BookDTO">
     	insert into tblbookprgbyuser(bookprcbyuserseq, id, indexseq, learncheck) values (bookprcbyuserseq.nextVal, #{id}, #{indexSeq}, 0)
     </insert>
-    
-=======
-    
-    
->>>>>>> bin
+
     
    <!-- 게시판 목록보기 > 총 글의 개수 -->
    <select id="getTotalCount" parameterType="com.project.jr.book.model.BookPageDTO" resultType="Integer">
@@ -87,7 +82,7 @@ JOIN TBLBOOKPRGBYUSER bp ON i.INDEXSEQ = bp.INDEXSEQ
    </select>
    
    <insert id="booklike" parameterType="com.project.jr.book.model.BookLikeDTO">
- insert into tblbooklike (booklikeseq, bookseq, id) values ((select max(booklikeseq)+1 from tblbooklike),#{bookSeq},#{id})
+ 	insert into tblbooklike (booklikeseq, bookseq, id) values ((select max(booklikeseq)+1 from tblbooklike),#{bookSeq},#{id})
    </insert>
  
  	<delete id="booklikedel" parameterType="com.project.jr.book.model.BookLikeDTO">

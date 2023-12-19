@@ -40,5 +40,7 @@ public interface CrtDAO {
 
 
 	List<CrtDTO> likelist(String id);
+
+	List<CrtDTO> getTop100List();
 	
 }

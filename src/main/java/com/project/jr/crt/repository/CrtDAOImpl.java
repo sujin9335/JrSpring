@@ -87,5 +87,10 @@ public class CrtDAOImpl implements CrtDAO{
 		return cmapper.likelist(id);
 	}
 	
+	@Override
+	public List<CrtDTO> getTop100List() {
+		return cmapper.getTop100List();
+	}
+	
 }
 
