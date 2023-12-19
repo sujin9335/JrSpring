@@ -107,7 +107,7 @@
             </header>
 			
 			<!-- 검색 세션 -->
-            <section class="section-padding pb-0 d-flex justify-content-center align-items-center" style="padding-top: 70px">
+            <section class="section-padding pb-0 d-flex justify-content-center align-items-center pb-2" style="padding-top: 70px">
                 <div class="container">
                     <div class="row">
 
@@ -155,7 +155,7 @@
 
 
 			<!-- 여기서 부터 내용작성 세션 -->
-            <section class="" >
+            <section class="pt-2" >
             <div id="list">
 	            
 	            <div id=tb>

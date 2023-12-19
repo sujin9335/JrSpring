@@ -11,18 +11,11 @@
                             <img src="<%=request.getContextPath() %>/resources/images/logo.png" class="img-fluid logo-image">
 
                             <div class="d-flex flex-column">
-                                <strong class="logo-text">Gotto</strong>
-                                <small class="logo-slogan">Online Job Portal</small>
+                                <strong class="logo-text">자랑이</strong>
+                                <small class="logo-slogan">Online Certificate Portal</small>
                             </div>
                         </div>  
 
-                        <p class="mb-2">
-                            <i class="custom-icon bi-globe me-1"></i>
-
-                            <a href="#" class="site-footer-link">
-                                www.jobbportal.com
-                            </a>
-                        </p>
 
                         <p class="mb-2">
                             <i class="custom-icon bi-telephone me-1"></i>
@@ -35,8 +28,8 @@
                         <p>
                             <i class="custom-icon bi-envelope me-1"></i>
 
-                            <a href="mailto:info@yourgmail.com" class="site-footer-link">
-                                info@jobportal.co
+                            <a href="#" class="site-footer-link">
+                                info@jrportal.co
                             </a>
                         </p>
 
