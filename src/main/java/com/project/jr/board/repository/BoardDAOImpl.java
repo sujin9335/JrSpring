@@ -92,5 +92,15 @@ public class BoardDAOImpl implements BoardDAO {
 	public int getTotalCount(PageDTO pdto) {
 		return bmapper.getTotalCount(pdto);
 	}
+
+//	@Override
+//	public List<BoardDTO> likelist(PageDTO pdto) {
+//		return bmapper.likelist(pdto);
+//	}
+
+	@Override
+	public List<BoardDTO> likelist(String id) {
+		return bmapper.likelist(id);
+	}
 	
 }

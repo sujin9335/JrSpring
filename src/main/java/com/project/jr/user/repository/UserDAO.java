@@ -1,9 +1,14 @@
 package com.project.jr.user.repository;
 
-import java.util.List;
-
 import com.project.jr.user.model.UserDTO;
 
 public interface UserDAO {
-	List<UserDTO> list(UserDTO udto);
+
+	int signup(UserDTO udto);
+
+	int idCompare(UserDTO udto);
+
+	int userLogin(UserDTO udto);
+
+	UserDTO get(String id);
 }

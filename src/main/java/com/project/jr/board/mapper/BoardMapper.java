@@ -29,5 +29,7 @@ public interface BoardMapper {
 	int unlike(String boardSeq);
 	
 	int like(String boardSeq);
+
+	List<BoardDTO> likelist(String id);
 	
 }

@@ -80,14 +80,13 @@
                                 <li><a class="dropdown-item" href="jobDetails.do">Job Details</a></li>
                             </ul>
                         </li>
+					        <li class="nav-item ms-lg-auto">
+					            <a class="nav-link" href="/jr/user/signup.do">회원 가입</a>
+					        </li>
+					        <li class="nav-item">
+					            <a class="nav-link custom-btn btn" href="/jr/user/login.do">로그인</a>
+					        </li>
 
-                        <li class="nav-item ms-lg-auto">
-                            <a class="nav-link" href="#">회원 가입</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link custom-btn btn" href="#">로그인</a>
-                        </li>
                     </ul>
                 </div>
             </div>

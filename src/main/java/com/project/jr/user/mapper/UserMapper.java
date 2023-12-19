@@ -1,11 +1,15 @@
 package com.project.jr.user.mapper;
 
-import java.util.List;
-
 import com.project.jr.user.model.UserDTO;
 
 public interface UserMapper {
 
-	List<UserDTO> list(UserDTO udto);
+	int signup(UserDTO udto);
+	
+	int idCompare(UserDTO udto);
+	
+	int userLogin(UserDTO udto);
+
+	UserDTO get(String id);
 	
 }

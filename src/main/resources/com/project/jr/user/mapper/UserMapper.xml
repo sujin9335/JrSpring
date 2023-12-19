@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.jr.user.mapper.UserMapper"> 
+	
+	<!-- 게시판 새 글 작성 -->
+	<!-- <insert id="add" parameterType="com.project.jr.board.model.BoardDTO">
+		INSERT INTO tblBoard (boardSeq, boardTitle, boardContent,id, boardWriteDate, boardLike, boardReport, boardHits, boardType, isBoardShow)
+				VALUES (((SELECT max(boardSeq) FROM tblBoard) + 1), #{boardTitle}, #{boardContent}, #{id}, sysdate, 0, 0, 0, 1, 1)
+	</insert> -->
+	
+	<!-- insert update delete는 resultType이 따로 없고 결과에 따라서 int값으로 반환 -->
+	<insert id="signup" parameterType="com.project.jr.user.model.UserDTO" >
+ 		Insert into tblUserInfo(id, pw, name, birthDate, sex, email, phoneNum, joinDate, userStatus) 
+ 		values (#{id}, #{pw}, #{name}, #{birthDate}, #{sex}, #{email}, #{phoneNum}, to_date(sysdate, 'RR/MM/DD'), 1)
+ 	</insert>
+ 	
+ 	<!-- 아이디 중복 확인하기  -->
+	<select id="idCompare" parameterType="com.project.jr.user.model.UserDTO" resultType="Integer">
+		SELECT count(*) FROM tblUserInfo WHERE id = #{id}
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="userLogin" parameterType="com.project.jr.user.model.UserDTO" resultType="Integer">
+		select count(*) from tblUserInfo where id = #{id} and pw = #{pw} AND userStatus = 1
+	</select>
+	
+	<select id="get" parameterType="String" resultType="com.project.jr.user.model.UserDTO">
+		select * from tblUserInfo where id = #{id}
+	</select>
+	
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.jr.crt.mapper.CrtMapper">
+ 	<select id="connectionTest" resultType="Integer">
+ 		select count(*) from tblCrt
+ 	</select>
+ 	
+	<!-- 자격증 목록보기 > 자격증 정보 가져오기 -->
+	<select id="list" parameterType="com.project.jr.crt.model.CrtPageDTO" resultType="com.project.jr.crt.model.CrtListDTO">
+	SELECT
+		b.*, (SELECT count(*) FROM tblcrtlike where crtseq = b.crtseq and id LIKE '%' || #{id} || '%') as crtlike
+	FROM 
+		(SELECT 
+				a.*, rownum AS rnum FROM vwCrt a
+				WHERE crtName IS NOT NULL
+					<if test="search != null">
+						<if test="word != null">
+							AND crtName LIKE '%' || #{word} || '%'
+						</if>
+						
+						<if test="crtCtg != null">
+							AND crtCtg LIKE '%' || #{crtCtg} || '%'
+						</if>
+						
+						<if test="agency != null">
+							AND agency LIKE '%' || #{agency} || '%'
+						</if>
+						
+						<if test="difficulty != null">
+							AND difficulty LIKE '%' || #{difficulty} || '%'
+						</if>
+					</if>
+					) b
+	WHERE rnum BETWEEN #{begin} AND #{end}
+	
+	</select>
+	
+	<!-- 게시판 목록보기 > 총 글의 개수 -->
+	<select id="getTotalCount" parameterType="com.project.jr.crt.model.CrtPageDTO" resultType="Integer">
+	SELECT count(*) AS cnt FROM vwCrt WHERE crtname IS NOT NULL
+	<if test="search != null">
+		<choose>
+			<when test="word != null">
+				AND crtName LIKE '%' || #{word} || '%'
+			</when>
+			<when test="crtCtg != null">
+				AND crtName LIKE '%' || #{crtCtg} || '%'
+			</when>
+			<when test="agency != null">
+				AND agency LIKE '%' || #{agency} || '%'
+			</when>
+			<!-- <when test="difficulty != null"> AND difficulty LIKE '%' || #{difficulty} 
+				|| '%' </when> -->
+			<otherwise>
+				AND difficulty LIKE '%' || #{difficulty} || '%'
+			</otherwise>
+		</choose>
+	</if>
+	</select>
+ 	
+ 	<select id="agencyList" resultType="com.project.jr.crt.model.CrtListDTO">
+ 		SELECT * FROM tblagency
+ 	</select>
+ 
+ 	
+ 	<insert id="crtLikeAdd" parameterType="com.project.jr.crt.model.CrtLikeDTO">
+ 		INSERT into tblcrtlike(crtLikeSeq, crtSeq, id) values (crtlikeseq.nextval, #{crtSeq}, #{id})
+ 	</insert>
+ 	
+ 	<delete id="crtLikeDel" parameterType="com.project.jr.crt.model.CrtLikeDTO">
+ 		delete tblcrtlike where crtSeq = #{crtSeq} and id = #{id}
+ 	</delete>
+ 	
+ 	
+ 	<!-- 자격증 상세조회 -->
+ 	<select id="get" parameterType="Integer" resultType="com.project.jr.crt.model.CrtDTO">
+ 		SELECT * FROM vwCrt where crtSeq = #{crtSeq}
+ 	</select>
+ 	
+ 	<!-- 자격증 응시료 조회 -->
+ 	<select id="plist" parameterType="Integer" resultType="com.project.jr.crt.model.CrtPayDTO">
+ 		SELECT * FROM vwCrtPay where crtSeq = #{crtSeq}
+ 	</select>
+ 	
+ 	<!-- 자격증 시험 상세조회 -->
+ 	<select id="testList" parameterType="Integer" resultType="com.project.jr.crt.model.CrtTestDTO">
+ 		SELECT * FROM vwCrtTest where crtSeq = #{crtSeq}
+ 	</select>
+ 	
+ 	<!-- My좋아요 : Crt -->
+	<select id="likelist" parameterType="String" resultType="com.project.jr.crt.model.CrtDTO">
+		<!-- select * from tblCrtLike cl inner join tblcrt c on cl.crtseq = c.crtseq where id = #{id} -->
+		<!-- select * from tblCrtLike cl inner join tblcrt c on cl.crtseq = c.crtseq inner join tblagency a on c.agencyseq = a.agencyseq where id = #{id} -->
+		select * from tblCrtLike cl inner join tblcrt c on cl.crtseq = c.crtseq inner join tblagency a on c.agencyseq = a.agencyseq inner join tblCrtType ct on c.crttypeseq = ct.crttypeseq where id = #{id}
+	</select>
+ 	
+</mapper>

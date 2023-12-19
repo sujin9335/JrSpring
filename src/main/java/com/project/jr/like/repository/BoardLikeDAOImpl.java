@@ -1,8 +1,12 @@
 package com.project.jr.like.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.jr.board.model.BoardDTO;
+import com.project.jr.board.model.PageDTO;
 import com.project.jr.like.mapper.BoardLikeMapper;
 import com.project.jr.like.model.BoardLikeDTO;
 
@@ -39,5 +43,22 @@ public class BoardLikeDAOImpl implements BoardLikeDAO {
 	@Override
 	public int unlike(BoardLikeDTO ldto) {
 		return lmapper.unlike(ldto);
+	}
+
+	
+	//
+	@Override
+	public List<BoardDTO> list(PageDTO pdto) {
+		return lmapper.myboardlike(pdto);
+	}
+
+//	@Override
+//	public List<BoardDTO> myboardlike(String string) {
+//		return lmapper.myboardlike(string);
+//	}
+
+	@Override
+	public List<BoardDTO> myboardrest(String string) {
+		return lmapper.myboardrest(string);
 	}
 }

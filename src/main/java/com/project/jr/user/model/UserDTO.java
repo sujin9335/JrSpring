@@ -10,7 +10,7 @@ public class UserDTO {
 	private String name;
 	private String birthDate;
 	private String sex;
-	private String eMail;
+	private String email;
 	private String phoneNum;
 	private String joinDate;
 	private int userStatus;

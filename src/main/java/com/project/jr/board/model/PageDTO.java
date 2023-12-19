@@ -21,5 +21,7 @@ public class PageDTO {
 	private int begin;
 	private int end;
 	private String pagebar;
+	
+	private String id;
 
 }

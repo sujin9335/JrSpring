@@ -30,4 +30,8 @@ public interface BoardDAO {
 
 	int getTotalCount(PageDTO pdto);
 
+//	List<BoardDTO> likelist(String string);
+
+	List<BoardDTO> likelist(String id);
+
 }
