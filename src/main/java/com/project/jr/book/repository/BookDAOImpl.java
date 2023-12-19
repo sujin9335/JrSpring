@@ -80,11 +80,7 @@ public class BookDAOImpl implements BookDAO {
 	}
 
 	
-	@Override
-	public List<BookLikeDTO> bookmarklist() {
-		
-		return bmapper.bookmarklist();
-	}
+
 	
 	@Override
 	public List<BookDTO> likelist(String id) {

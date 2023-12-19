@@ -44,5 +44,7 @@ public interface CrtMapper {
 
 	List<CrtDTO> likelist(String id);
 
+	List<CrtDTO> getTop100List();
+
 
 }
