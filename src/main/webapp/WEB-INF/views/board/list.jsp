@@ -95,7 +95,7 @@
 			<div class="table-responsive">
 				<!-- 리스트 내용물 -->
 
-				<div class="d-flex pt-4 pb-4">
+				<div class="d-flex pt-4 pb-4 ms-5 me-5">
 
 					<div>
 					<a href="/jr/board/list.do" class="custom-btn btn">목록</a>
@@ -106,7 +106,7 @@
 					</c:if>
 					</div>
 					<div
-						class="col-lg-4 d-flex align-items-center ms-auto mb-5 mb-lg-4 me-2">
+						class="col-lg-4 d-flex align-items-center ms-auto me-2">
 						<p class="mb-0 ms-lg-auto">Sort by:</p>
 	
 						<select name="sort">
@@ -132,7 +132,7 @@ $('select[name=sort]').change(function() {
 
 </script>
 
-
+				<div class="d-flex ms-5 me-5">
 				<table class="table table-hover fs-5 align-middle board-table">
 					<thead class="text-center">
 						<tr>
@@ -171,6 +171,7 @@ $('select[name=sort]').change(function() {
 					</c:if>
 					</tbody>
 				</table>
+				</div>
 <script>
 /* 공지사항 */
 
@@ -257,7 +258,7 @@ function loadNotice() {
 				</div> --%>
 
 
-				<div class="col-lg-12 col-12">
+				<div class="col-12">
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center mt-5 pb-5">${ pdto.pagebar }</ul>
 					</nav>
