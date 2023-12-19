@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.jr.admin.mapper.AdminMapper"> <!-- 사용할 인터페이스 경로 -->
+
+	<!-- 자격증 관리 -->
+
+	<select id="CrtAdminList"
+		resultType="com.project.jr.admin.model.CrtAdminDTO">
+		SELECT
+		*
+		FROM (SELECT
+		b.*, rownum AS rnum
+		FROM (SELECT
+		*
+		FROM vwCrtDetails
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+		ORDER BY crtSeq DESC) b)
+		WHERE rnum BETWEEN #{begin} AND #{end}
+	</select>
+
+	<select id="CrtgetTotalCount"
+		parameterType="com.project.jr.admin.model.AdminPageDTO"
+		resultType="Integer">
+		SELECT count(*) AS cnt FROM vwCrtDetails
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+	</select>
+
+
+	<insert id="CrtAdminAdd"
+		parameterType="com.project.jr.admin.model.CrtAdminDTO">
+		insert into tblCrt(crtSeq, crtName, crtTypeSeq,
+		expiration, agencySeq,
+		isRoutine, difficulty, qualificationCate,
+		qualification, crtInfo,
+		jobDesc)
+		values (crtSeq.nextVal, #{crtName},
+		#{crtTypeSeq}, #{expiration},
+		#{agencySeq}, #{isRoutine},
+		#{difficulty}, #{qualificationCate},
+		#{qualification}, #{crtInfo},
+		#{jobDesc})
+	</insert>
+
+	<select id="CrtAdminDetail" parameterType="String"
+		resultType="com.project.jr.admin.model.CrtAdminDTO">
+		select * from vwCrtDetails where crtSeq = #{crtSeq}
+	</select>
+
+	<!-- 교재 관리 -->
+	<select id="BookAdminList"
+		resultType="com.project.jr.admin.model.BookAdminDTO">
+		SELECT
+		*
+		FROM (SELECT
+		b.*, rownum AS rnum
+		FROM (SELECT
+		*
+		FROM tblBook
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+		ORDER BY bookSeq DESC) b)
+		WHERE rnum BETWEEN #{begin} AND #{end}
+
+	</select>
+
+	<select id="bookGetTotalCount"
+		parameterType="com.project.jr.admin.model.AdminPageDTO"
+		resultType="Integer">
+		SELECT count(*) AS cnt FROM tblbook
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+	</select>
+
+	<select id="BookAdminDetail" parameterType="String"
+		resultType="com.project.jr.admin.model.BookAdminDTO">
+		select * from tblBook where bookSeq = #{bookSeq}
+	</select>
+
+	<insert id="BookAdminAdd"
+		parameterType="com.project.jr.admin.model.BookAdminDTO">
+		insert into tblBook
+		(bookSeq,bookName,publisher,price,pbDate,author,lv,bookImg) values
+		(bookSeq.nextVal,#{bookName},#{publisher},#{price},#{pbDate},#{author},#{lv},#{bookImg})
+	</insert>
+
+
+
+	<!-- 학원 관리 -->
+	<select id="AcademyAdminList"
+		resultType="com.project.jr.admin.model.AcademyAdminDTO">
+		SELECT
+		*
+		FROM (SELECT
+		b.*, rownum AS rnum
+		FROM (SELECT
+		*
+		FROM tblAcademy
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+		ORDER BY academySeq DESC) b)
+		WHERE rnum BETWEEN #{begin} AND #{end}
+	</select>
+
+	<select id="academyGetTotalCount"
+		parameterType="com.project.jr.admin.model.AdminPageDTO"
+		resultType="Integer">
+		SELECT count(*) AS cnt FROM tblacademy
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+	</select>
+
+	<select id="AcademyAdminDetail" parameterType="String"
+		resultType="com.project.jr.admin.model.AcademyAdminDTO">
+		select * from tblAcademy where academySeq = #{academySeq}
+	</select>
+	
+	<insert id="AcademyAdminAdd" parameterType="com.project.jr.admin.model.AcademyAdminDTO">
+		insert into tblAcademy (academySeq, academyName, academylocation, academyTel, academyStar) values (academySeq.nextVal,#{academyName},#{academylocation},#{academyTel},#{academyStar})
+	</insert>
+
+	<!--게시판 관리 -->
+	<select id="BoardAdminDetail" parameterType="String"
+		resultType="com.project.jr.admin.model.BoardAdminDTO">
+		select * from tblBoard where BoardSeq = #{BoardSeq}
+	</select>
+
+	<update id="boardPrivate" parameterType="String">
+		UPDATE tblBoard
+		SET isboardshow = 0
+		WHERE boardSeq = #{boardSeq}
+	</update>
+	
+	<update id="boardPublic" parameterType="String">
+		UPDATE tblBoard
+		SET isboardshow = 1
+		WHERE boardSeq = #{boardSeq}
+	</update>
+
+	<!-- 금지어 -->
+	<insert id="forbiddenAdminAdd"
+		parameterType="com.project.jr.admin.model.ForbiddenAdminDTO">
+		insert into tblforbidden (forbiddenSeq, forbidden) values (forbiddenSeq.nextVal, #{forbidden})
+	</insert>
+	
+	<!-- 회원 -->
+	<select id="userAdminList"
+		resultType="com.project.jr.admin.model.UserAdminDTO">
+		SELECT
+		*
+		FROM (SELECT
+		b.*, rownum AS rnum
+		FROM (SELECT
+		*
+		FROM tblUserInfo
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+		ORDER BY joinDate DESC) b)
+		WHERE rnum BETWEEN #{begin} AND #{end}
+	</select>
+
+	<select id="userGetTotalCount"
+		parameterType="com.project.jr.admin.model.AdminPageDTO"
+		resultType="Integer">
+		SELECT count(*) AS cnt FROM tblUserInfo
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+	</select>
+	
+	<select id="userAdminDetail" parameterType="String" resultType="com.project.jr.admin.model.UserAdminDTO">
+		select * from tblUserInfo where id = #{id}
+	</select>
+
+	<!-- 직업 -->
+	<select id="jobAdminList"
+		resultType="com.project.jr.admin.model.JobAdminDTO">
+		SELECT
+		*
+		FROM (SELECT
+		b.*, rownum AS rnum
+		FROM (SELECT
+		*
+		FROM JobView
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+		ORDER BY jobSeq DESC) b)
+		WHERE rnum BETWEEN #{begin} AND #{end}
+	</select>
+
+	<select id="jobGetTotalCount"
+		parameterType="com.project.jr.admin.model.AdminPageDTO"
+		resultType="Integer">
+		SELECT count(*) AS cnt FROM JobView
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+	</select>
+
+	<select id="jobAdminDetail" parameterType="String"
+		resultType="com.project.jr.admin.model.JobAdminDTO">
+		select * from JobView where jobSeq = #{jobSeq}
+	</select>
+	
+	<insert id="jobAdminAdd" parameterType="com.project.jr.admin.model.JobAdminDTO">
+		insert into tblJob (jobSeq, jobgroupSeq, jobName, keyTask, salary, prospect, dvlPossibility, aptitude, task)
+			values (jobSeq.nextVal, #{jobgroupSeq}, #{jobName}, #{keyTask}, #{salary}, #{prospect}, #{dvlPossibility}, #{aptitude}, #{task})
+	</insert>
+	
+	<select id="departAdminList"
+		resultType="com.project.jr.admin.model.DepartAdminDTO">
+		SELECT
+		*
+		FROM (SELECT
+		b.*, rownum AS rnum
+		FROM (SELECT
+		*
+		FROM tblDepart
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+		ORDER BY departSeq ASC) b)
+		WHERE rnum BETWEEN #{begin} AND #{end}
+	</select>
+
+	<select id="departGetTotalCount"
+		parameterType="com.project.jr.admin.model.AdminPageDTO"
+		resultType="Integer">
+		SELECT count(*) AS cnt FROM vwDepartJob
+		<if test="search != null">
+			AND ${column} LIKE '%' || #{word} || '%'
+		</if>
+	</select>
+	
+	<select id="departAdminDetail" parameterType="String" resultType="com.project.jr.admin.model.DepartAdminDTO">
+    	select * from vwDepartJob where departSeq = #{departSeq}
+	</select>
+	
+	<insert id="departAdminAdd" parameterType="com.project.jr.admin.model.DepartAdminDTO">
+		insert into tblDepart (departSeq, departName) values (departSeq.nextVal, #{departName})
+	</insert>
+	
+
+
+</mapper>

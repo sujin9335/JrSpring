@@ -37,6 +37,9 @@
 	</bean> -->
 	<!-- 인터페이스 매퍼를 인식하는 행동 -->
 
+	
 	<mybatis-spring:scan base-package="com.project.jr.*.mapper"/>
+	
+
 
 </beans>
