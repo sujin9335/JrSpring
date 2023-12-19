@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.jr.study.mapper.StudyBookMapper">
+
+	<select id="getBookSeq" parameterType="String" resultType="Integer">
+		select 
+		    DISTINCT bi.bookseq
+		from tblBookprgByUser bu
+		    inner join tblIndex bi
+		        on bu.indexSeq = bi.indexSeq
+		            where bu.id=#{id}
+	</select>
+
+	<resultMap type="com.project.jr.study.model.StudyBookDTO" id="crtN">
+		<id property="bookSeq" column="bookSeq"/>
+		<result property="bookName" column="bookName"/>
+		<result property="publisher" column="publisher"/>
+		<result property="price" column="price"/>
+		<result property="pbDate" column="pbDate"/>
+		<result property="author" column="author"/>
+		<result property="bookLike" column="bookLike"/>
+		<result property="level" column="level"/>
+		<result property="bookImg" column="bookImg"/>
+		<result property="per" column="per"/>
+		
+		<collection property="crtName" resultMap="crtNameMap"></collection>
+	</resultMap>
+
+	<resultMap type="com.project.jr.study.model.BookCrtDTO" id="crtNameMap">
+		<result property="crtName" column="crtName"/>
+	</resultMap>
+
+	<select id="getStudyBook" parameterType="java.util.HashMap" resultMap="crtN">
+		select
+		    bookSeq,
+		    bookName,
+		    publisher,
+		    price,
+		    pbDate,
+		    author,
+		    bookLike,
+		    lv,
+		    bookImg,
+		    crtName,
+		    FLOOR(100*b/a) as per  
+		from (
+		    select  
+		        a.bookSeq as bookSeq,
+		        a.bookName as bookName,
+		        a.publisher as publisher,
+		        a.price as price,
+		        a.pbDate as pbDate,
+		        a.author as author,
+		        a.bookLike as bookLike,
+		        a.lv as lv,
+		        a.bookImg as bookImg,
+		        c.crtName as crtName,
+		        (select
+		            count(*)
+		        from tblBookprgByUser where indexSeq in (select indexSeq from tblindex where bookseq=#{seq}) and id=#{id}) as a,
+		        (select
+		            count(*)
+		        from tblBookprgByUser where indexSeq in (select indexSeq from tblindex where bookseq=#{seq}) and id=#{id} and learnCheck = 1) as b
+		    from tblbook a
+		        inner join tblCrtByBook cb
+		            on a.bookSeq = cb.bookSeq
+		                left join tblCrt c
+		                    on cb.crtSeq=c.crtSeq
+		                where a.bookSeq=#{seq})
+	</select>
+	
+
+	<!-- <select id="getStudyBook" parameterType="java.util.HashMap" resultType="com.project.jr.study.model.StudyBookDTO">
+		select
+		    bookSeq,
+		    bookName,
+		    publisher,
+		    price,
+		    pbDate,
+		    author,
+		    bookLike,
+		    lv,
+		    bookImg,
+		    FLOOR(100*b/a) as per  
+		from (
+		    select  
+		        bookSeq,
+		        bookName,
+		        publisher,
+		        price,
+		        pbDate,
+		        author,
+		        bookLike,
+		        lv,
+		        bookImg,
+		        (select
+		            count(*)
+		        from tblBookprgByUser where indexSeq in (select indexSeq from tblindex where bookseq=#{seq}) and id=#{id}) as a,
+		        (select
+		            count(*)
+		        from tblBookprgByUser where indexSeq in (select indexSeq from tblindex where bookseq=#{seq}) and id=#{id} and learnCheck = 1) as b
+		    from tblbook where bookSeq=#{seq})
+	</select> -->
+ 
+ 
+ 	<select id="getBookTilte" parameterType="java.util.HashMap" resultType="com.project.jr.study.model.BookTitleDTO">
+		select
+		    * 
+		from tblIndex i
+		left join 
+		    (select * from tblBookprgByUser where id = #{id}) bp
+		    on i.indexSeq = bp.indexSeq
+		        where bookSeq = #{seq} 
+		            ORDER BY listNum asc
+		            
+	</select>
+	
+	<update id="chageLearn" parameterType="java.util.HashMap">
+		update tblBookprgByUser set learnCheck = #{learn} where bookprcByUserSeq = #{seq} and id = #{id}
+	</update>
+	
+	<select id="getStudySeq" parameterType="java.util.HashMap" resultType="Integer">
+		select * from tblStudyMember where id=#{id}
+	</select>
+	
+	<select id="getStudy" parameterType="Integer" resultType="com.project.jr.study.model.StudyDTO">
+		select 
+		    * 
+		from tblStudy s
+		    inner join tblCrt c
+		        on s.crtSeq = c.crtSeq
+		            where studySeq=#{s}
+	</select>
+	
+	<insert id="setChat" parameterType="com.project.jr.study.model.Message">
+   			insert into tblChat (chatSeq, code, sender, receiver, content, regdate)
+    			values (chatSeq.nextVal, #{code}, #{sender}, #{receiver}, #{content}, #{regdate})
+	</insert>
+	
+	<select id="getStudyMember" parameterType="Integer" resultType="com.project.jr.study.model.StudyMemberDTO">
+		select * from tblStudyMember where studySeq=#{s}
+	</select>
+ 
+ 	<select id="getChat" resultType="com.project.jr.study.model.Message">
+ 		select * from tblChat
+ 	</select>
+ 	
+ 	<insert id="setTodo" parameterType="com.project.jr.study.model.TodoDTO">
+ 		insert into tblToDoList (toDoListSeq, studySeq, toDo, completeDate, id, toDoComment, writeDate)
+   			values (toDoListSeq.nextVal, #{studySeq}, #{toDo}, #{completeDate}, #{id}, #{toDoComment}, sysdate)
+ 	</insert>
+ 	
+ 	<select id="getTodoList" parameterType="Integer" resultType="com.project.jr.study.model.TodoDTO">
+ 	 	select * from tblToDoList order by TodoListSeq desc
+ 	</select>
+ 
+</mapper>
+
+
+
+
+
+

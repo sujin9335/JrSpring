@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.jr.study.mapper.StudyMapper">
+
+	<!-- <insert id="setChat" parameterType="com.project.jr.study.model.Message"> -->
+	<insert id="setChat" parameterType="com.project.jr.study.model.Message">
+   			insert into tblChat (chatSeq, code, sender, receiver, content, regdate)
+    			values (chatSeq.nextVal, 3, 'N7sBxUcT', '', '안녕', '2023. 12. 12. 오후 3:04:42')
+	</insert>
+	
+ 
+</mapper>
+
+
+
+
+
+
