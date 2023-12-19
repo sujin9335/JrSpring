@@ -42,6 +42,7 @@
        select * from tblindex where bookseq=#{seq}
     </select> 
     
+<<<<<<< HEAD
     <!-- 상세보기 좋아요 -->
          <select id="like" parameterType="com.project.jr.book.model.BookPageDTO" resultType="com.project.jr.book.model.BookDTO">
 	SELECT
@@ -68,6 +69,10 @@ JOIN TBLBOOKPRGBYUSER bp ON i.INDEXSEQ = bp.INDEXSEQ
     	insert into tblbookprgbyuser(bookprcbyuserseq, id, indexseq, learncheck) values (bookprcbyuserseq.nextVal, #{id}, #{indexSeq}, 0)
     </insert>
     
+=======
+    
+    
+>>>>>>> bin
     
    <!-- 게시판 목록보기 > 총 글의 개수 -->
    <select id="getTotalCount" parameterType="com.project.jr.book.model.BookPageDTO" resultType="Integer">
@@ -93,10 +98,15 @@ JOIN TBLBOOKPRGBYUSER bp ON i.INDEXSEQ = bp.INDEXSEQ
  	select * from tblbooklike
  	</select>
  	
- 	
-<!--  	<insert id="addBook" resultType="com.project.jr.book.model.BookDTO">
+    <!--  	
+    <insert id="addBook" resultType="com.project.jr.book.model.BookDTO">
  		insert into tblx
  	</insert>
- --> 
-</mapper>
+    --> 
 
+    <!-- My좋아요 : Book -->
+ 	<select id="likelist" parameterType="String" resultType="com.project.jr.book.model.BookDTO" >
+ 		select * from tblBooklike bl inner join tblBook b on bl.bookseq = b.bookseq where bl.id = #{id}
+ 	</select>
+    
+</mapper>

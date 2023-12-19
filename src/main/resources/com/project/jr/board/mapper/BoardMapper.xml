@@ -101,4 +101,12 @@
 		= boardLike - 1 WHERE boardSeq = #{boardSeq}
 	</update>
 
+	<!-- My좋아요 : Board -->
+	<select id="likelist" parameterType="String" resultType="com.project.jr.board.model.BoardDTO">
+		<!-- 번호: 게시글 번호(boardSeq), 게시글 번호 - -->
+		select * from tblBoardLike bl inner join tblboard b on bl.boardseq = b.boardseq where bl.id = #{id}
+	</select>
+	
+		
+	
 </mapper>

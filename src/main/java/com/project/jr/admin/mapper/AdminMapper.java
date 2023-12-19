@@ -13,7 +13,7 @@ import com.project.jr.admin.model.DepartAdminDTO;
 import com.project.jr.admin.model.ForbiddenAdminDTO;
 import com.project.jr.admin.model.JobAdminDTO;
 import com.project.jr.admin.model.UserAdminDTO;
-
+import com.project.jr.admin.model.AdminDTO;
 public interface AdminMapper {
 	
 	//자격증
@@ -87,5 +87,10 @@ public interface AdminMapper {
 	
 	int departAdminAdd(DepartAdminDTO dto);
 
+
+
+	int adminLogin(AdminDTO adto);
+
+	AdminDTO get(String adminInfoId);
 
 }

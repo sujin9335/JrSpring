@@ -1,5 +1,6 @@
 package com.project.jr.admin.repository;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.project.jr.admin.model.DepartAdminDTO;
 import com.project.jr.admin.model.ForbiddenAdminDTO;
 import com.project.jr.admin.model.JobAdminDTO;
 import com.project.jr.admin.model.UserAdminDTO;
+import com.project.jr.admin.model.AdminDTO;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO{
@@ -203,6 +205,17 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		
 		return mapper.departAdminDetail(departSeq);
+	}
+
+
+	@Override
+	public int adminLogin(AdminDTO adto) {
+		System.out.println(adto.toString());
+		return mapper.adminLogin(adto);
+	}
+	@Override
+	public AdminDTO get(String adminInfoId) {
+		return mapper.get(adminInfoId);
 	}
 
 }

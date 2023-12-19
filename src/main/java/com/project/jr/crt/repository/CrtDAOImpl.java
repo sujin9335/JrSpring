@@ -50,6 +50,7 @@ public class CrtDAOImpl implements CrtDAO{
 	public int crtLikeDel(CrtLikeDTO dto) {
 		return cmapper.crtLikeDel(dto);
 	}
+
 	/*
 	@Override
 	public CrtDTO get(int crtseq) {
@@ -81,4 +82,10 @@ public class CrtDAOImpl implements CrtDAO{
 		return cmapper.crtGraphDto(crtSeq);
 	}
 
+	@Override
+	public List<CrtDTO> likelist(String id) {
+		return cmapper.likelist(id);
+	}
+	
 }
+

@@ -75,12 +75,17 @@
  	
  	
  	<!-- 자격증 상세조회 -->
+<<<<<<< HEAD
  	<select id="get" parameterType="map" resultType="com.project.jr.crt.model.CrtDTO">
  		SELECT b.*, 
  			(SELECT count(*) FROM tblCrtLike WHERE crtSeq = #{crtSeq}) as crtlikecnt ,
  			(SELECT count(*) FROM tblCrtLike WHERE crtSeq = #{crtSeq} and id = #{id}) as crtlike 
  		FROM vwCrt b 
  		where crtSeq = #{crtSeq}
+=======
+ 	<select id="get" parameterType="Integer" resultType="com.project.jr.crt.model.CrtDTO">
+ 		SELECT * FROM vwCrt where crtSeq = #{crtSeq}
+>>>>>>> bin
  	</select>
  	
  	<!-- 자격증 응시료 조회 -->
@@ -102,11 +107,12 @@
  	<select id="crtGraphDto" parameterType="Integer" resultType="com.project.jr.crt.model.CrtPassRateDTO">
  		SELECT * FROM vwCrtPassRate WHERE crtSeq = #{crtSeq}
  	</select>
- 	
+
+	<!-- My좋아요 : Crt -->
+	<select id="likelist" parameterType="String" resultType="com.project.jr.crt.model.CrtDTO">
+		<!-- select * from tblCrtLike cl inner join tblcrt c on cl.crtseq = c.crtseq where id = #{id} -->
+		<!-- select * from tblCrtLike cl inner join tblcrt c on cl.crtseq = c.crtseq inner join tblagency a on c.agencyseq = a.agencyseq where id = #{id} -->
+		select * from tblCrtLike cl inner join tblcrt c on cl.crtseq = c.crtseq inner join tblagency a on c.agencyseq = a.agencyseq inner join tblCrtType ct on c.crttypeseq = ct.crttypeseq where id = #{id}
+	</select>
+
 </mapper>
-
-
-
-
-
-

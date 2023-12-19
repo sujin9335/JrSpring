@@ -1,5 +1,9 @@
 package com.project.jr.like.mapper;
 
+import java.util.List;
+
+import com.project.jr.board.model.BoardDTO;
+import com.project.jr.board.model.PageDTO;
 import com.project.jr.like.model.BoardLikeDTO;
 import com.project.jr.like.model.NoticeBoardLikeDTO;
 
@@ -21,5 +25,12 @@ public interface BoardLikeMapper {
 	int likeNotice(NoticeBoardLikeDTO ldto);
 
 	int unlikeNotice(NoticeBoardLikeDTO ldto);
+
+
+	List<BoardDTO> myboardlike(PageDTO pdto);
+
+//	List<BoardDTO> myboardlike(String string);
+
+	List<BoardDTO> myboardrest(String string);
 
 }

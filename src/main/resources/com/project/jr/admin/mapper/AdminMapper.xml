@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.project.jr.admin.mapper.AdminMapper"> <!-- 사용할 인터페이스 경로 -->
 
 	<!-- 자격증 관리 -->
@@ -249,6 +250,13 @@
 		insert into tblDepart (departSeq, departName) values (departSeq.nextVal, #{departName})
 	</insert>
 	
-
+	<!-- 로그인 -->
+	<select id="adminLogin" parameterType="com.project.jr.admin.model.AdminDTO" resultType="Integer">
+		select count(*) from tblAdminInfo where adminInfoId = #{adminInfoId} and adminInfoPw = #{adminInfoPw}
+	</select>
+	
+	<select id="get" parameterType="String" resultType="com.project.jr.admin.model.AdminDTO">
+		select * from tblAdminInfo where adminInfoId = #{adminInfoId}
+	</select>
 
 </mapper>

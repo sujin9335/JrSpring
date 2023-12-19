@@ -1,5 +1,6 @@
 package com.project.jr.crt.mapper;
 
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,4 +37,12 @@ public interface CrtMapper {
 	List<CrtSchDdayDTO> schDday(int crtSeq);
 	
 	CrtPassRateDTO crtGraphDto(int crtSeq);
+
+
+	CrtDTO get(int crtseq);
+
+
+	List<CrtDTO> likelist(String id);
+
+
 }

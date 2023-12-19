@@ -25,6 +25,7 @@ public interface CrtDAO {
 
 	int crtLikeDel(CrtLikeDTO dto);
 
+
 	//CrtDTO get(int crtseq);
 	CrtDTO get(HashMap<String, String> map);
 
@@ -32,10 +33,12 @@ public interface CrtDAO {
 
 	List<CrtTestDTO> testList(int crtSeq);
 
+
 	List<CrtSchDdayDTO> schDday(int crtSeq);
 
 	CrtPassRateDTO crtGraphDto(int crtSeq);
 
 
+	List<CrtDTO> likelist(String id);
 	
 }

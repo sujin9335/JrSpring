@@ -21,19 +21,23 @@ public interface BookMapper {
    ArrayList<BookDetailDTO> getBookDetail(HashMap<String, Object> map);
 
    ArrayList<BookDTO> getBookTItle(HashMap<String, Object> map);
-	
 	int booklike(BookLikeDTO dto);
 	
 	int booklikedel(BookLikeDTO dto);
 	
 	List<BookLikeDTO> bookmarklist();
 	
+
 	ArrayList<BookDTO> getBookTitle2(int bookSeq);
 
 	int mybookadd(BookDTO dto);
 
-    
-    
     BookDTO get(int bookSeq);
+
+    List<BookDTO> likelist(String id);
+    
+    
+//    BookDTO get(int bookSeq);
+
 
 }

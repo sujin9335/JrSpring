@@ -1,5 +1,9 @@
 package com.project.jr.like.repository;
 
+import java.util.List;
+
+import com.project.jr.board.model.BoardDTO;
+import com.project.jr.board.model.PageDTO;
 import com.project.jr.like.model.BoardLikeDTO;
 import com.project.jr.like.model.NoticeBoardLikeDTO;
 
@@ -21,5 +25,11 @@ public interface BoardLikeDAO {
 	int likeNotice(NoticeBoardLikeDTO ldto);
 
 	int unlikeNotice(NoticeBoardLikeDTO ldto);
+
+	List<BoardDTO> list(PageDTO pdto);
+
+//	List<BoardDTO> myboardlike(String string);
+
+	List<BoardDTO> myboardrest(String string);
 
 }

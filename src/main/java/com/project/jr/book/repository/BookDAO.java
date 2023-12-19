@@ -36,5 +36,11 @@ public interface BookDAO {
 
 	BookDTO get(int bookSeq);
 
+	List<BookDTO> likelist(String id);
+
+	//ArrayList<BookDTO> getBookDetail(HashMap<String, Object> map);
+
+	//BookDTO get(int bookSeq);
+
 
 }
