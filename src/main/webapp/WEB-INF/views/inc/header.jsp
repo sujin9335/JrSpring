@@ -25,9 +25,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">자격증 조회</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                <li><a class="dropdown-item" href="jobListings.do">자격증 조회</a></li>
+                                <li><a class="dropdown-item" href="/jr/crt/crtlist.do">자격증 조회</a></li>
 
-                                <li><a class="dropdown-item" href="jobDetails.do">자격증 시험 일정 조회</a></li>
+                                <li><a class="dropdown-item" href="/jr/crt/crtshlist.do">자격증 시험 일정 조회</a></li>
                             </ul>
                         </li>
 
@@ -45,9 +45,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">교재 조회</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                <li><a class="dropdown-item" href="jobListings.do">Job Listings</a></li>
+                                <li><a class="dropdown-item" href="/jr/book/list.do">교재 조회</a></li>
 
-                                <li><a class="dropdown-item" href="jobDetails.do">Job Details</a></li>
                             </ul>
                         </li>
 
@@ -55,9 +54,12 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">학원 및 우리동네 학원</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                <li><a class="dropdown-item" href="jobListings.do">Job Listings</a></li>
+                                <li><a class="dropdown-item" href="jobListings.do">학원 조회</a></li>
 
+<<<<<<< HEAD
                                 <li><a class="dropdown-item" href="/jr/academy/map.do">우리 동네 학원</a></li>
+=======
+>>>>>>> sujin1
                             </ul>
                         </li>
                         
