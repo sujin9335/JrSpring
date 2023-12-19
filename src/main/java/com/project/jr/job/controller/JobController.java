@@ -156,6 +156,12 @@ public class JobController {
 
 		JobDTO dto=dao.getJob(seq);
 		
+		//관련자격증
+		ArrayList<JobDTO> list=dao.getJobG(seq);
+		//System.out.println(list.toString());
+		
+		model.addAttribute("list", list);
+		
 		dto.setTask(dto.getTask().replace("/", "<br>"));
 		dto.setAptitude(dto.getAptitude().replace("/", "<br>"));
 		

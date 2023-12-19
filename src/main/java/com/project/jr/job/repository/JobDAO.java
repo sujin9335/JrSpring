@@ -19,5 +19,7 @@ public interface JobDAO {
 
 	ArrayList<String> getJobNames(HashMap<String, Object> map);
 
+	ArrayList<JobDTO> getJobG(int seq);
+
 
 }

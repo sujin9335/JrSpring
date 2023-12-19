@@ -18,4 +18,6 @@ public interface JobMapper {
 
 	ArrayList<String> getJobNames(HashMap<String, Object> map);
 
+	ArrayList<JobDTO> getJobG(int seq);
+
 }

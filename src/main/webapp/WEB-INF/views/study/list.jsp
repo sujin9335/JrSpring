@@ -99,15 +99,9 @@
 
 		<div class="table-responsive"> <!-- 리스트 내용물 -->
 		
-			<div class="d-flex justify-content-end flex-wrap pt-4 pb-4">
-
-				<a href="/jr/board/list.do" class="custom-btn btn">목록</a>
-				<c:if test="${ id != null }">
-
-					<a href="/jr/board/add.do"
-							class="custom-btn custom-border-btn btn ms-2">작성</a>
-				</c:if>
-			</div>
+			<div class="col-lg-12 col-12 mb-lg-4">
+            	<h3>스터디</h3>
+            </div>
 			
 			<table class="table table-hover fs-5 align-middle board">
 				<thead class="text-center">

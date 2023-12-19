@@ -10,4 +10,6 @@ public class JobGroupDTO {
 	private int jobgroupSeq;
 	private String jobgroupName;
 	private String jobgroupImg;
+	
+	private String crtName;
 }
