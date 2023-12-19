@@ -109,5 +109,9 @@
 		<!-- select * from tblCrtLike cl inner join tblcrt c on cl.crtseq = c.crtseq inner join tblagency a on c.agencyseq = a.agencyseq where id = #{id} -->
 		select * from tblCrtLike cl inner join tblcrt c on cl.crtseq = c.crtseq inner join tblagency a on c.agencyseq = a.agencyseq inner join tblCrtType ct on c.crttypeseq = ct.crttypeseq where id = #{id}
 	</select>
+	
+	<select id="getTop100List" resultType="com.project.jr.crt.model.CrtDTO">
+		SELECT * FROM vwCrtTop
+	</select>
 
 </mapper>

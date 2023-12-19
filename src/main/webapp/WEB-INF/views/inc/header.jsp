@@ -55,7 +55,7 @@
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
 
-
+                                <li><a class="dropdown-item" href="jobListings.do">학원 조회</a></li>
                                 <li><a class="dropdown-item" href="/jr/academy/map.do">우리 동네 학원</a></li>
 
                             </ul>

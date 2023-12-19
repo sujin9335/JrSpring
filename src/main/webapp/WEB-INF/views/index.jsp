@@ -1,67 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+ <link href="<%=request.getContextPath() %>/resources/css/indexcss.css" rel="stylesheet">
 <main>
+
+
+
+		<header class="site-header">
+			<div class="section-overlay"></div>
+
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-12 col-12 text-center">
+						<section id="hero" class="hero d-flex align-items-center ">
+    <div class="container">
+      <div class="row gy-4 d-flex justify-content-around">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h2 data-aos="fade-up" class="me-auto" style="color: #f0f8ff;">자격증, 자랑이와!</h2>
+
+          <form action="/jr/crt/crtlist.do" method="get" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up" data-aos-delay="200">
+            <input type="text" name="word" class="form-control mb-3" placeholder="자격증을 검색해보세요">
+            <input type="hidden" name="crtctg" class="form-control" placeholder="자격증을 검색해보세요">
+            <input type="hidden" name="agency" class="form-control" placeholder="자격증을 검색해보세요">
+            <input type="hidden" name="difficulty" class="form-control" placeholder="자격증을 검색해보세요">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+
+          
+        </div>
+
+        <div id="banner" style="text-align: center;" class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+        
+        
+        <img alt="" src="<%=request.getContextPath() %>/resources/images/bookbanner.png" onclick="location.href='/jr/book/list.do'">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <img alt="" src="<%=request.getContextPath() %>/resources/images/crtbanner.png" onclick="location.href='/jr/crt/crtrec.do'">
+        
+        </div>
+
+      </div>
+    </div>
+    
+    
+  </section>
+					</div>
+
+				</div>
+			</div>
+		</header>
 
 	
 
-	<!-- 검색 세션 -->
-	<section
-		class="section-padding pb-0 d-flex justify-content-center align-items-center"
-		style="padding-top: 70px">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-lg-12 col-12 ">
-					<form class="custom-form hero-form pb-2 pt-4"
-						action="/jr/board/list.do" method="GET" role="form">
-						<h3 class="text-white mb-3">게시판 검색</h3>
-
-						<div class="row">
-
-							<!-- 셀렉트 박스 -->
-							<div class="col-lg-4 col-md-4 col-12">
-								<div class="input-group">
-									<span class="input-group-text" id="basic-addon1"><i
-										class="bi-laptop custom-icon"></i></span> <select
-										class="form-select form-control" name="column" id="job-level"
-										aria-label="Default select example">
-										<option value="boardTitle">제목</option>
-										<option value="boardContent">내용</option>
-										<option value="id">ID</option>
-									</select>
-								</div>
-							</div>
-
-							<!-- 검색창 -->
-							<div class="col-lg-8 col-md-8 col-12">
-								<div class="input-group">
-									<span class="input-group-text" id="basic-addon1"><i
-										class="bi-search custom-icon"></i></span> <input type="text"
-										name="word" id="job-title" class="form-control"
-										placeholder="검색어를 입력해주세요." required>
-								</div>
-							</div>
-
-							<!-- 검색 버튼 -->
-							<div class="col-lg-12 col-12">
-								<button type="submit" class="form-control">검색</button>
-							</div>
-
-						</div>
-					</form>
-				</div>
-				
-
-			</div>
-		</div>
-	</section>
-	<!-- /검색 세션 -->
+	
 
 
 	<!-- 여기서 부터 내용작성 세션 -->
 	<section class="">
-		<div class="container">
+		<div class="container pt-5">
 
 	<div class="container">
         <div class="row gy-4" style="align-items: flex-start;">
@@ -103,7 +100,8 @@
 						</tr>
 					</tbody>
 				</table>
-              <a href="/jr/crt/crtdetail.do?seq=${ dto.crtSeq }" class="readmore stretched-link"><span>자격증 상세보기</span><i class="bi bi-arrow-right"></i></a>
+				
+              <a href="/jr/crt/crtdetail.do?crtSeq=${ dto.crtSeq }" class="readmore stretched-link"><span>자격증 상세보기</span><i class="bi bi-arrow-right"></i></a>
               </div>
               </div>
           </div>
@@ -127,3 +125,18 @@
 
 
 </main>
+
+<script>
+  
+
+ 
+ $('.card').mouseover(function(event) {
+	  $(event.currentTarget).find('.hide').show();
+	});
+
+	$('.card').mouseout(function(event) {
+	  $(event.currentTarget).find('.hide').hide();
+	});
+
+  
+  </script>

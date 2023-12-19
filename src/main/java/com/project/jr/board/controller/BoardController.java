@@ -59,9 +59,10 @@ public class BoardController {
 		
 		//id
 		//session.setAttribute("id", "N7sBxUcT"); //임시값
-//		if (session.getAttribute("id") != null) {
-//			id = session.getAttribute("id").toString();
-//		}
+		if (session.getAttribute("id") != null) {
+			String id = session.getAttribute("id").toString();
+			model.addAttribute("id", id);
+		}
 		
 		//조회수
 		// 새로고침 방지
@@ -119,7 +120,11 @@ public class BoardController {
 						PageDTO pdto, 
 						BoardLikeDTO ldto) {
 		
-		session.setAttribute("id", "N7sBxUcT"); //임시값
+		//session.setAttribute("id", "N7sBxUcT"); //임시값
+		if (session.getAttribute("id") != null) {
+			String id = session.getAttribute("id").toString();
+			model.addAttribute("id", id);
+		}
 		
 		//삭제글 내쫓기
 		if (bsvc.isDeleted(boardSeq)) {
@@ -155,7 +160,11 @@ public class BoardController {
 	public String addGet(Model model, HttpSession session, HttpServletResponse resp) {
 		
 		
-		session.setAttribute("id", "N7sBxUcT"); //임시값
+		//session.setAttribute("id", "N7sBxUcT"); //임시값
+		if (session.getAttribute("id") != null) {
+			String id = session.getAttribute("id").toString();
+			model.addAttribute("id", id);
+		}
 		
 		//비회원 내쫓기
 		if (session.getAttribute("id") == null || session.getAttribute("id").equals("")) {
@@ -176,6 +185,7 @@ public class BoardController {
 	 */
 	@PostMapping(value = "/add.do")
 	public String add(BoardDTO bdto, HttpServletResponse resp, HttpSession session) {
+		
 		
 		bdto.setId(session.getAttribute("id").toString());
 		

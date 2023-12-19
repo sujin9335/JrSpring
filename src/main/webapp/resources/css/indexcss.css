@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+ul {
+	list-style: none;
+}
+
+li {
+	float: left;
+}
+
+.d-day {
+	position: absolute;
+	left: 20px;
+	top: 15px;
+	display: block;
+	width: 40px;
+	height: 20px;
+	line-height: 19px;
+	text-align: center;
+	font-size: 10px;
+	font-weight: 400;
+	color: #fff;
+	background: #9c57f5;
+	border-radius: 10px;
+}
+
+.info {
+	width: 100%;
+}
+
+/* 
+ 	 .card {
+ 	 	position: relative;
+ 	 	left: 0;
+ 	 	top: 0;
+ 	 }
+ 	  */
+.hide {
+	display: none;
+	/* position: absolute;
+ 	 	background-color: white;
+ 	 	width: 200px;
+ 	 	height: 100px;
+ 	 	top: 150px;
+ 	 	z-index: 10; */
+}
+
+/* .card:hover .hide {
+ 	 	display:block;
+ 
+ 	 } */
+#banner>img {
+	cursor: pointer;
+	object-fit: cover;
+	width: 45%;
+	height: 100%;
+}
+
+.site-header {
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
