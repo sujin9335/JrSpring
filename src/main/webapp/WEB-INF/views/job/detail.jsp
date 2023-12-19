@@ -141,7 +141,9 @@
 								</div>
 								<div>
 									<div><b><i class="bi bi-journal-medical"></i>관련 자격증</b></div>
-									<div class="con">${dto.crtName }</div>
+									<c:forEach items="${list}" var="dto">
+										<div class="con">${dto.crtName }</div>
+									</c:forEach>
 								</div>
 								<div>
 									<div><b><i class="bi bi-journal-medical"></i>적성 및 흥미</b></div>

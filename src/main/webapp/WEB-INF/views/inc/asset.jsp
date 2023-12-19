@@ -30,11 +30,11 @@
         
         <link href="<%=request.getContextPath() %>/resources/css/listings.css" rel="stylesheet"> 
         
-        <link href="<%=request.getContextPath() %>/resources/css/argon-dashboard.css" rel="stylesheet"> 
+        <%-- <link href="<%=request.getContextPath() %>/resources/css/argon-dashboard.css" rel="stylesheet"> --%> 
         
-        <link href="<%=request.getContextPath() %>/resources/css/argon-dashboard.css.map" rel="stylesheet"> 
+        <%-- <link href="<%=request.getContextPath() %>/resources/css/argon-dashboard.css.map" rel="stylesheet"> 
         
-        <link href="<%=request.getContextPath() %>/resources/css/argon-dashboard.min.css" rel="stylesheet"> 
+        <link href="<%=request.getContextPath() %>/resources/css/argon-dashboard.min.css" rel="stylesheet">  --%>
         
         <link href="<%=request.getContextPath() %>/resources/css/nucleo-icons.css" rel="stylesheet"> 
         

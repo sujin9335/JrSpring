@@ -37,4 +37,10 @@ public class JobDAOImpl implements JobDAO{
 	public ArrayList<String> getJobNames(HashMap<String, Object> map) {
 		return mapper.getJobNames(map);
 	}
+	
+	@Override
+	public ArrayList<JobDTO> getJobG(int seq) {
+		return mapper.getJobG(seq);
+	}
+	
 }

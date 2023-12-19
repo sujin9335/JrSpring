@@ -6,7 +6,7 @@
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="/jr/index.do">
                    <%--  <img src="<%=request.getContextPath() %>/resources/images/logo.png" class="img-fluid logo-image"> --%>
-                    <img src="<%=request.getContextPath() %>/resources/images/LOGO3.png" class="img-fluid logo-image">
+                    <img src="<%=request.getContextPath() %>/resources/images/LOGO3.png" class=" " style="width:200px;">
 					<!-- 
                     <div class="d-flex flex-column">
                         <strong class="logo-text">자랑이2</strong>

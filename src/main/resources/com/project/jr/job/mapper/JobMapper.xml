@@ -66,17 +66,36 @@
 		                on dj.jobSeq = j.jobSeq
 		                    inner join tblDepart d
 		                        on d.departSeq = dj.departSeq
+                                    where j.jobSeq = #{seq}
+		
+		<!-- select 
+		    *
+		from tblJob j
+		    inner join tblJobgroup jg
+		        on j.jobgroupSeq = jg.jobgroupSeq
+		            inner join tblDepartByJob dj
+		                on dj.jobSeq = j.jobSeq
+		                    inner join tblDepart d
+		                        on d.departSeq = dj.departSeq
 		                            inner join tblCrtByJob cj
 		                                on cj.jobSeq = j.jobSeq
 		                                    inner join tblCrt c
 		                                        on c.crtSeq = cj.crtSeq
-		                                            where j.jobSeq = #{seq}
+		                                            where j.jobSeq = #{seq} -->
 	</select>
 	
 	<select id="getJobNames" parameterType="java.util.HashMap" resultType="String">
 		select jobName from tblJob where regexp_like(jobName, #{jobSearch}, 'i')
 	</select>
  
+ 	<select id="getJobG" parameterType="Integer" resultType="com.project.jr.job.model.JobGroupDTO">
+ 		select 
+		    * 
+		from tblCrtByJob cb
+		    inner join tblCrt c
+		        on cb.crtSeq=c.crtSeq
+		            where jobSeq=${seq}
+ 	</select>
  
 </mapper>
 

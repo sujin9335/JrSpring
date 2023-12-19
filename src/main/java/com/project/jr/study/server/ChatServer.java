@@ -26,6 +26,7 @@ public class ChatServer {
 	
 	
 	//현재 채팅서버에 접속 중인 클라이언트 목록
+	@Inject
 	private static List<Session> sessionList = new ArrayList<Session>();
 	
 	@OnOpen
