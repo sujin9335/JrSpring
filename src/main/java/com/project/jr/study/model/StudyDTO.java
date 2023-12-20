@@ -3,6 +3,11 @@ package com.project.jr.study.model;
 import lombok.Data;
 import lombok.ToString;
 
+/**
+ * 스터디DTO
+ * @author user
+ *
+ */
 @Data
 @ToString
 public class StudyDTO {

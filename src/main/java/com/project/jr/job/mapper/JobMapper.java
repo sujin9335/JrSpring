@@ -5,7 +5,11 @@ import java.util.HashMap;
 
 import com.project.jr.job.model.JobDTO;
 import com.project.jr.job.model.JobGroupDTO;
-
+/**
+ * 직업 mapper 클래스
+ * @author sujin
+ *
+ */
 public interface JobMapper {
 
 	ArrayList<JobGroupDTO> getJobGroup();

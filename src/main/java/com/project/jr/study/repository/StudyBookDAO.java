@@ -10,6 +10,11 @@ import com.project.jr.study.model.StudyDTO;
 import com.project.jr.study.model.StudyMemberDTO;
 import com.project.jr.study.model.TodoDTO;
 
+/**
+ * 스터디 DAO 인터페이스
+ * @author user
+ *
+ */
 public interface StudyBookDAO {
 
 	ArrayList<Integer> getBookSeq(String id);

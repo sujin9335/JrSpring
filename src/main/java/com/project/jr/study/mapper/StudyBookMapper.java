@@ -10,6 +10,11 @@ import com.project.jr.study.model.StudyDTO;
 import com.project.jr.study.model.StudyMemberDTO;
 import com.project.jr.study.model.TodoDTO;
 
+/**
+ * 스터디 mapper 인터페이스
+ * @author user
+ *
+ */
 public interface StudyBookMapper {
 
 	ArrayList<Integer> getBookSeq(String id);

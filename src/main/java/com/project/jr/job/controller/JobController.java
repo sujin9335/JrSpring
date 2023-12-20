@@ -13,6 +13,12 @@ import com.project.jr.job.model.JobDTO;
 import com.project.jr.job.model.JobGroupDTO;
 import com.project.jr.job.repository.JobDAO;
 
+/**
+ * 직업 Controller 클래스
+ * @author sujin
+ *
+ */
+
 @Controller
 @RequestMapping(value = "/job")
 public class JobController {
@@ -20,6 +26,13 @@ public class JobController {
 	@Autowired
 	private JobDAO dao;
 	
+	/**
+	 * 직업 리스트 메소드
+	 * @param page 현재 페이지
+	 * @param jobgroupSeq 직업군seq
+	 * @param jobSearch 직업 검색어
+	 * @return 직업 리스트 JSP
+	 */
 	@GetMapping(value = "/list.do")
 	public String list(Model model, String page, String jobgroupSeq, String jobSearch) {
 
@@ -151,6 +164,11 @@ public class JobController {
 		return "job.list";
 	}
 	
+	/**
+	 * 직업상세 메소드
+	 * @param seq 선택 직업seq
+	 * @return 직업상세 JSP
+	 */
 	@GetMapping(value = "/detail.do")
 	public String detail(Model model, int seq) {
 

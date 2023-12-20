@@ -14,6 +14,11 @@ import com.project.jr.study.model.StudyDTO;
 import com.project.jr.study.model.StudyMemberDTO;
 import com.project.jr.study.model.TodoDTO;
 
+/**
+ * 스터디 DAO
+ * @author user
+ *
+ */
 @Repository
 public class StudyBookDAOImpl implements StudyBookDAO{
 

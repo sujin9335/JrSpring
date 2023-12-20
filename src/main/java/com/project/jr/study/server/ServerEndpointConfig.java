@@ -6,6 +6,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 웹소켓 DAO 사용 관련 클래스
+ * @author user
+ *
+ */
 @Configuration
 public class ServerEndpointConfig extends javax.websocket.server.ServerEndpointConfig.Configurator implements ApplicationContextAware {
 

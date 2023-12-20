@@ -10,6 +10,11 @@ import com.project.jr.job.mapper.JobMapper;
 import com.project.jr.job.model.JobDTO;
 import com.project.jr.job.model.JobGroupDTO;
 
+/**
+ * 직업 DAO 
+ * @author sujin
+ *
+ */
 @Repository
 public class JobDAOImpl implements JobDAO{
 
