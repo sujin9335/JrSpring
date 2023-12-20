@@ -103,11 +103,11 @@
 			<div class="d-flex pt-4 pb-4">
 
 					<div>
-					<a href="/jr/crt/crtboardlist.do" class="custom-btn btn">목록</a>
+					<a href="/jr/crt/crtboardlist.do" class="custom-btn btn" style="font-size:17px;">목록</a>
 					<c:if test="${ id != null }">
 
 						<a href="/jr/crt/add.do"
-							class="custom-btn custom-border-btn btn">작성</a>
+							class="custom-btn custom-border-btn btn" style="font-size:17px;">작성</a>
 					</c:if>
 					</div>
 					<div

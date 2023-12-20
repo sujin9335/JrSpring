@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="<%=request.getContextPath() %>/resources/css/board.css" rel="stylesheet"> 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <main">
 
 	<header class="site-header2" style="padding-top: 70px">
@@ -164,8 +166,8 @@ $(document).ready(function() {
 	    markers.push(marker);
 	    
 	    var msg = `
-	    <div class="row col-12 d-flex ms-auto me-auto" style="width: 150px; font-size: .8rem;">
-	    	<div class="flex_column">${dto.academyName}</div>
+	    <div class="row col-12 d-flex ms-auto me-auto pt-2 pb-2" style="width: 150px; font-size: .8rem;">
+	    	<div class="flex_column border-bottom">${dto.academyName}</div>
 	    	<div class="flex_column">${dto.academyLocation}</div>
 	    	<div class="flex_column">${dto.academyStar} / 5</div>
 	    	<div class="flex_column">${dto.academyTel}</div>
@@ -279,7 +281,7 @@ $(document).ready(function() {
 						
 					<div class="job-thumb mb-0 border-bottom items">
 						
-						<div class="job-body d-flex flex-wrap flex-column flex-auto align-items-center ms-4 justify-content-start">
+						<div class="job-body d-flex flex-wrap flex-column flex-auto align-items-center justify-content-start">
 							<h4 class="job-title mb-lg-0 me-auto">
 								<a href="${edudto.eduLink}" class="job-title-link" target="_blank">${adto.academyName}</a>
 							</h4>
@@ -322,26 +324,44 @@ $(document).ready(function() {
 		 
     }
 	
-	$('#job-location').change(function() {
-		let searchLoc = $(event.target).val();
-		
-		$.ajax({
-			url:'https://dapi.kakao.com/v2/local/search/address.json?query='+encodeURIComponent(searchLoc),
-			type:'GET',
-			headers: {'Authorization' : 'KakaoAK d34c519a0f2305ff1c122633ab12cf07'},
-			success: result => {
-				//검색 결과가 있으면
-				if (result) {
-					// 콘솔에 결과 출력
-		            console.log(result);
-					//텍스트박스 밑에 출력
+	
+	
+	$(function() {
+		$('#job-location').keyup(function(event) {
+			
+			var searchLoc = $(event.target).val();
+			
+			$.ajax({
+				url:'https://dapi.kakao.com/v2/local/search/address.json?query='+encodeURIComponent(searchLoc),
+				type:'GET',
+				headers: {'Authorization' : 'KakaoAK d34c519a0f2305ff1c122633ab12cf07'},
+				success: result => {
+					
+					if (result) {
+						
+						var alist = [];
+						
+						$(result).each((index, item) => {
+							
+							for (let i = 0; i < item.documents.length; i++) {
+								alist.push(result.documents[i].address_name);
+							}
+						});
+						
+						
+						$('#job-location').autocomplete({
+							source: alist
+						});
+					}
+				},
+				error : (a,b,c) => {
+					console.log(a,b,c);
 				}
-			},
-			error : (a,b,c) => {
-				console.log(a,b,c);
-			}
+			});
+			
 		});
 	});
+	
 	
 	//위치 검색
 	$('#btn-search').click(function() {

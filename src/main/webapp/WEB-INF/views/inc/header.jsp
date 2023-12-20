@@ -27,7 +27,7 @@
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="/jr/crt/crtlist.do">자격증 조회</a></li>
 
-                                <li><a class="dropdown-item" href="/jr/crt/crtshlist.do">자격증 시험 일정 조회</a></li>
+                                <li><a class="dropdown-item" href="/jr/crt/crtschlist.do">자격증 시험 일정 조회</a></li>
                             </ul>
                         </li>
 
@@ -35,9 +35,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">자격증 추천</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                <li><a class="dropdown-item" href="jobListings.do">Job Listings</a></li>
-
-                                <li><a class="dropdown-item" href="jobDetails.do">Job Details</a></li>
+                                 <li><a class="dropdown-item" href="/jr/crt/crtrec.do">직업군별 추천 자격증</a></li>
                             </ul>
                         </li>
 
@@ -74,6 +72,7 @@
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="/jr/board/list.do">자유 게시판</a></li>
+                                <li><a class="dropdown-item" href="/jr/crt/crtboardlist.do">자격증 후기 게시판</a></li>
 
                             </ul>
                         </li>
