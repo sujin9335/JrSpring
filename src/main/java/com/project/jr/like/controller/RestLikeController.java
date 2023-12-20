@@ -30,19 +30,22 @@ public class RestLikeController {
 	
 	@PostMapping(value = "/like/myboardlike")
 	public List<BoardDTO> myboardrest(Model model, HttpSession session) {
-		session.setAttribute("id", "bNzHjMkS");
+		//session.setAttribute("id", "bNzHjMkS");
+		String id=(String)session.getAttribute("id");
 		return mblserv.boardList("bNzHjMkS");
 	}
 	
 	@PostMapping(value = "/like/mycrtlike")
 	public List<CrtDTO> mycrtrest(Model model, HttpSession session) {
-		session.setAttribute("id", "Q4eWnUz");
+		//session.setAttribute("id", "Q4eWnUz");
+		String id=(String)session.getAttribute("id");
 		return mclserv.crtList("Q4eWnUz");
 	}
 	
 	@PostMapping(value = "/like/mybooklike")
 	public List<BookDTO> mybookrest(Model model, HttpSession session) {
-		session.setAttribute("id", "B9zYwLgC");
+		//session.setAttribute("id", "B9zYwLgC");
+		String id=(String)session.getAttribute("id");
 		return mbkserv.bookList("B9zYwLgC");
 	}
 	

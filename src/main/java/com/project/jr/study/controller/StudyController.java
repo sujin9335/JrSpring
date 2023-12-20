@@ -3,6 +3,8 @@ package com.project.jr.study.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +33,10 @@ public class StudyController {
 	private StudyBookDAO dao;
 
 	@GetMapping(value = "/list.do")
-	public String list(Model model) {
+	public String list(Model model, HttpSession session) {
 		
 		
-		String id="N7sBxUcT";
+		String id=(String)session.getAttribute("id");
 		
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		
@@ -72,9 +74,9 @@ public class StudyController {
 	}
 	
 	@GetMapping(value = "/bookdetail.do")
-	public String detail(Model model, int seq) {
+	public String detail(Model model, int seq, HttpSession session) {
 		
-		String id="N7sBxUcT";
+		String id=(String)session.getAttribute("id");
 		
 		HashMap<String,Object> map=new HashMap<String,Object>();
 		
@@ -97,8 +99,8 @@ public class StudyController {
 	}
 	
 	@PostMapping(value = "/listch.do")
-	public @ResponseBody int name(Model model, int list, boolean learnCheck) {
-		String id="N7sBxUcT";
+	public @ResponseBody int name(Model model, int list, boolean learnCheck, HttpSession session) {
+		String id=(String)session.getAttribute("id");
 		
 		System.out.println(list + " " + learnCheck);
 		
@@ -112,16 +114,18 @@ public class StudyController {
 		}else {
 			map.put("learn", 0);
 		}
+		int result=dao.chageLearn(map);
 		
-		//System.out.println(dao.chageLearn(map));
+		System.out.println(result);
 		
-		return dao.chageLearn(map);
+		
+		return result;
 	}
 	
 	@GetMapping(value = "/detail.do")
-	public String detail(Model model, String seq) {
+	public String detail(Model model, String seq, HttpSession session) {
 
-		String id="N7sBxUcT";
+		String id=(String)session.getAttribute("id");
 		model.addAttribute("id", id);
 		
 		
@@ -154,9 +158,9 @@ public class StudyController {
 	}
 	
 	@GetMapping(value = "/chat.do")
-	public String chat(Model model) {
+	public String chat(Model model, HttpSession session) {
 		
-		String id="N7sBxUcT";
+		String id=(String)session.getAttribute("id");
 		model.addAttribute("id", id);
 		
 		ArrayList<Message> list=dao.getChat();
@@ -167,9 +171,9 @@ public class StudyController {
 	}
 	
 	@PostMapping(value = "/todoadd.do")
-	public String todoadd(Model model, TodoDTO dto, String seq) {
+	public String todoadd(Model model, TodoDTO dto, String seq, HttpSession session) {
 
-		String id="N7sBxUcT";
+		String id=(String)session.getAttribute("id");
 		
 		String url="?seq="+seq;
 		

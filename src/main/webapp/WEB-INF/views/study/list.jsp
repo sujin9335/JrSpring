@@ -1,6 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<style>
+	#studyTable {
+		text-align: center;
+	}
+
+	#studyTable th:nth-child(1){
+		width: 300px;
+	}
+	
+	#studyTable th:nth-child(2){
+		width: auto;
+	}
+	
+	#studyTable th:nth-child(3){
+		width: 400px;
+	}
+	
+	#studyTable th:nth-child(4){
+		width: 200px;
+	}
+	
+	
+</style>
 <main>
 
             <header class="site-header2" style="padding-top: 70px">
@@ -103,7 +127,7 @@
             	<h3>스터디</h3>
             </div>
 			
-			<table class="table table-hover fs-5 align-middle board">
+			<table class="table table-hover fs-5 align-middle board" id="studyTable">
 				<thead class="text-center">
 					<tr>
 						<th scope="col">스터디명</th>
