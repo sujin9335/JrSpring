@@ -382,10 +382,6 @@ body > main > div.container-fluid.py-4 > div > div > div > div.card-body.px-0.pt
 													<td>${dto.sex}</td>
 												</tr>
 												<tr>
-													<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">이메일</th>
-													<td>${dto.eMail}</td>
-												</tr>
-												<tr>
 													<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">전화번호</th>
 													<td>${dto.phoneNum}</td>
 												</tr>
