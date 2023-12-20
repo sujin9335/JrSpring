@@ -6,6 +6,11 @@ import org.springframework.stereotype.Service;
 import com.project.jr.admin.model.AdminPageDTO;
 import com.project.jr.admin.repository.AdminDAO;
 
+
+/**
+ * @author 이도훈
+ *
+ */
 @Service
 public class CrtAdminPageService {
 
@@ -13,6 +18,11 @@ public class CrtAdminPageService {
    @Autowired
    AdminDAO dao;
    
+   /**
+    * 자격증 관리자 페이지의 페이징을 수행하는 메서드입니다.
+    *
+    * @param pdto AdminPageDTO 객체를 통해 페이지 및 검색 조건을 전달합니다.
+    */
    public void Paging(AdminPageDTO pdto) {
 	   
       //검색여부
