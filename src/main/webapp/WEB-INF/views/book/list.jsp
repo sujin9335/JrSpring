@@ -17,12 +17,14 @@
 	width: 400px;
 	height: 320px;
 }
+
+
 </style>
 
 
         <main>
 
-            <header class="site-header2">
+            <header class="site-header2" style="padding-top:70px">
                 <div class="section-overlay2"></div>
 
                 <div class="container">

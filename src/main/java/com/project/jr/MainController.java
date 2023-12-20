@@ -2,6 +2,8 @@ package com.project.jr;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +29,13 @@ public class MainController {
 	 * @return
 	 */
 	@GetMapping(value = "/index.do")
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
 		List<CrtDTO> clist = cdao.getTop100List();
+		
+		String id=(String)session.getAttribute("id");
+		
+		model.addAttribute("id", id);
+		
 		model.addAttribute("clist", clist);
 		return "index";
 	}

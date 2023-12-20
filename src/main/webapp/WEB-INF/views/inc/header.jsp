@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
         <nav class="navbar navbar-expand-lg">
             <div class="container">
@@ -56,9 +56,6 @@
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
 
                                 <li><a class="dropdown-item" href="jobListings.do">학원 조회</a></li>
-
-
-
                                 <li><a class="dropdown-item" href="/jr/academy/map.do">우리 동네 학원</a></li>
 
                             </ul>
@@ -68,9 +65,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">직업 정보 조회</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                <li><a class="dropdown-item" href="jobListings.do"></a></li>
+                                <li><a class="dropdown-item" href="/jr/job/list.do">직업 정보 조회</a></li>
 
-                                <li><a class="dropdown-item" href="jobDetails.do">Job Details</a></li>
                             </ul>
                         </li>
                         
@@ -82,12 +78,29 @@
 
                             </ul>
                         </li>
-					        <li class="nav-item ms-lg-auto">
-					            <a class="nav-link" href="/jr/user/signup.do">회원 가입</a>
-					        </li>
-					        <li class="nav-item">
-					            <a class="nav-link custom-btn btn" href="/jr/user/login.do">로그인</a>
-					        </li>
+                        	<c:if test="${empty id}">
+						        <li class="nav-item ms-lg-auto">
+						            <a class="nav-link" href="/jr/user/signup.do">회원 가입</a>
+						        </li>
+						        <li class="nav-item">
+						            <a class="nav-link custom-btn btn" href="/jr/user/login.do">로그인</a>
+						        </li>
+					        </c:if>
+					        <c:if test="${not empty id}">
+					        	<li class="nav-item dropdown">
+		                            <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이 메뉴</a>
+		
+		                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+		                                <li><a class="dropdown-item" href="/jr/study/list.do">나의 학습</a></li>
+		                                <li><a class="dropdown-item" href="/jr/like/mylike.do">나의 좋아요</a></li>
+		
+		                            </ul>
+		                        </li>
+					        
+						        <li class="nav-item">
+						            <a class="nav-link custom-btn btn" href="/jr/user/logout.do">로그아웃</a>
+						        </li>
+					        </c:if>
 
                     </ul>
                 </div>

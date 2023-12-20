@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="<%=request.getContextPath() %>/resources/css/studybook.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
 <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <style>
@@ -15,14 +14,46 @@
 		margin-left: 40px;
 	}
 	
-	#todotable th{
-		font-size: 14px;
+	#todotable {
+		font-size: 15px;
+		text-align: center;
 	}
 	
 	#todotable th:nth-child(1) {
+		width: 100px;
+	}
+	
+	#todotable th:nth-child(2) {
+		width: auto;
+	}
+	
+	#todotable th:nth-child(3) {
+		width: auto;
+	}
+	
+	#todotable th:nth-child(4) {
+		width: 130px;
+	}
+	
+	#todotable th:nth-child(5) {
+		width: 130px;
+	}
+	
+	#todo table th{
+		text-align: center;
+		border: 1px solid #CCC;
+		border-radius: 30px;
 		
 	}
-
+	
+	#todo table{
+		height: 60px;
+	}
+	
+	#todo table tr:nth-child(2) > td{
+		height: 40px;
+	}
+	
 </style>
 
 <main>
@@ -122,23 +153,38 @@
 									</table>
 									</div>
 									<div>
-										<button id="btntodo" type="button" class="add">할일 추가하기</button>
+										<button id="btntodo" type="button" class="add btn btn-outline-dark" style="margin-left: 120px;">할일 추가하기</button>
 									</div>
 									</form>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-12 mt-5 mt-lg-0">
-                            <div class="job-thumb job-thumb-detail-box bg-white shadow-lg">
-                                <div class="d-flex align-items-center">
-									채팅
-                                </div>
+                        <div class="col-lg-4 col-12 mt-5 mt-lg-0" >
+                            <div class="job-thumb job-thumb-detail-box bg-white shadow-lg" style="width:390px;">
                                 <!-- 채팅기능 -->
+                                <div class="services-block-wrap col-lg-4 col-md-6 col-12" style="width:300px;">
+		                            <div class="services-block">
+		                                <div class="services-block-title-wrap">
+		                                    <i class="services-block-icon bi-window" style="margin-right: 50px;"></i>
+		                                
+		                                    <h4 class="services-block-title">채팅</h4>
+		                                </div>
+		
+		                                <div class="services-block-body">
+		                                    <p>지금 접속해 있는 스터디원과 채팅을 할 수 있습니다</p>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        
+                                
                                 <div>
-                                <div>
-									<button type="button" class="in" data-name="${id }">들어가기${id }</button>
-									<button type="button" class="in" data-name="G4yKwCtQ">들어가기G4yKwCtQ</button>
+                                
+                                
+                                <div style="text-align: center;">
+                                	
+                                
+									<button type="button" class="in custom-btn btn ms-lg-auto" data-name="${id }" style="background-color: pink;">참가하기</button>
 								</div>
                                 
                                 </div>

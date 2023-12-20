@@ -124,7 +124,7 @@ public class UserController {
 		req.getSession().removeAttribute("name");
 		req.getSession().removeAttribute("lv");
 		
-		return "redirect:/template.do";
+		return "redirect:/index.do";
 	}
 	
 }

@@ -82,10 +82,6 @@
  		FROM vwCrt b 
  		where crtSeq = #{crtSeq}
 	</select>
-	
- 	<!-- <select id="get" parameterType="Integer" resultType="com.project.jr.crt.model.CrtDTO">
- 		SELECT * FROM vwCrt where crtSeq = #{crtSeq}
- 	</select> -->
  	
  	<!-- 자격증 응시료 조회 -->
  	<select id="plist" parameterType="Integer" resultType="com.project.jr.crt.model.CrtPayDTO">

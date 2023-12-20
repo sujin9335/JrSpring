@@ -115,8 +115,6 @@
         </main>
         <Script>
 		  	$("#bookcheck input").change(function() {
-		  		//console.log( $(this).prop("checked"));
-		  		//console.log( $(this).attr("id"));
 		  		
 		  		$.ajax({
 					type: 'POST',
@@ -127,14 +125,10 @@
 					},
 					dataType: 'json',
 					success: function(result) {
-						//alert(result);
-						if (result.result == 1) {
-							//alert("변경 완료");
-							//수정 완료 > <td>의 상태 > 원래대로 되돌리기
+						if (result == 1) {
 						} else {
 							alert('failed');
 						}
-						
 					},
 					error: function(a,b,c) {
 						console.log(a,b,c);

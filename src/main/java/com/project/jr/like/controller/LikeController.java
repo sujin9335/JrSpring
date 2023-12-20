@@ -32,16 +32,18 @@ public class LikeController {
 	//BoardLike(My 게시물 조회)
 	@GetMapping(value = "/mylike.do")
 	public String myboardlike(Model model, HttpSession session) {
-		session.setAttribute("id", "bNzHjMkS");
+//		session.setAttribute("id", "bNzHjMkS");
 //			if (session.getAttribute("id") != null) {
 //			id = session.getAttribute("id").toString();
 //		}
+		
+		String id=(String)session.getAttribute("id");
 		
 		//페이징
 		//pserv.paging(pdto);
 		
 		//글 목록 가져오기
-		List<BoardDTO> list = mblserv.boardList("bNzHjMkS");
+		List<BoardDTO> list = mblserv.boardList(id);
 		
 		model.addAttribute("list", list);
 		//model.addAttribute("pdto", pdto);

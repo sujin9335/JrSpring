@@ -76,7 +76,7 @@ public class LoginService {
 //					e.printStackTrace();
 //				}
 				//유저 페이지로 이동
-				return "redirect:/template.do";
+				return "redirect:/index.do";
 			} else{
 				//유저 아니시면 로그인 안되세요~ 나가주세요~
 				resp.setContentType("text/html; charset=UTF-8");
@@ -106,7 +106,7 @@ public class LoginService {
 			
 			adto = adao.get(adto.getAdminInfoId());
 			
-			return "redirect:/template.do";
+			return "redirect:/admin/crt/crtadminlist.do";
 //			return "redirect:/admin/home.do";
 		} else {
 			

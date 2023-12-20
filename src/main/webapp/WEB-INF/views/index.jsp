@@ -14,14 +14,14 @@
 				<div class="row">
 
 					<div class="col-lg-12 col-12 text-center">
-						<section id="hero" class="hero d-flex align-items-center ">
+						<section id="hero" class="hero d-flex align-items-center " style="background-color: transparent;">
     <div class="container">
       <div class="row gy-4 d-flex justify-content-around">
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h2 data-aos="fade-up" class="me-auto" style="color: #f0f8ff;">자격증, 자랑이와!</h2>
 
-          <form action="/jr/crt/crtlist.do" method="get" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up" data-aos-delay="200">
-            <input type="text" name="word" class="form-control mb-3" placeholder="자격증을 검색해보세요">
+          <form action="/jr/crt/crtlist.do" method="get" class="form-search d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <input type="text" name="word" class="form-control mb-0" placeholder="자격증을 검색해보세요">
             <input type="hidden" name="crtctg" class="form-control" placeholder="자격증을 검색해보세요">
             <input type="hidden" name="agency" class="form-control" placeholder="자격증을 검색해보세요">
             <input type="hidden" name="difficulty" class="form-control" placeholder="자격증을 검색해보세요">
