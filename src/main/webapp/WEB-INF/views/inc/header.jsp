@@ -42,7 +42,7 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">교재 조회</a>
+                            <a class="nav-link dropdown-toggle" href="/jr/book/list.do" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">교재 조회</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="/jr/book/list.do">교재 조회</a></li>
@@ -51,18 +51,17 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">학원 및 우리동네 학원</a>
+                            <a class="nav-link dropdown-toggle" href="/jr/academy/map.do" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">학원 및 우리동네 학원</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
 
-                                <li><a class="dropdown-item" href="jobListings.do">학원 조회</a></li>
                                 <li><a class="dropdown-item" href="/jr/academy/map.do">우리 동네 학원</a></li>
 
                             </ul>
                         </li>
                         
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">직업 정보 조회</a>
+                            <a class="nav-link dropdown-toggle" href="/jr/job/list.do" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">직업 정보 조회</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="/jr/job/list.do">직업 정보 조회</a></li>
@@ -78,6 +77,7 @@
 
                             </ul>
                         </li>
+                        
                         	<c:if test="${empty id}">
 						        <li class="nav-item ms-lg-auto">
 						            <a class="nav-link" href="/jr/user/signup.do">회원 가입</a>

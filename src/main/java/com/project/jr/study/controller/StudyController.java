@@ -59,7 +59,7 @@ public class StudyController {
 		//스터디 리스트
 		ArrayList<Integer> studySeqList=dao.getStudySeq(map);
 		
-		//System.out.println(studySeqList);
+		System.out.println(studySeqList);
 		
 		ArrayList<StudyDTO> studyList=new ArrayList<StudyDTO>();
 		

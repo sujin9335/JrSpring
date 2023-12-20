@@ -224,7 +224,7 @@
 		*/
 		let name;
 		let ws;
-		const url = 'ws://localhost:8090/jr/chatserver.do';
+		const url = 'ws://43.203.7.174:8080/jr/chatserver.do';
 	
 		function connect(name) {
 			

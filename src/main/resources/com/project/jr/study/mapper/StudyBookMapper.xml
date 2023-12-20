@@ -122,7 +122,7 @@
 	</update>
 	
 	<select id="getStudySeq" parameterType="java.util.HashMap" resultType="Integer">
-		select * from tblStudyMember where id=#{id}
+		select studySeq from tblStudyMember where id=#{id}
 	</select>
 	
 	<select id="getStudy" parameterType="Integer" resultType="com.project.jr.study.model.StudyDTO">
