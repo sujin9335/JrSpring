@@ -2,6 +2,11 @@ package com.project.jr.user.model;
 
 import lombok.Data;
 
+/**
+ * UserDTO 클래스는 사용자 정보를 전달하기 위한 데이터 객체입니다.
+ * @author hyunbin 
+ */
+
 @Data
 public class UserDTO {
 	

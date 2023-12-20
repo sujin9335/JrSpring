@@ -12,7 +12,7 @@ import com.project.jr.board.model.PageDTO;
 /**
  * 게시판 DB 작업을 담당하는 DAO 구현체
  * @author eugene
- *
+ * @author hyunbin
  */
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -83,6 +83,10 @@ public class BoardDAOImpl implements BoardDAO {
 //		return bmapper.likelist(pdto);
 //	}
 
+	
+	/**
+     * 특정 사용자가 좋아요한 게시물 목록을 조회합니다.
+     */
 	@Override
 	public List<BoardDTO> likelist(String id) {
 		return bmapper.likelist(id);

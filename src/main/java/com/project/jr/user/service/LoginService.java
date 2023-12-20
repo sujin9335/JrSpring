@@ -14,6 +14,10 @@ import com.project.jr.admin.repository.AdminDAO;
 import com.project.jr.user.model.UserDTO;
 import com.project.jr.user.repository.UserDAO;
 
+/**
+ * LoginService는 사용자 및 관리자의 로그인과 관련된 비즈니스 로직을 담당하는 서비스 클래스입니다.
+ * @author hyunbin
+ */
 @Service
 public class LoginService {
 	
@@ -23,6 +27,16 @@ public class LoginService {
 	@Autowired
 	private AdminDAO adao;
 	
+	
+	/**
+     * 주어진 사용자 정보로 로그인을 시도하고, 인증 여부를 확인합니다.
+     *
+     * @param udto 사용자 정보를 담고 있는 UserDTO 객체
+     * @param adto 관리자 정보를 담고 있는 AdminDTO 객체
+     * @param req  HttpServletRequest 객체
+     * @param resp HttpServletResponse 객체
+     * @return 로그인 성공 시 성공 페이지로의 리다이렉트 경로, 실패 시 null
+     */
 	public String userLogin(UserDTO udto, AdminDTO adto, HttpServletRequest req, HttpServletResponse resp) {
 		
 		//System.out.println("userlogintest");

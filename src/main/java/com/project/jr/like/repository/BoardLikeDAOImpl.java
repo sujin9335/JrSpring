@@ -14,7 +14,7 @@ import com.project.jr.like.model.NoticeBoardLikeDTO;
 /**
  * 게시판 좋아요 DB 작업을 담당하는 DAO 구현체
  * @author eugene
- *
+ * @author hyunbin
  */
 @Repository
 public class BoardLikeDAOImpl implements BoardLikeDAO {
@@ -71,6 +71,9 @@ public class BoardLikeDAOImpl implements BoardLikeDAO {
 	}
 
 
+	/**
+     * 페이지 정보를 이용하여 사용자가 좋아요한 게시물 목록을 조회합니다.
+     */
 	@Override
 	public List<BoardDTO> list(PageDTO pdto) {
 		return lmapper.myboardlike(pdto);
@@ -81,6 +84,10 @@ public class BoardLikeDAOImpl implements BoardLikeDAO {
 //		return lmapper.myboardlike(string);
 //	}
 
+	
+	/**
+     * 해당 사용자가 좋아요한 게시물 목록을 조회합니다.
+     */
 	@Override
 	public List<BoardDTO> myboardrest(String string) {
 		return lmapper.myboardrest(string);

@@ -17,6 +17,10 @@ import com.project.jr.like.service.MyBoardLikeService;
 import com.project.jr.like.service.MyBookLikeService;
 import com.project.jr.like.service.MyCrtLikeService;
 
+/**
+ * LikeController는 사용자가 좋아요한 게시물 목록을 조회하는 기능을 제공하는 컨트롤러입니다.
+ * @author hyunbin
+ */
 @Controller
 @RequestMapping(value = "/like")
 public class LikeController {
@@ -29,6 +33,11 @@ public class LikeController {
 	private PageService pserv;
 	
 	
+
+    /**
+     * 사용자가 좋아요한 게시물 목록을 조회하고 화면에 출력합니다.
+     *
+     */
 	//BoardLike(My 게시물 조회)
 	@GetMapping(value = "/mylike.do")
 	public String myboardlike(Model model, HttpSession session) {

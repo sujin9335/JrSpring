@@ -21,6 +21,11 @@ import com.project.jr.user.service.LoginService;
 //import com.project.jr.user.service.LogoutService;
 import com.project.jr.user.service.SignupService;
 
+/**
+ * UserController 클래스는 사용자 관련 기능을 담당하는 컨트롤러입니다.
+ * @author hyunbin
+ *
+ */
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
@@ -35,12 +40,18 @@ public class UserController {
 	@Autowired
 	private UserDAO dao;
 	
+	/**
+     * 회원가입 페이지로 이동합니다.
+     */
 	//회원가입(signup)
 	@GetMapping(value = "/signup.do")
 	public String signup(Model model) {
 		return "user.signup";
 	}
 	
+	/**
+     * 회원가입을 처리합니다.
+     */
 	@PostMapping(value = "/signup.do")
 	public String signup(Model model, UserDTO udto, HttpServletResponse resp) {
 		//List<UserDTO> list = sserv.list(udto);
@@ -85,6 +96,9 @@ public class UserController {
 		}
 	}
 	
+	/**
+     * 아이디 중복 확인을 처리합니다.
+     */
 	//아이디 중복확인 처리
 	@GetMapping(value = "/idCompare")
 	public @ResponseBody int idCompare(Model model, UserDTO dto) {
@@ -94,12 +108,18 @@ public class UserController {
 		
 	}
 	
+	/**
+     * 로그인 페이지로 이동합니다.
+     */
 	//로그인(login)
 	@GetMapping(value = "/login.do")
 	public String login(Model model) {
 		return "user.login";
 	}
 	
+	/**
+     * 로그인을 처리합니다.
+     */
 	@PostMapping(value = "/login.do")
 	public String login(Model model, UserDTO udto, AdminDTO adto, HttpServletRequest req, HttpServletResponse resp) {
 		
@@ -115,6 +135,9 @@ public class UserController {
 		return temp;
 	}
 	
+	/**
+     * 로그아웃을 처리합니다.
+     */
 	//로그아웃
 	@GetMapping(value = "/logout.do")
 	public String logout(Model model, HttpServletRequest req, HttpServletResponse resp) {

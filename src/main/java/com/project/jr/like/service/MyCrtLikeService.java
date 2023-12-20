@@ -9,6 +9,10 @@ import com.project.jr.crt.model.CrtDTO;
 import com.project.jr.crt.repository.CrtDAO;
 import com.project.jr.like.repository.CrtLikeDAO;
 
+/**
+ * 사용자가 누른 판서와 관련된 기능을 제공하는 서비스 클래스입니다.
+ * @author hyunbin
+ */
 @Service
 public class MyCrtLikeService {
 
@@ -18,10 +22,17 @@ public class MyCrtLikeService {
 	@Autowired
 	private CrtLikeDAO cldao;
 	
+	/**
+     * 사용자가 좋아요한 판서 목록을 조회합니다.
+     */
 	public List<CrtDTO> mycrtrest(String string) {
 		return cldao.mycrtrest(string);
 	}
 	
+	
+	/**
+     * 사용자가 좋아요한 자격증 목록을 조회합니다.
+     */
 	public List<CrtDTO> crtList(String id) {
 			
 		List<CrtDTO> list = cdao.likelist(id);

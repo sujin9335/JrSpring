@@ -8,7 +8,7 @@ import com.project.jr.board.model.PageDTO;
 /**
  * 게시판 DB 작업을 위한 DAO 인터페이스
  * @author eugene
- *
+ * @author hyunbin
  */
 public interface BoardDAO {
 

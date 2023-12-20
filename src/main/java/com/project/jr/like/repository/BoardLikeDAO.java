@@ -10,7 +10,7 @@ import com.project.jr.like.model.NoticeBoardLikeDTO;
 /**
  * 게시판 좋아요 DB 작업을 위한 DAO 인터페이스
  * @author eugene
- *
+ * @author hyunbin
  */
 public interface BoardLikeDAO {
 

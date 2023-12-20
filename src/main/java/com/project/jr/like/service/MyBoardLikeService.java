@@ -10,6 +10,10 @@ import com.project.jr.board.repository.BoardDAO;
 import com.project.jr.like.repository.BoardLikeDAO;
 import com.project.jr.like.repository.CrtLikeDAO;
 
+/**
+ * 사용자가 누른 게시글과 관련된 기능을 제공하는 서비스 클래스입니다.
+ * @author hyunbin
+ */
 @Service
 public class MyBoardLikeService {
 
@@ -20,11 +24,17 @@ public class MyBoardLikeService {
 	private BoardLikeDAO bldao;
 
 	
+	/**
+     * 사용자가 좋아요한 게시글 목록을 조회합니다.	
+     */
 	public List<BoardDTO> myboardrest(String string) {
 		return bldao.myboardrest(string);
 	}
 
 	
+	/**
+     * 사용자가 좋아요한 게시글 목록을 반환합니다.
+     */	
 	//내가 누른 게시글 목록을 반환
 	public List<BoardDTO> boardList(String id) {
 

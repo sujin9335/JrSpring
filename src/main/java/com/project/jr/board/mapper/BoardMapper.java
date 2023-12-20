@@ -8,7 +8,7 @@ import com.project.jr.board.model.PageDTO;
 /**
  * 게시판 DB작업을 위한 인터페이스 매퍼
  * @author eugene
- *
+ * @author hyunbin
  */
 public interface BoardMapper {
 

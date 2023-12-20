@@ -16,6 +16,10 @@ import com.project.jr.like.service.MyBoardLikeService;
 import com.project.jr.like.service.MyBookLikeService;
 import com.project.jr.like.service.MyCrtLikeService;
 
+/**
+ * RestLikeController는 사용자가 좋아요한 게시물 및 콘텐츠 목록을 조회하는 RESTful 컨트롤러입니다.
+ * @author hyunbin
+ */
 @RestController
 public class RestLikeController {
 	
@@ -28,6 +32,13 @@ public class RestLikeController {
 	@Autowired
 	private MyBookLikeService mbkserv;
 	
+	/**
+     * 사용자가 좋아요한 게시물 목록을 조회하여 반환합니다.
+     *
+     * @param model   화면에 전달할 데이터를 담는 Model 객체
+     * @param session 현재 세션 정보를 담는 HttpSession 객체
+     * @return 사용자가 좋아요한 게시물 목록
+     */
 	@PostMapping(value = "/like/myboardlike")
 	public List<BoardDTO> myboardrest(Model model, HttpSession session) {
 		//session.setAttribute("id", "bNzHjMkS");
@@ -35,6 +46,13 @@ public class RestLikeController {
 		return mblserv.boardList("bNzHjMkS");
 	}
 	
+	/**
+     * 사용자가 좋아요한 콘텐츠 목록을 조회하여 반환합니다.
+     *
+     * @param model   화면에 전달할 데이터를 담는 Model 객체
+     * @param session 현재 세션 정보를 담는 HttpSession 객체
+     * @return 사용자가 좋아요한 콘텐츠 목록
+     */
 	@PostMapping(value = "/like/mycrtlike")
 	public List<CrtDTO> mycrtrest(Model model, HttpSession session) {
 		//session.setAttribute("id", "Q4eWnUz");
@@ -42,6 +60,13 @@ public class RestLikeController {
 		return mclserv.crtList("Q4eWnUz");
 	}
 	
+	/**
+     * 사용자가 좋아요한 도서 목록을 조회하여 반환합니다.
+     *
+     * @param model   화면에 전달할 데이터를 담는 Model 객체
+     * @param session 현재 세션 정보를 담는 HttpSession 객체
+     * @return 사용자가 좋아요한 도서 목록
+     */
 	@PostMapping(value = "/like/mybooklike")
 	public List<BookDTO> mybookrest(Model model, HttpSession session) {
 		//session.setAttribute("id", "B9zYwLgC");
