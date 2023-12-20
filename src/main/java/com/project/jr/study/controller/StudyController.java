@@ -22,6 +22,11 @@ import com.project.jr.study.model.TodoDTO;
 import com.project.jr.study.repository.StudyBookDAO;
 import com.project.jr.study.service.GetProgress;
 
+/**
+ * 학습 컨트롤러
+ * @author sujin
+ *
+ */
 @Controller
 @RequestMapping(value = "/study")
 public class StudyController {
@@ -32,6 +37,11 @@ public class StudyController {
 	@Autowired
 	private StudyBookDAO dao;
 
+	/**
+	 * 학습 리스트 메소드
+	 * @param session 로그인정보
+	 * @return 학습 리스트 JSP 출력
+	 */
 	@GetMapping(value = "/list.do")
 	public String list(Model model, HttpSession session) {
 		
@@ -73,6 +83,12 @@ public class StudyController {
 		return "study.list";
 	}
 	
+	/**
+	 * 학습 교재 상세 메소드
+	 * @param seq 선택 교재seq
+	 * @param session 로그인 정보
+	 * @return 학습 교재 상세 JSP 출력
+	 */
 	@GetMapping(value = "/bookdetail.do")
 	public String detail(Model model, int seq, HttpSession session) {
 		
@@ -98,6 +114,13 @@ public class StudyController {
 		return "study.bookdetail";
 	}
 	
+	/**
+	 * 학습 교재 목차진행상황 설정 메소드
+	 * @param list 선택 교재seq
+	 * @param learnCheck 목차 진행상태
+	 * @param session 로그인 정보
+	 * @return 목차 변경 상태
+	 */
 	@PostMapping(value = "/listch.do")
 	public @ResponseBody int name(Model model, int list, boolean learnCheck, HttpSession session) {
 		String id=(String)session.getAttribute("id");
@@ -122,6 +145,12 @@ public class StudyController {
 		return result;
 	}
 	
+	/**
+	 * 학습 스터디 상세
+	 * @param seq 선택 스터디seq
+	 * @param session 로그인 정보
+	 * @return 스터디 상세 JSP
+	 */
 	@GetMapping(value = "/detail.do")
 	public String detail(Model model, String seq, HttpSession session) {
 
@@ -157,6 +186,11 @@ public class StudyController {
 		return "study.detail";
 	}
 	
+	/**
+	 * 스터디 채팅
+	 * @param session 로그인정보
+	 * @return 스터디 채팅 JSP
+	 */
 	@GetMapping(value = "/chat.do")
 	public String chat(Model model, HttpSession session) {
 		
@@ -170,6 +204,13 @@ public class StudyController {
 		return "chat";
 	}
 	
+	/**
+	 * 스터디 할일 
+	 * @param dto 할일dto
+	 * @param seq 스터디seq
+	 * @param session 로그인 정보
+	 * @return 스터디 상세 돌아가기
+	 */
 	@PostMapping(value = "/todoadd.do")
 	public String todoadd(Model model, TodoDTO dto, String seq, HttpSession session) {
 

@@ -3,6 +3,11 @@ package com.project.jr.study.model;
 import lombok.Data;
 import lombok.ToString;
 
+/**
+ * 교재DTO
+ * @author user
+ *
+ */
 @Data
 @ToString
 public class BookTitleDTO {

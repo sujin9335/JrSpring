@@ -5,6 +5,11 @@ import java.util.List;
 import lombok.Data;
 import lombok.ToString;
 
+/**
+ * 학습교재DTO
+ * @author user
+ *
+ */
 @Data
 @ToString
 public class StudyBookDTO {

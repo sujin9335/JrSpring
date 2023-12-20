@@ -6,6 +6,11 @@ import java.util.HashMap;
 import com.project.jr.job.model.JobDTO;
 import com.project.jr.job.model.JobGroupDTO;
 
+/**
+ * 직업 DAO 인터페이스
+ * @author user
+ *
+ */
 public interface JobDAO {
 
 

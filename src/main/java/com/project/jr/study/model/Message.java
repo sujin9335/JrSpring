@@ -3,6 +3,11 @@ package com.project.jr.study.model;
 import lombok.Data;
 import lombok.ToString;
 
+/**
+ * 채팅내역DTO
+ * @author user
+ *
+ */
 //클라이언트 <-> (데이터) <-> 서버
 @Data
 @ToString

@@ -17,6 +17,11 @@ import com.google.gson.Gson;
 import com.project.jr.study.model.Message;
 import com.project.jr.study.repository.StudyBookDAO;
 
+/**
+ * 채팅 웹소켓 클래스
+ * @author user
+ *
+ */
 @Component
 @ServerEndpoint(value = "/chatserver.do" , configurator = ServerEndpointConfig.class)
 public class ChatServer {
@@ -28,6 +33,10 @@ public class ChatServer {
 	//현재 채팅서버에 접속 중인 클라이언트 목록
 	private static List<Session> sessionList = new ArrayList<Session>();
 	
+	/**
+	 * 웹소켓 접속 확인 메소드
+	 * @param session 채팅정보
+	 */
 	@OnOpen
 	public void handleOpen(Session session) {
 		
@@ -44,7 +53,11 @@ public class ChatServer {
 		
 	}
 	
-	
+	/**
+	 * 웹소켓 채팅 내역 메소드
+	 * @param msg 채팅메시지
+	 * @param session 채팅정보
+	 */
 	@OnMessage
 	public void handleMessage(String msg, Session session) {
 		
@@ -122,8 +135,10 @@ public class ChatServer {
 	}
 	
 
-
-
+	
+	/**
+	 * 웹소켓 접속체크 메소드
+	 */
 	private void checkSessionList() {
 		System.out.println();
 		System.out.println("[Session List]");
@@ -133,6 +148,9 @@ public class ChatServer {
 		System.out.println();
 	}
 	
+	/**
+	 * 웹소켓 나간사람 정리 메소드
+	 */
 	private void clearSessionList() {
 		
 		//List 계열의 컬렉션은 향상된 for 내에서 요소 추가/삭제 하는 행동이 불가능하다.
