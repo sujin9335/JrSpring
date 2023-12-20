@@ -73,6 +73,8 @@
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="/jr/board/list.do">자유 게시판</a></li>
                                 <li><a class="dropdown-item" href="/jr/crt/crtboardlist.do">자격증 후기 게시판</a></li>
+                                <li><a class="dropdown-item" href="/jr/faq/faq.do">FAQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                                <li><a class="dropdown-item" href="/jr/qna/qna.do">QNA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 
                             </ul>
                         </li>

@@ -229,25 +229,6 @@ body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>
 				</a></li>
 			</ul>
 		</div>
-		<div class="sidenav-footer mx-3 ">
-			<div class="card card-plain shadow-none" id="sidenavCard">
-				<img class="w-50 mx-auto"
-					src="<%=request.getContextPath()%>/resources/adminAssets/img/illustrations/icon-documentation.svg"
-					alt="sidebar_illustration">
-				<div class="card-body text-center p-3 w-100 pt-0">
-					<div class="docs-info">
-						<h6 class="mb-0">Need help?</h6>
-						<p class="text-xs font-weight-bold mb-0">Please check our docs</p>
-					</div>
-				</div>
-			</div>
-			<a
-				href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard"
-				target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
-			<a class="btn btn-primary btn-sm mb-0 w-100"
-				href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree"
-				type="button">Upgrade to pro</a>
-		</div>
 	</aside>
 	<main class="main-content position-relative border-radius-lg ">
 		<!-- Navbar -->
@@ -268,18 +249,13 @@ body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>
 				<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
 					id="navbar">
 					<div class="ms-md-auto pe-md-3 d-flex align-items-center">
-						<div class="input-group">
-							<span class="input-group-text text-body"><i
-								class="fas fa-search" aria-hidden="true"></i></span> <input type="text"
-								class="form-control" placeholder="Type here...">
-						</div>
 					</div>
 					<ul class="navbar-nav  justify-content-end">
 						<li class="nav-item d-flex align-items-center"><a
-							href="javascript:;"
+							href="/jr/user/logout.do"
 							class="nav-link text-white font-weight-bold px-0"> <i
 								class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">Sign
-									In</span>
+									out</span>
 						</a></li>
 						<li class="nav-item d-xl-none ps-3 d-flex align-items-center">
 							<a href="javascript:;" class="nav-link text-white p-0"
@@ -292,13 +268,12 @@ body>main>div.container-fluid.py-4>div>div>div>div.card-body.px-0.pt-0.pb-2>div>
 						</a>
 						</li>
 						<li class="nav-item px-3 d-flex align-items-center"><a
-							href="javascript:;" class="nav-link text-white p-0"> <i
-								class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+							href="javascript:;" class="nav-link text-white p-0">
 						</a></li>
 						<li class="nav-item dropdown pe-2 d-flex align-items-center">
 							<a href="javascript:;" class="nav-link text-white p-0"
 							id="dropdownMenuButton" data-bs-toggle="dropdown"
-							aria-expanded="false"> <i class="fa fa-bell cursor-pointer"></i>
+							aria-expanded="false"> 
 						</a>
 							<ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
 								aria-labelledby="dropdownMenuButton">
