@@ -342,14 +342,16 @@ $(document).ready(function() {
 						var alist = [];
 						
 						$(result).each((index, item) => {
-							console.log(item);
 							
+							for (let i = 0; i < item.documents.length; i++) {
+								alist.push(result.documents[i].address_name);
+							}
 						});
 						
 						
-						/* $('#job-location').autocomplete({
-							source: result
-						});		 */
+						$('#job-location').autocomplete({
+							source: alist
+						});
 					}
 				},
 				error : (a,b,c) => {
