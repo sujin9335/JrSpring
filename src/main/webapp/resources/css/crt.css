@@ -5,6 +5,33 @@
 	padding-bottom: 20px;
 }
 
+.crtlist-table table tr, .crtlist-table table td{
+	border: 1px solid #ccc;
+	border-collapse:collapse;
+	height: 48px;
+}
+.crtlist-table table {width: 100%;}
+.crtlist-table table tr:nth-child(1) td:nth-child(1) {width:120px; border-left: 1px solid #fff;}
+.crtlist-table table tr:nth-child(2) td:nth-child(1) {width:190px;}
+.crtlist-table table tr:nth-child(2) td:nth-child(2) {width:190px;}
+.crtlist-table table tr:nth-child(2) td:nth-child(3) {width:120px;}
+.crtlist-table table tr:nth-child(2) td:nth-child(4) {width:auto;}
+.crtlist-table table tr:nth-child(1) td:nth-child(3) {width:100px; border-right: 1px solid #fff;}
+
+
+.crtlist-table table td {
+	padding : .6em;
+	color: black;
+    font-size: 23px;
+    /* font-weight: bold; */
+}
+
+.crtlist-table table {
+	background-color: #F1F8FE;
+	font-size: var(--p-font-size);
+	
+}
+
 /* 자격증 영역 */
 .content-wrap {
 	margin-bottom: 0px;
@@ -139,7 +166,7 @@
   width: 12rem;
   height: auto;
 }
-button.learn-more .circle {
+.link-wrap button.learn-more .circle {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: relative;
   display: block;
@@ -149,7 +176,7 @@ button.learn-more .circle {
   background: #282936;
   border-radius: 1.625rem;
 }
-button.learn-more .circle .icon {
+.link-wrap button.learn-more .circle .icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -157,14 +184,14 @@ button.learn-more .circle .icon {
   margin: auto;
   background: #fff;
 }
-button.learn-more .circle .icon.arrow {
+.link-wrap button.learn-more .circle .icon.arrow {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   left: 0.625rem;
   width: 1.125rem;
   height: 0.125rem;
   background: none;
 }
-button.learn-more .circle .icon.arrow::before {
+.link-wrap button.learn-more .circle .icon.arrow::before {
   position: absolute;
   content: "";
   top: -0.25rem;
@@ -175,7 +202,7 @@ button.learn-more .circle .icon.arrow::before {
   border-right: 0.125rem solid #fff;
   transform: rotate(45deg);
 }
-button.learn-more .button-text {
+.link-wrap button.learn-more .button-text {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -190,14 +217,14 @@ button.learn-more .button-text {
   text-align: center;
   text-transform: uppercase;
 }
-button:hover .circle {
+.link-wrap button:hover .circle {
   width: 100%;
 }
-button:hover .circle .icon.arrow {
+.link-wrap button:hover .circle .icon.arrow {
   background: #fff;
   transform: translate(1rem, 0);
 }
-button:hover .button-text {
+.link-wrap button:hover .button-text {
   color: #fff;
 }
 
@@ -311,7 +338,44 @@ button:hover .button-text {
 	border-right: 1px solid #ccc;
 }
 
+/* 추천 교재 */
+.book-wrap {
+	display: flex;
+	flex-direction: row;
+	justify-content:center;
+}
 
+.book-wrap img {
+	width: 200px;
+	height: 273px;
+}
+
+.faq-result-empty{
+  padding: 40px 30px 20px 60px;
+  font-weight: 600;
+  border: 0;
+  font-size: 20px;
+  background: #EEEEEE;
+  border-radius: 5px;
+  
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.faq-result-empty img {
+	width: 300px;
+	margin-bottom: 10px;
+}
+
+
+
+/* 추천 학원 */
+
+
+
+/* Q&A */
 
 
 
@@ -434,7 +498,7 @@ button:hover .button-text {
 	border-radius: 10px;
 }
 
-.btn {
+#crtrec-wrap .btn {
 	font-size: 30px;
 }
 

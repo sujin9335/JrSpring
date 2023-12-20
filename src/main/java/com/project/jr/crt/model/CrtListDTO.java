@@ -25,6 +25,7 @@ public class CrtListDTO {
 	
 	private String jobKeyword;
 	private String[] jobKeywords;
+	private int jobgroupSeq;
 	
 	
 }

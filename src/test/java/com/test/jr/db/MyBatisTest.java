@@ -9,24 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.project.jr.crt.mapper.CrtMapper;
 import com.project.jr.crt.repository.CrtDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class MyBatisTest {
 
-	@Autowired
-	//private SqlSessionTemplate template;
-	private CrtDAO dao;
+	@Autowired CrtMapper cmapper;
 	
 	@Test
 	public void testQuery() {
 		
-		//int count = template.selectOne("rest.test");
-		int count = dao.connectionTest();
+		int count = cmapper.connectionTest();
 		
-		//assertNotNull(template);
-		assertNotNull(dao);
-		assertEquals(count, count); 	//count에 select count(*) from tblAddress 들어와야 성공
+		assertNotNull(cmapper);
+		assertEquals(count, count); 	//select count(*) from tblCrt
 	}
 }

@@ -2,7 +2,6 @@ package com.project.jr.crt.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.jr.crt.model.CrtAcademyDTO;
+import com.project.jr.crt.model.CrtBookLikeDescDTO;
 import com.project.jr.crt.model.CrtDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
@@ -32,11 +33,18 @@ public class CrtController {
 	public String crtlist(Model model, HttpSession session, CrtPageDTO pdto) {
 	
 		cservice.paging(pdto);
-		System.out.println("CrtController 검색여부: " + pdto.getSearch());
+		//System.out.println("CrtController 검색여부: " + pdto.getSearch());
 		
 		//좋아요 버튼을 누르기 위한 회원 임시값
-		session.setAttribute("id", "N7sBxUcT");
-		pdto.setId(session.getAttribute("id").toString());
+		//session.setAttribute("id", "N7sBxUcT");
+		
+		if (session.getAttribute("id") != null) {
+			String id = session.getAttribute("id").toString();
+			pdto.setId(session.getAttribute("id").toString());
+		} else {
+			pdto.setId("");
+		}
+		
 		
 		List<CrtListDTO> list = cservice.crtList(pdto);
 		List<CrtListDTO> agencyList = cservice.crtAgencyList();
@@ -54,7 +62,15 @@ public class CrtController {
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("crtSeq", crtSeq+"");
-		map.put("id", session.getAttribute("id").toString());
+		
+		if (session.getAttribute("id") != null) {
+			String id = session.getAttribute("id").toString();
+			map.put("id", session.getAttribute("id").toString());
+			model.addAttribute("id", id);
+		} else {
+			map.put("id", "");
+		}
+		
 		
 		//CrtDTO dto = cservice.crtGet(crtSeq);
 		CrtDTO dto = cservice.crtGet(map);
@@ -63,18 +79,21 @@ public class CrtController {
 		List<CrtPayDTO> plist = cservice.crtPlist(crtSeq);
 		List<CrtSchDdayDTO> schDdaylist = cservice.crtSchDday(crtSeq);
 		CrtPassRateDTO crtGraphDto = cservice.crtGraph(crtSeq);
-		
+		List<CrtBookLikeDescDTO> booklist = cservice.booklist(crtSeq);
+		List<CrtAcademyDTO> academylist = cservice.academylist(crtSeq);
 		
 		//좋아요 버튼을 누르기 위한 회원 임시값
-		session.setAttribute("id", "N7sBxUcT");
+		//session.setAttribute("id", "N7sBxUcT");
 		//dto.setId(session.getAttribute("id").toString());
 		model.addAttribute("id", session.getAttribute("id"));
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("testlist", testlist);		//시험 상세 리스트
 		model.addAttribute("plist", plist);				//응시료 리스트
-		model.addAttribute("schDdaylist", schDdaylist);
-		model.addAttribute("crtGraphDto", crtGraphDto);
+		model.addAttribute("schDdaylist", schDdaylist);	//최신 일정 리스트
+		model.addAttribute("crtGraphDto", crtGraphDto);	//응시자 합격자 차트
+		model.addAttribute("booklist", booklist);		//교재 리스트
+		model.addAttribute("academylist", academylist);	//학원 리스트
 		
 		return "crt.crtdetail";
 

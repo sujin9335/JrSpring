@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.jr.crt.model.CrtAcademyDTO;
+import com.project.jr.crt.model.CrtBookLikeDescDTO;
 import com.project.jr.crt.model.CrtDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
@@ -283,6 +285,18 @@ public class CrtService {
 	public CrtPassRateDTO crtGraph(int crtSeq) {
 		CrtPassRateDTO crtGraphDto  = dao.crtGraphDto(crtSeq);
 		return crtGraphDto;
+	}
+
+	public List<CrtBookLikeDescDTO> booklist(int crtSeq) {
+		
+		List<CrtBookLikeDescDTO> booklist = dao.booklist(crtSeq);
+		
+		return booklist;
+	}
+
+	public List<CrtAcademyDTO> academylist(int crtSeq) {
+		List<CrtAcademyDTO> academylist = dao.academylist(crtSeq);
+		return academylist;
 	}
 	
 }

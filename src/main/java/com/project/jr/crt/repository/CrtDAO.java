@@ -3,6 +3,8 @@ package com.project.jr.crt.repository;
 import java.util.HashMap;
 import java.util.List;
 
+import com.project.jr.crt.model.CrtAcademyDTO;
+import com.project.jr.crt.model.CrtBookLikeDescDTO;
 import com.project.jr.crt.model.CrtDTO;
 import com.project.jr.crt.model.CrtLikeDTO;
 import com.project.jr.crt.model.CrtListDTO;
@@ -42,5 +44,9 @@ public interface CrtDAO {
 	List<CrtDTO> likelist(String id);
 
 	List<CrtDTO> getTop100List();
+
+	List<CrtBookLikeDescDTO> booklist(int crtSeq);
+
+	List<CrtAcademyDTO> academylist(int crtSeq);
 	
 }

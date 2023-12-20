@@ -19,7 +19,11 @@ import com.project.jr.crt.model.CrtPageDTO;
 import com.project.jr.crt.service.CrtBoardService;
 import com.project.jr.crt.service.CrtMessageService;
 import com.project.jr.like.model.CrtBoardLikeDTO;
-
+/**
+ * 자격증 후기게시판 관리하는 컨트롤러
+ * @author HSG
+ *
+ */
 @Controller
 @RequestMapping("/crt")
 public class CrtBoardController {
@@ -82,6 +86,16 @@ public class CrtBoardController {
 
 	}
 	
+	/**
+	 * 자격증 후기게시판 상세조회 메소드
+	 * @param model
+	 * @param session
+	 * @param resp
+	 * @param crtBoardSeq
+	 * @param pdto
+	 * @param likedto
+	 * @return
+	 */
 	@GetMapping(value = "/crtboarddetail.do")
 	public String crtboarddetail(Model model, HttpSession session, HttpServletResponse resp, int crtBoardSeq, CrtPageDTO pdto, CrtBoardLikeDTO likedto) {
 		
@@ -135,6 +149,13 @@ public class CrtBoardController {
 		return "crt.add";
 	}	
 	
+	/**
+	 * 자격증 후기게시글 추가하는 POST 요청
+	 * @param dto
+	 * @param resp
+	 * @param session
+	 * @return
+	 */
 	@PostMapping(value = "/add.do")
 	public String add(CrtBoardDTO dto, HttpServletResponse resp, HttpSession session) {
 		
@@ -267,12 +288,6 @@ public class CrtBoardController {
 		return cbservice.boardEdit(dto, resp);
 
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 }

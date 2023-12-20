@@ -664,4 +664,22 @@ CREATE TABLE tblNoticeBoardLike
 
 );
 
+create or replace view vwBookLikeDesc
+as
+select 
+    c.crtSeq,
+    b.bookseq,
+    b.bookname,
+    b.booklike,
+    b.bookimg,
+    b.publisher,
+    b.price,
+    b.author
+    from tblbook b
+        inner join tblCrtByBook cbb
+            on b.bookseq = cbb.bookseq
+                inner join tblCrt c
+                    on c.crtseq = cbb.crtseq
+order by booklike desc;
+
 commit;
