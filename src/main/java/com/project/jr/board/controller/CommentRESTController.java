@@ -43,8 +43,6 @@ public class CommentRESTController {
 		return cserv.commentList(boardSeq);
 		
 	}
-
-
 	
 	/**
 	 * 게시글 댓글 추가 POST 요청
@@ -73,8 +71,6 @@ public class CommentRESTController {
 	 */
 	@DeleteMapping(value = "/{commentSeq}")
 	public int del(@PathVariable("commentSeq") String commentSeq) {
-		
-		
 		return cserv.commentDel(commentSeq);
 	}
 
@@ -98,11 +94,5 @@ public class CommentRESTController {
 		return map;
 
 	}
-
-
-
-
-
-	
 	
 }

@@ -83,7 +83,7 @@
                 </div>
             </section>
             
-            <section class="job-section pt-4 pb-0">
+            <section class="job-section pt-4 pb-0 link-wrap">
             	<div class="container">
             		<div class="d-flex board-link mb-2">
             			<div><p><strong>자격증 후기가 궁금하다면</strong></p></div>
@@ -142,7 +142,7 @@
                                     <div class="d-flex">
 											<c:forEach items="${dto.jobKeywords}" var="item">
 											<p class="mb-0">
-												<a href="#" class="badge badge-level" style="padding-bottom: 8px;">${item}</a>
+												<a href="/jr/job/list.do?jobgroupSeq=${dto.jobgroupSeq}" target="_blank" class="badge badge-level" style="padding-bottom: 8px;">${item}</a>
 											</p>
 											</c:forEach>
 										</div>
@@ -219,7 +219,7 @@
                                 <p class="mb-2">
                                     <i class="custom-icon bi-globe me-1"></i>
 
-                                    <a href="${dto.agencyUrl}" class="site-footer-link">
+                                    <a href="${dto.agencyUrl}" target="_blank" class="site-footer-link">
                                         ${dto.agencyUrl}
                                     </a>
                                 </p>
@@ -346,194 +346,66 @@
 
                         <div class="col-lg-6 col-12 mb-lg-4">
                             <h3 class="border-bottom pb-3"><i class="bi bi-check-circle"></i> 추천 교재</h3>
-
                             <p>자격증 별 인기있는 교재를 모았습니다!</p>
                         </div>
 
                         <div class="col-lg-4 col-12 d-flex ms-auto mb-5 mb-lg-4">
-                            <a href="job-listings.html" class="custom-btn custom-border-btn btn ms-lg-auto">Browse Job Listings</a>
+                            <a href="/jr/book/list.do" target="_blank" class="custom-btn custom-border-btn btn ms-lg-auto">교재 조회하러 가기</a>
                         </div>
-
+						
+						<c:choose>
+						<c:when test="${not empty booklist}">
+						<div class="d-flex book-wrap">
+						<c:forEach items="${booklist}" var="bdto">
                         <div class="col-lg-4 col-md-6 col-12">
-                            <div class="job-thumb job-thumb-box">
+                            <div class="job-thumb job-thumb-box" style="height:589px;">
                                 <div class="job-image-box-wrap">
-
-                                    <div class="job-image-box-wrap-info d-flex align-items-center">
-                                        <p class="mb-0">
-                                            <a href="job-listings.html" class="badge badge-level">Internship</a>
-                                        </p>
-
-                                        <p class="mb-0">
-                                            <a href="job-listings.html" class="badge">Freelance</a>
-                                        </p>
-                                    </div>
+                                    <a href="/jr/book/detail.do?seq=${bdto.bookSeq }">
+                                        <img src="${bdto.bookImg }" class="job-image img-fluid" id="bookimg" alt="">
+                                    </a>
                                 </div>
+                                
 
                                 <div class="job-body">
                                     <h4 class="job-title">
-                                        <a href="job-details.html" class="job-title-link">Technical Lead</a>
+                                        <a href="/jr/book/detail.do?seq=${bdto.bookSeq }" class="job-title-link">${bdto.bookName}</a>
                                     </h4>
 
                                     <div class="d-flex align-items-center">
-                                        <div class="job-image-wrap d-flex align-items-center bg-white shadow-lg mt-2 mb-4">
-                                            <img src="images/logos/salesforce.png" class="job-image me-3 img-fluid" alt="">
-
-                                            <p class="mb-0">Salesforce</p>
-                                        </div>
-
-                                        <a href="#" class="bi-bookmark ms-auto me-2">
-                                        </a>
-
-                                        <a href="#" class="bi-heart">
-                                        </a>
-                                    </div>
+                              <p class="mb-0">
+                           <br>
+                              출판사: ${bdto.publisher }</p>
+                           </div>
 
                                     <div class="d-flex align-items-center">
                                         <p class="job-location">
-                                            <i class="custom-icon bi-geo-alt me-1"></i>
-                                            Kuala, Malaysia
+                                            <i class="bi-person"></i>
+                                            저자: ${bdto.author }
                                         </p>
-
-                                        <p class="job-date">
-                                            <i class="custom-icon bi-clock me-1"></i>
-                                            10 hours ago
-                                        </p>
-                                    </div>
-
-                                    <div class="d-flex align-items-center border-top pt-3">
-                                        <p class="job-price mb-0">
-                                            <i class="custom-icon bi-cash me-1"></i>
-                                            $50k
-                                        </p>
-
-                                        <a href="job-details.html" class="custom-btn btn ms-auto">Apply now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="job-thumb job-thumb-box">
-                                <div class="job-image-box-wrap">
-                                    <a href="job-details.html">
-                                        <img src="images/jobs/marketing-assistant.jpg" class="job-image img-fluid" alt="marketing assistant">
-                                    </a>
-
-                                    <div class="job-image-box-wrap-info d-flex align-items-center">
-                                        <p class="mb-0">
-                                            <a href="job-listings.html" class="badge badge-level">Senior</a>
-                                        </p>
-
-                                        <p class="mb-0">
-                                            <a href="job-listings.html" class="badge">Part Time</a>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="job-body">
-                                    <h4 class="job-title">
-                                        <a href="job-details.html" class="job-title-link">Marketing Assistant</a>
-                                    </h4>
-
-                                    <div class="d-flex align-items-center">
-                                        <div class="job-image-wrap d-flex align-items-center bg-white shadow-lg mt-2 mb-4">
-                                            <img src="images/logos/spotify.png" class="job-image me-3 img-fluid" alt="">
-
-                                            <p class="mb-0">Spotify</p>
                                         </div>
-
-                                        <a href="#" class="bi-bookmark ms-auto me-2">
-                                        </a>
-
-                                        <a href="#" class="bi-heart">
-                                        </a>
-                                    </div>
-
-                                    <div class="d-flex align-items-center">
-                                        <p class="job-location">
-                                            <i class="custom-icon bi-geo-alt me-1"></i>
-                                            California, USA
-                                        </p>
-
+										
+										<div class = "" style="display: flex; justify-content: space-between;">
                                         <p class="job-date">
-                                            <i class="custom-icon bi-clock me-1"></i>
-                                            8 days ago
-                                        </p>
-                                    </div>
-
-                                    <div class="d-flex align-items-center border-top pt-3">
-                                        <p class="job-price mb-0">
                                             <i class="custom-icon bi-cash me-1"></i>
-                                            $20k
+                                            <%-- 가격: ${bdto.price}원 --%>
+                                            <fmt:formatNumber value="${bdto.price}" type="currency" currencyCode="KRW" />원
+                                            
                                         </p>
-
-                                        <a href="job-details.html" class="custom-btn btn ms-auto">Apply now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <div class="job-thumb job-thumb-box">
-                                <div class="job-image-box-wrap">
-                                    <a href="job-details.html">
-                                        <img src="images/jobs/coding-man.jpg" class="job-image img-fluid" alt="">
-                                    </a>
-
-                                    <div class="job-image-box-wrap-info d-flex align-items-center">
-                                        <p class="mb-0">
-                                            <a href="job-listings.html" class="badge badge-level">Junior</a>
-                                        </p>
-
-                                        <p class="mb-0">
-                                            <a href="job-listings.html" class="badge">Contract</a>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="job-body">
-                                    <h4 class="job-title">
-                                        <a href="job-details.html" class="job-title-link">Programmer</a>
-                                    </h4>
                                         
-                                    <div class="d-flex align-items-center">
-                                        <div class="job-image-wrap d-flex align-items-center bg-white shadow-lg mt-2 mb-4">
-                                            <img src="images/logos/twitter.png" class="job-image me-3 img-fluid" alt="">
-
-                                            <p class="mb-0">Twiter</p>
-                                        </div>
-
-                                        <a href="#" class="bi-bookmark ms-auto me-2">
-                                        </a>
-
-                                        <a href="#" class="bi-heart">
-                                        </a>
-                                    </div>
-
-                                    <div class="d-flex align-items-center">
-                                        <p class="job-location">
-                                            <i class="custom-icon bi-geo-alt me-1"></i>
-                                            California, USA
-                                        </p>
-
-                                        <p class="job-date">
-                                            <i class="custom-icon bi-clock me-1"></i>
-                                            23 hours ago
-                                        </p>
-                                    </div>
-
-                                    <div class="d-flex align-items-center border-top pt-3">
-                                        <p class="job-price mb-0">
-                                            <i class="custom-icon bi-cash me-1"></i>
-                                            $68k
-                                        </p>
-
-                                        <a href="job-details.html" class="custom-btn btn ms-auto">Apply now</a>
-                                    </div>
+										</div>
+                                        
                                 </div>
                             </div>
                         </div>
-
+						</c:forEach>
+						</div>
+						</c:when>
+						<c:otherwise>
+							<div class="faq-result-empty">
+								<img src="<%=request.getContextPath() %>/resources/images/content-empty.png">
+							</div>
+						</c:otherwise>
+						</c:choose>
                     </div>
                 </div>
             </section>
@@ -548,6 +420,48 @@
                             <p>자격증 별 인기있는 학원을 모았습니다!</p>
                         </div>
                         
+                        <c:choose>
+							<c:when test="${not empty academylist}">
+								<div class="d-flex book-wrap">
+								<c:forEach items="${academylist}" var="adto">
+		                        
+			                        <div class="job-thumb mb-0 border-bottom items">
+									
+									<div class="job-body d-flex flex-wrap flex-column flex-auto align-items-center justify-content-start">
+										<h4 class="job-title mb-lg-0 me-auto">
+											<a href="${adto.eduLink}" class="job-title-link" target="_blank">${adto.academyName}</a>
+										</h4>
+										<h6 class="mt-3 mb-3 me-auto">${ adto.eduName }<span>(${ adto.eduStartDate } ~ ${ adto.eduEndDate })</span></h6>
+			
+										<div class="d-flex flex-wrap align-items-center  me-auto">
+										
+											<p class="mb-0 me-3">
+												<i class="custom-icon bi-geo-alt me-2"></i> ${adto.academyLocation}
+											</p>
+											<%-- 
+											<p class="mb-0 me-3">
+												<i class="custom-icon bi-telephone me-2"></i>${adto.academyTel}
+											</p>
+											 --%>
+											<p class="mb-0 me-3">
+												<i class="custom-icon bi-star me-2"></i>${adto.academyStar} / 5
+											</p>
+											<p class="mb-0">
+												<i class="custom-icon bi-pencil me-2"></i>${dto.crtName}
+											</p>
+			
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="faq-result-empty">
+								<img src="<%=request.getContextPath() %>/resources/images/content-empty.png">
+							</div>
+						</c:otherwise>
+                    </c:choose>    
                     </div>
                 </div>
              </section>
@@ -559,8 +473,10 @@
                         <div class="col-lg-6 col-12 mb-lg-4">
                             <h3 class="border-bottom pb-3"><i class="bi bi-question-circle"></i> ${dto.crtName} Q&A</h3>
 
-                            <p>자격증 별 인기있는 학원을 모았습니다!</p>
+                            <p>자격증 별 자주하는 질문입니다!</p>
                         </div>
+                        
+                        
                         
                     </div>
                 </div>
@@ -611,7 +527,7 @@
 				  			$('#crtlikecnt').text(parseInt($('#crtlikecnt').text(), 10) -1);
 				  		} else {
 				  			alert('failed / 로그인이 필요한 서비스입니다.');
-				  			location.href = '/jr/crt/crtlist.do';
+				  			location.href = '/jr/user/login.do';
 				  		}
 				  	},
 				  	error : (a,b,c) => {

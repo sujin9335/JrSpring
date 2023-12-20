@@ -125,7 +125,7 @@
 						</c:when>
 					</c:choose>
 				</div>
-
+<!-- 
 				<div
 					class="col-lg-4 col-12 d-flex align-items-center ms-auto mb-5 mb-lg-4">
 					<p class="mb-0 ms-lg-auto">Sort by:</p>
@@ -146,7 +146,22 @@
 						</ul>
 					</div>
 				</div>
-
+				 -->
+				<div class="crtlist-table mb-4">
+					<table>
+						<tr>
+							<td rowspan="2">시행기관 CI</td>
+							<td colspan="5">자격증명</td>
+							<td rowspan="2">좋아요</td>
+						</tr>
+						<tr>
+							<td>분류</td>
+							<td>시행기관</td>
+							<td>난이도</td>
+							<td>직무키워드</td>
+						</tr>
+					</table>
+				</div>
 
 				<div class="col-lg-12 col-12">
 					<c:forEach items="${list}" var="dto">
@@ -179,10 +194,10 @@
 											<i class="custom-icon bi-cash me-1"></i> ${dto.difficultyS}
 										</p>
 
-										<div class="d-flex">
+										<div class="d-flex"">
 											<c:forEach items="${dto.jobKeywords}" var="item">
 											<p class="mb-0">
-												<a href="#" class="badge badge-level" style="padding-bottom: 8px;">${item}</a>
+												<a href="/jr/job/list.do?jobgroupSeq=${dto.jobgroupSeq}" target="_blank" class="badge badge-level" style="padding-bottom: 8px;">${item}</a>
 											</p>
 											</c:forEach>
 										</div>
@@ -287,7 +302,7 @@
 			  			alert('my좋아요에 추가되었습니다.');
 			  		} else {
 			  			alert('로그인이 필요한 서비스입니다.');
-			  			location.href = '/jr/crt/crtlist.do';
+			  			location.href = '/jr/user/login.do';
 			  		}
 			  	},
 			  	error : (a,b,c) => {

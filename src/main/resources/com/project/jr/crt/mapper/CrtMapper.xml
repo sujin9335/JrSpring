@@ -10,7 +10,15 @@
 	<!-- 자격증 목록보기 > 자격증 정보 가져오기 -->
 	<select id="list" parameterType="com.project.jr.crt.model.CrtPageDTO" resultType="com.project.jr.crt.model.CrtListDTO">
 	SELECT
-		b.*, (SELECT count(*) FROM tblcrtlike where crtseq = b.crtseq and id LIKE '%' || #{id} || '%') as crtlike
+		b.*, (SELECT count(*) FROM tblcrtlike where crtseq = b.crtseq 
+		<choose>
+			<when test="id != null">
+				and id LIKE '%' || #{id} || '%') as crtlike
+			</when>
+			<otherwise>
+				)
+			</otherwise>
+		</choose>
 	FROM 
 		(SELECT 
 				a.*, rownum AS rnum FROM vwCrt a
@@ -110,8 +118,20 @@
 		select * from tblCrtLike cl inner join tblcrt c on cl.crtseq = c.crtseq inner join tblagency a on c.agencyseq = a.agencyseq inner join tblCrtType ct on c.crttypeseq = ct.crttypeseq where id = #{id}
 	</select>
 	
+	<!-- 메인 : 자격증 top 100 -->
 	<select id="getTop100List" resultType="com.project.jr.crt.model.CrtDTO">
 		SELECT * FROM vwCrtTop
 	</select>
+	
+	<!-- 자격증 상세페이지 : 자격증 관련 교재 조회 -->
+	<select id="booklist" parameterType="Integer" resultType="com.project.jr.crt.model.CrtBookLikeDescDTO">
+		select b.* from (select a.*, rownum as rnum from vwBookLikeDesc a where crtSeq = #{crtSeq}) b where rnum between 1 and 3
+	</select>
+	
+	<!-- 자격증 상세페이지 : 자격증 관련 학원 조회 -->
+	<select id="academylist" parameterType="Integer" resultType="com.project.jr.crt.model.CrtAcademyDTO">
+		select b.* from (select a.*, rownum as rnum from vwCrtAcademy a where crtSeq = #{crtSeq}) b where rnum between 1 and 3
+	</select>
+	
 
 </mapper>

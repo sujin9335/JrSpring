@@ -28,6 +28,7 @@ public class CrtDTO {
 	
 	private String jobKeyword;
 	private String[] jobKeywords;
+	private int jobgroupSeq;
 	
 	private int result;
 	

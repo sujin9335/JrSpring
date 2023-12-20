@@ -57,7 +57,7 @@ public class RestLikeController {
 	public List<CrtDTO> mycrtrest(Model model, HttpSession session) {
 		//session.setAttribute("id", "Q4eWnUz");
 		String id=(String)session.getAttribute("id");
-		return mclserv.crtList("Q4eWnUz");
+		return mclserv.crtList(id);
 	}
 	
 	/**

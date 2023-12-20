@@ -22,8 +22,8 @@ public class CrtLikeController {
 	public int add(@RequestBody CrtLikeDTO dto) {
 		
 		System.out.println("CrtLikeController id : " + dto.getId());
-		
-		if (dto.getId() == "null") {
+		//dto.getId() == "null" || 
+		if (dto.getId().equals("")) {
 	         return 0;
 		}
 		

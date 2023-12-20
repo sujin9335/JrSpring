@@ -61,7 +61,7 @@
 					<div class="container tabMenu-chart-btn">
 						<ul class="tabMenu-btn-ul">
 							<c:forEach items="${item.list}" var="dto" varStatus="dtostatus">
-								 <li><button type="button" class="btn btn-outline-light chart-btn"
+								 <li><button type="button" class="btn btn-outline-light chart-btn" style="font-size:18px;"
 								 onclick="changebtn(${status.index},${dtostatus.index});">${dto.crtName}</button></li>
 							</c:forEach>
 						</ul>
