@@ -13,9 +13,9 @@
 }
 
 .job-body{
-	
-	width: 400px;
-	height: 320px;
+   
+   width: 400px;
+   height: 320px;
 }
 
 
@@ -176,8 +176,8 @@
                                             저자: ${dto.author }
                                         </p>
                                         </div>
-										
-										<div class = "" style="display: flex; justify-content: space-between;">
+                              
+                              <div class = "" style="display: flex; justify-content: space-between;">
                                         <p class="job-date">
                                             <i class="custom-icon bi-cash me-1"></i>
                                             가격: ${dto.price }원
@@ -191,7 +191,7 @@
                                         </i>
                                         </c:if>
                                         
-										</div>
+                              </div>
                                         
                                 </div>
                             </div>
@@ -211,31 +211,7 @@
             </section>
 
 
-<!--             <section class="cta-section">
-                <div class="section-overlay"></div>
-
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-lg-6 col-10">
-                            <h2 class="text-white mb-2">Over 10k opening jobs</h2>
-
-                            <p class="text-white">Gotto Job is a free HTML CSS template for job hunting related websites. This layout is based on the famous Bootstrap 5 CSS framework. Thank you for visiting Tooplate website.</p>
-                        </div>
-
-                        <div class="col-lg-4 col-12 ms-auto">
-                            <div class="custom-border-btn-wrap d-flex align-items-center mt-lg-4 mt-2">
-                                <a href="#" class="custom-btn custom-border-btn btn me-4">Create an account</a>
-
-                                <a href="#" class="custom-link">Post a job</a>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </section>
- -->        </main>
+     </main>
 
        <!-- JAVASCRIPT FILES -->
         <script src="<%=request.getContextPath() %>/resources/js/jquery.min.js"></script>
@@ -245,53 +221,90 @@
         <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
         <script>
         function bookmark(bookseq) {
-		        	var currentClass = $(event.target).hasClass("fa-regular") ? "fa-regular" : "fa-solid";
-		
-		    		// 토글하여 반대 클래스를 적용합니다.
-		    		var newClass = currentClass === "fa-regular" ? "fa-solid" : "fa-regular";
-		    		
-		    		// 버튼의 클래스를 변경하여 색상을 토글합니다.
-		    		$(event.target).removeClass(currentClass).addClass(newClass);
-		    		
-    	            let obj = {
-    	               id : 'N7sBxUcT',
-    	               bookSeq : bookseq
-    	            };
-    	            if ($(event.target).hasClass("fa-regular")) {
-    	               $.ajax({
-    	                  type : 'DELETE',
-    	                  url : 'http://localhost:8090/jr/book/booklikedel',
-    	                  headers : {
-    	                     'Content-Type' : 'application/json'
-    	                  },
-    	                  data : JSON.stringify(obj),
-    	                  dataType : 'json',
-    	                  success : function(result) {
-     	                     alert('좋아요 목록에 삭제되었습니다.');
-    	                  },
-    	                  error : function(a, b, c) {
-    	                     console.log(a, b, c);
-    	                  }
-    	               });
-    	            } else {
+           var currentClass = $(event.target).hasClass("fa-regular") ? "fa-regular" : "fa-solid";
 
-    	               $.ajax({
-    	                  type : 'POST',
-    	                  url : 'http://localhost:8090/jr/book/booklike',
-    	                  headers : { 
-    	                     'Content-Type' : 'application/json'
-    	                  },
-    	                  data : JSON.stringify(obj),
-    	                  dataType : 'json',
-    	                  success : function(result) {
-								alert('좋아요 목록에 등록되었습니다.');
-    	                  },
-    	                  error : function(a, b, c) {
-    	                     console.log(a, b, c);
-    	                  }
-    	               });
-    	            }
-        }
+          // 토글하여 반대 클래스를 적용합니다.
+          var newClass = currentClass === "fa-regular" ? "fa-solid" : "fa-regular";
+          
+          // 버튼의 클래스를 변경하여 색상을 토글합니다.
+          $(event.target).removeClass(currentClass).addClass(newClass);
+          
+            let obj = {
+               id : '${id}',
+               bookSeq : bookseq
+            };
+            if ($(event.target).hasClass("fa-regular")) {
+               $.ajax({
+                  type : 'DELETE',
+                  url : '/jr/book/booklikedel',
+                  headers : {
+                     'Content-Type' : 'application/json'
+                  },
+                  data : JSON.stringify(obj),
+                  dataType : 'json',
+                  success : result => {
+                     if(result == 1) {
+                        alert('좋아요 목록에 삭제되었습니다.');
+                     } else {
+                        alert('삭제 실패');
+                     }
+                  },
+                  error : function(a, b, c) {
+                     console.log(a, b, c);
+                  }
+               });
+            } else {
+
+               $.ajax({
+                  type : 'POST',
+                  url : '/jr/book/booklike',
+                  headers : { 
+                     'Content-Type' : 'application/json'
+                  },
+                  data : JSON.stringify(obj),
+                  dataType : 'json',
+                  
+                  success : result => {
+                     if(result == 1) {
+                        alert('좋아요 목록에 등록되었습니다.');
+                     } else {
+                        alert('로그인이 필요한 서비스입니다.');
+                        location.href = '/jr/user/login.do';
+                     }
+                  },
+                  error : function(a, b, c) {
+                     console.log(a, b, c);
+                  }
+               });
+            }
+      }
+        
+        function add(bookSeq) {
+           
+           
+           
+           $.ajax({
+              type: 'POST',
+              url : '/jr/book/mybookadd.do',
+              data : {
+                 "bookSeq": bookSeq
+              },
+              dataType : 'json',
+              success: result => {
+                 if (result >= 1) {
+                    alert('my교재에 추가되었습니다.');
+                 } else {
+                    alert('로그인 필요한 서비스입니다.');
+                    location.href = '/jr/book/list.do';
+                 }
+              },
+              error: (a,b,c) => {
+                 console.log(a,b,c);
+              }
+           })
+           
+        } 
+
         
         
         </script>

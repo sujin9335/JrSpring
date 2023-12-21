@@ -6,13 +6,35 @@ import org.springframework.stereotype.Service;
 import com.project.jr.book.model.BookPageDTO;
 import com.project.jr.book.repository.BookDAO;
 
+
+
+
+/**
+ * {@code BookPageService} 클래스는 책 목록의 페이지네이션 기능을 제공합니다. 페이지네이션 세부 정보를 계산하고,
+ * 페이지네이션 링크를 생성하며, 제공된 {@code BookPageDTO} 객체에 필요한 정보를 설정합니다.
+ *
+ *
+ * @author sla
+ */
 @Service
 public class BookPageService {
 
    
+   
+  /**
+   * 책 저장소와 상호 작용하기 위한 데이터 액세스 객체입니다.
+   */
    @Autowired
    private BookDAO dao;
    
+   
+   
+   /**
+    * 제공된 {@code BookPageDTO} 객체를 기반으로 페이지네이션을 수행하며, 페이지네이션 세부 정보를 계산하고
+    * 페이지네이션 링크를 생성하여 설정합니다.
+    *
+    * @param pdto 페이지네이션 정보가 담긴 {@code BookPageDTO} 객체
+    */
    public void paging(BookPageDTO pdto) {
       //검색여부
       if ((pdto.getColumn() != null && pdto.getWord() != null)

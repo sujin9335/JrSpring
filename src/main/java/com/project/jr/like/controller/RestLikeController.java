@@ -43,7 +43,7 @@ public class RestLikeController {
 	public List<BoardDTO> myboardrest(Model model, HttpSession session) {
 		//session.setAttribute("id", "bNzHjMkS");
 		String id=(String)session.getAttribute("id");
-		return mblserv.boardList("bNzHjMkS");
+		return mblserv.boardList(id);
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class RestLikeController {
 	public List<BookDTO> mybookrest(Model model, HttpSession session) {
 		//session.setAttribute("id", "B9zYwLgC");
 		String id=(String)session.getAttribute("id");
-		return mbkserv.bookList("B9zYwLgC");
+		return mbkserv.bookList(id);
 	}
 	
 	

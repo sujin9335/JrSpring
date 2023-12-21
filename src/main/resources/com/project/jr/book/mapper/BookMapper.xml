@@ -9,13 +9,21 @@
  <!-- 쿼리문 -->
     <select id="list" parameterType="com.project.jr.book.model.BookPageDTO" resultType="com.project.jr.book.model.BookDTO">
 
-   	      
-	SELECT
-	    b.*, (select count(*) from tblbooklike where bookseq = b.bookseq and id like '%' || #{id} || '%') as booklike2
-	FROM
-	    (select
-	        a.*, rownum as rnum from tblbook a
-	        <if test="search != null">
+            
+   SELECT
+       b.*, (select count(*) from tblbooklike where bookseq = b.bookseq 
+       <choose>
+          <when test="id != null">
+             and id like '%' || #{id} || '%') as booklike2
+          </when>
+          <otherwise>
+             )
+          </otherwise>
+       </choose>
+   FROM
+       (select
+           a.*, rownum as rnum from tblbook a
+           <if test="search != null">
                       AND ${column} LIKE '%' || #{word} || '%'
                   </if>
                   <if test="price == null">
@@ -27,7 +35,7 @@
                   <if test="price == 'high'">
                   ORDER BY price DESC
                   </if>) b
-	WHERE rnum between #{begin} AND #{end}
+   WHERE rnum between #{begin} AND #{end}
    
    </select>
 
@@ -44,11 +52,11 @@
     
     <!-- 상세보기 좋아요 -->
     <select id="like" parameterType="com.project.jr.book.model.BookPageDTO" resultType="com.project.jr.book.model.BookDTO">
-	SELECT
-	    b.*, (select count(*) from tblbooklike where bookseq = b.bookseq and id like '%' || #{id} || '%') as booklike2
-	FROM
-	    (select
-	        a.*, rownum as rnum from tblbook a
+   SELECT
+       b.*, (select count(*) from tblbooklike where bookseq = b.bookseq and id like '%' || #{id} || '%') as booklike2
+   FROM
+       (select
+           a.*, rownum as rnum from tblbook a
     </select>
   
     
@@ -65,7 +73,7 @@ JOIN TBLBOOKPRGBYUSER bp ON i.INDEXSEQ = bp.INDEXSEQ
     <!-- my교재 추가하기 -->
     
     <insert id="mybookadd" parameterType="com.project.jr.book.model.BookDTO">
-    	insert into tblbookprgbyuser(bookprcbyuserseq, id, indexseq, learncheck) values (bookprcbyuserseq.nextVal, #{id}, #{indexSeq}, 0)
+       insert into tblbookprgbyuser(bookprcbyuserseq, id, indexseq, learncheck) values (bookprcbyuserseq.nextVal, #{id}, #{indexSeq}, 0)
     </insert>
     
    <!-- 게시판 목록보기 > 총 글의 개수 -->
@@ -81,26 +89,26 @@ JOIN TBLBOOKPRGBYUSER bp ON i.INDEXSEQ = bp.INDEXSEQ
    </select>
    
    <insert id="booklike" parameterType="com.project.jr.book.model.BookLikeDTO">
- 	insert into tblbooklike (booklikeseq, bookseq, id) values ((select max(booklikeseq)+1 from tblbooklike),#{bookSeq},#{id})
+    insert into tblbooklike (booklikeseq, bookseq, id) values (booklikeseq.nextVal,#{bookSeq},#{id})
    </insert>
  
- 	<delete id="booklikedel" parameterType="com.project.jr.book.model.BookLikeDTO">
- 	delete tblbooklike where bookseq=#{bookSeq} and id = #{id}
- 	</delete>
- 	
- 	<select id="bookmarklist" resultType="com.project.jr.book.model.BookLikeDTO">
- 	select * from tblbooklike
- 	</select>
- 	
-    <!--  	
+    <delete id="booklikedel" parameterType="com.project.jr.book.model.BookLikeDTO">
+    delete tblbooklike where bookseq=#{bookSeq} and id = #{id}
+    </delete>
+    
+    <select id="bookmarklist" resultType="com.project.jr.book.model.BookLikeDTO">
+    select * from tblbooklike
+    </select>
+    
+    <!--     
     <insert id="addBook" resultType="com.project.jr.book.model.BookDTO">
- 		insert into tblx
- 	</insert>
+       insert into tblx
+    </insert>
     --> 
 
     <!-- My좋아요 : Book -->
- 	<select id="likelist" parameterType="String" resultType="com.project.jr.book.model.BookDTO" >
- 		select * from tblBooklike bl inner join tblBook b on bl.bookseq = b.bookseq where bl.id = #{id}
- 	</select>
+    <select id="likelist" parameterType="String" resultType="com.project.jr.book.model.BookDTO" >
+       select * from tblBooklike bl inner join tblBook b on bl.bookseq = b.bookseq where bl.id = #{id}
+    </select>
     
 </mapper>
