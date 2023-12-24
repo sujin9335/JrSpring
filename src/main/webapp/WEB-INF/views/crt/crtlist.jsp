@@ -164,6 +164,7 @@
 				</div>
 
 				<div class="col-lg-12 col-12">
+				
 					<c:forEach items="${list}" var="dto">
 						<div class="job-thumb d-flex content-wrap">
 							<div class="job-image-wrap bg-white shadow-lg">
@@ -218,6 +219,7 @@
 						</div>
 						<hr>
 					</c:forEach>
+					
 					<c:if test="${ pdto.totalCount == 0 }">
 						<div>검색 결과가 없습니다.</div>
 					</c:if>

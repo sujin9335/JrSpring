@@ -119,8 +119,21 @@
 	</select>
 	
 	<!-- 메인 : 자격증 top 100 -->
-	<select id="getTop100List" resultType="com.project.jr.crt.model.CrtDTO">
-		SELECT * FROM vwCrtTop
+	<select id="getTop100List" resultType="com.project.jr.crt.model.CrtElaDTO">
+			    select *
+					from(
+					    select
+					        c.crtseq,
+					        c.crtname,
+					        c.crtinfo,
+					        a.agency,
+					        a.agencyurl,
+					        c.difficulty
+					    from tblcrt c
+					        inner join tblagency a
+					            on c.agencyseq=a.agencyseq
+					                order by c.totalcnt desc
+					) where rownum &lt;=100
 	</select>
 	
 	<!-- 자격증 상세페이지 : 자격증 관련 교재 조회 -->

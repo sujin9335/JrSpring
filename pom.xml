@@ -226,6 +226,19 @@
       	   <artifactId>gson</artifactId>
       	   <version>2.10.1</version>
      	</dependency>
+     	
+     	<dependency>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>elasticsearch-rest-high-level-client</artifactId>
+			<version>7.17.15</version>
+		</dependency>    
+		
+		<!-- JSON -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.0</version>
+		</dependency>
 
 	</dependencies>
 	<build>

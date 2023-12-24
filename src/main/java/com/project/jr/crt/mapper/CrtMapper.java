@@ -7,6 +7,7 @@ import java.util.List;
 import com.project.jr.crt.model.CrtAcademyDTO;
 import com.project.jr.crt.model.CrtBookLikeDescDTO;
 import com.project.jr.crt.model.CrtDTO;
+import com.project.jr.crt.model.CrtElaDTO;
 import com.project.jr.crt.model.CrtLikeDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
@@ -44,7 +45,7 @@ public interface CrtMapper {
 
 	List<CrtDTO> likelist(String id);
 
-	List<CrtDTO> getTop100List();
+	List<CrtElaDTO> getTop100List();
 
 	List<CrtBookLikeDescDTO> booklist(int crtSeq);
 

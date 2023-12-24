@@ -20,11 +20,22 @@
         <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h2 data-aos="fade-up" class="me-auto" style="color: #f0f8ff;">자격증, 자랑이와!</h2>
 
-          <form action="/jr/crt/crtlist.do" method="get" class="form-search d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+          <!-- <form action="/jr/crt/crtlist.do" method="get" class="form-search d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <input type="text" name="word" class="form-control mb-0" placeholder="자격증을 검색해보세요">
             <input type="hidden" name="crtctg" class="form-control" placeholder="자격증을 검색해보세요">
             <input type="hidden" name="agency" class="form-control" placeholder="자격증을 검색해보세요">
             <input type="hidden" name="difficulty" class="form-control" placeholder="자격증을 검색해보세요">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form> -->
+          <form action="/jr/index.do" method="get" class="form-search d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+          <%--   <c:if test="${empty word }">
+				<input type="text" name="word" class="form-control mb-0" placeholder="자격증을 검색해보세요">
+			</c:if> 
+			<c:if test="${not empty word}">
+				<input type="text" name="word" class="form-control mb-0" placeholder="자격증을 검색해보세요" value="${word }">
+			</c:if> --%>
+            <input type="text" name="word" class="form-control mb-0" placeholder="자격증을 검색해보세요" value="${word }">
+            
             <button type="submit" class="btn btn-primary">Search</button>
           </form>
 
@@ -62,11 +73,69 @@
 
 	<div class="container">
 		
-		<h4 class="mb-3">자격증 TOP 100</h4>
+		<h4 class="mb-3">자격증 TOP 30</h4> 
         <div class="row gy-4" style="align-items: flex-start;">
 
-
 		<c:forEach items="${ clist }" var="dto">
+		  <div class="col-lg-3 col-md-4">
+		  <div class="card service-item d-flex" data-aos="fade-up" data-aos-delay="200" style="padding:20px;">
+		      
+              <h4 class="title" style="font-size: 1.1rem; padding-top:20px;">${ dto.crtname }</h4>
+              <div class="description">
+				<table class="info">
+					<tbody>
+						<tr>
+							<th>시행기관</th>
+							<td><a href="${ dto.agencyurl }">${ dto.agency }</a></td>
+						</tr>
+						<tr>
+							<th>난이도</th>
+							
+							<c:if test="${dto.difficulty == 1 }">
+				            	<td>★</td>
+				            </c:if>
+							<c:if test="${dto.difficulty == 2 }">
+				            	<td>★★</td>
+				            </c:if>
+							<c:if test="${dto.difficulty == 3 }">
+				            	<td>★★★</td>
+				            </c:if>
+							<c:if test="${dto.difficulty == 4 }">
+				            	<td>★★★★</td>
+				            </c:if>
+							<c:if test="${dto.difficulty == 5 }">
+				            	<td>★★★★★</td>
+				            </c:if>
+						</tr>
+					</tbody>
+				</table>
+								</div>
+              <div class="hide description">
+              <hr>
+              <table class="info" style="margin-bottom:10px;">
+					<tbody>
+						<tr>
+							<th>자격증 정보</th>
+						</tr>
+						<tr>
+							<td>${ dto.crtinfo }</td>
+						</tr>
+					</tbody>
+				</table>
+				
+              <a href="/jr/crt/crtdetail.do?crtSeq=${ dto.crtseq }" class="readmore stretched-link"><span>자격증 상세보기</span><i class="bi bi-arrow-right"></i></a>
+              </div>
+              </div>
+          </div>
+          
+          
+          </c:forEach>
+
+
+
+
+
+<%-- 		<c:forEach items="${ clist }" var="dto">
 		  <div class="col-lg-3 col-md-4">
 		  <div class="card service-item d-flex" data-aos="fade-up" data-aos-delay="200" style="padding:20px;">
 		      
@@ -110,7 +179,7 @@
           
           
           </c:forEach>
-		
+ --%>		
 		
 		
         </div>

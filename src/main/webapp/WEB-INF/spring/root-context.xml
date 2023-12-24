@@ -11,7 +11,7 @@
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@3.37.96.192:1521:xe"></property>
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"></property>
 		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"></property> -->
 		<property name="username" value="jr2"></property>
