@@ -29,8 +29,14 @@
 							</ol>
 						</nav>
 						<div>
+						<!-- 
 						<a id="kakao-link-btn" href="javascript:kakaoShare()"> <img
 							src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
+						</a>
+						 -->
+						<a id="kakaotalk-sharing-btn" href="javascript:;">
+						  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+						    alt="카카오톡 공유 보내기 버튼" />
 						</a>
 						</div>
 				</div>
@@ -422,7 +428,7 @@
                         
                         <c:choose>
 							<c:when test="${not empty academylist}">
-								<div class="d-flex book-wrap">
+								<div class="academy-wrap">
 								<c:forEach items="${academylist}" var="adto">
 		                        
 			                        <div class="job-thumb mb-0 border-bottom items">
@@ -431,18 +437,13 @@
 										<h4 class="job-title mb-lg-0 me-auto">
 											<a href="${adto.eduLink}" class="job-title-link" target="_blank">${adto.academyName}</a>
 										</h4>
-										<h6 class="mt-3 mb-3 me-auto">${ adto.eduName }<span>(${ adto.eduStartDate } ~ ${ adto.eduEndDate })</span></h6>
+										<h6 class="mt-3 mb-3 me-auto">${ adto.eduName }<span>(교육기간 : ${ adto.eduStartDate } ~ ${ adto.eduEndDate })</span></h6>
 			
 										<div class="d-flex flex-wrap align-items-center  me-auto">
 										
 											<p class="mb-0 me-3">
 												<i class="custom-icon bi-geo-alt me-2"></i> ${adto.academyLocation}
 											</p>
-											<%-- 
-											<p class="mb-0 me-3">
-												<i class="custom-icon bi-telephone me-2"></i>${adto.academyTel}
-											</p>
-											 --%>
 											<p class="mb-0 me-3">
 												<i class="custom-icon bi-star me-2"></i>${adto.academyStar} / 5
 											</p>
@@ -476,6 +477,38 @@
                             <p>자격증 별 자주하는 질문입니다!</p>
                         </div>
                         
+                        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-10">
+
+	        <div class="accordion accordion-flush" id="faqlist">
+			<c:choose>
+				<c:when test="${not empty faqlist}">
+					<c:forEach items="${faqlist}" var="fdto" varStatus="status">
+		              <div class="accordion-item">
+		                <h3 class="accordion-header">
+		                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-${status.count}">
+		                    <i class="bi bi-question-circle question-icon"></i>
+		                    ${fdto.crtFaqTitle}
+		                  </button>
+		                </h3>
+		                <div id="faq-content-${status.count}" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+		                  <div class="accordion-body">
+		                    ${fdto.crtFaqContent}
+		                  </div>
+		                </div>
+		              </div><!-- # Faq item-->
+		              </c:forEach>
+	              </c:when>
+	              <c:otherwise>
+	            	 	<div class="faq-result-empty mb-5">
+							<img src="<%=request.getContextPath() %>/resources/images/content-empty.png">
+						</div>
+	              </c:otherwise>
+            </c:choose>
+	        </div>
+
+          </div>
+        </div>
                         
                         
                     </div>
@@ -664,59 +697,50 @@
 		
 		</script>
 
+		<!-- 카카오톡 공유하기 BTN -->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"
+  integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8" crossorigin="anonymous"></script>
+<script>
+  Kakao.init('6ded158f74541694258e0f07b39db8bb'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
 
+<c:set var="crtName" value="${dto.crtName}" />
+<script>
+  Kakao.Share.createDefaultButton({
+    container: '#kakaotalk-sharing-btn',
+    objectType: 'feed',
+    content: {
+      title: '${crtName}', //'Jarang-i, 자격증 종합 정보 사이트',
+      description: 'Jarang-i가 알려드릴게요!',
+      imageUrl:
+        '../../resources/images/LOGO3.png',
+      link: {
+        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+       /*  
+        mobileWebUrl: 'http://3.37.96.192:8080/jr/crt/crtdetail.do?crtSeq' + ${dto.crtSeq},
+        webUrl: 'http://3.37.96.192:8080/jr/crt/crtdetail.do?crtSeq' + ${dto.crtSeq}, 
+        		*/
+        mobileWebUrl: 'http://localhost:8090/jr/crt/crtdetail.do?crtSeq=' + ${dto.crtSeq},
+        webUrl:'http://localhost:8090/jr/crt/crtdetail.do?crtSeq=' + ${dto.crtSeq},
+      },
+    },
+    social: {
+      likeCount: 286,
+      commentCount: 45,
+      sharedCount: 845,
+    },
+    buttons: [
+      {
+        title: '웹으로 보기',
+        link: {
+          mobileWebUrl:'http://localhost:8090/jr/crt/crtdetail.do?crtSeq=' + ${dto.crtSeq},
+          webUrl: 'http://localhost:8090/jr/crt/crtdetail.do?crtSeq=' + ${dto.crtSeq},
+        },
+      },
+    ],
+  });
+</script>
 
-
-
-
-<!-- 카카오톡 공유하기 BTN -->
-		<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
-			integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4"
-			crossorigin="anonymous"></script>
-		<script>
-			Kakao.init('6ded158f74541694258e0f07b39db8bb'); // 사용하려는 앱의 JavaScript 키 입력
-		</script>
-
-
-		<script type="text/javascript">
-		
-			function kakaoShare() {
-			    Kakao.Link.sendDefault({
-				    objectType: 'feed',
-				    content: {
-				      title: '자랑이',
-				      description: '자격증 종합 정보 사이트',
-				      imageUrl:
-				        'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-				      link: {
-				        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-				        mobileWebUrl: 'http://localhost:8090',
-				        webUrl: 'http://localhost:8090',
-				      },
-				    },
-				    buttons: [
-					      {
-					        title: '웹으로 보기',
-					        link: {
-					          mobileWebUrl: 'https://developers.kakao.com',
-					          webUrl: 'https://developers.kakao.com',
-					        },
-					      },
-					      {
-					        title: '앱으로 보기',
-					        link: {
-					          mobileWebUrl: 'https://developers.kakao.com',
-					          webUrl: 'https://developers.kakao.com',
-					        },
-					      },
-					    ],
-			      // 카카오톡 미설치 시 카카오톡 설치 경로이동
-			      installTalk: true,
-			    })
-			}
-
-
-		</script>
     </body>
     
 

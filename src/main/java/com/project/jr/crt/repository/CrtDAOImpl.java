@@ -10,6 +10,7 @@ import com.project.jr.crt.mapper.CrtMapper;
 import com.project.jr.crt.model.CrtAcademyDTO;
 import com.project.jr.crt.model.CrtBookLikeDescDTO;
 import com.project.jr.crt.model.CrtDTO;
+import com.project.jr.crt.model.CrtFAQDTO;
 import com.project.jr.crt.model.CrtLikeDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
@@ -102,6 +103,11 @@ public class CrtDAOImpl implements CrtDAO{
 	@Override
 	public List<CrtAcademyDTO> academylist(int crtSeq) {
 		return cmapper.academylist(crtSeq);
+	}
+	
+	@Override
+	public List<CrtFAQDTO> faqlist(int crtSeq) {
+		return cmapper.faqlist(crtSeq);
 	}
 }
 
