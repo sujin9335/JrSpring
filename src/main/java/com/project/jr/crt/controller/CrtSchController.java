@@ -27,22 +27,22 @@ public class CrtSchController {
 		csService.paging(pdto);
 		
 		//my 좋아요 자격증 리스트를 보기위한 회원 임시값
-		session.setAttribute("id", "N7sBxUcT");
+		//session.setAttribute("id", "N7sBxUcT");
 		/*
-		String id = "";
-		if (session == null || session.equals("")) {
-			id = "";
-		} else {
-			id = session.getAttribute("id").toString();
-		}
-		*/
 		String id = "";
 		if (session != null && session.getAttribute("id") != null) {
 		    id = session.getAttribute("id").toString();
 		}
-
-		
 		pdto.setId(id.toString());
+		
+		*/
+		String id = "";
+		if (session.getAttribute("id") != null) {
+			id = session.getAttribute("id").toString();
+			pdto.setId(session.getAttribute("id").toString());
+		} else {
+			pdto.setId("");
+		}
 		
 		System.out.println("CrtSchController id : " + id);
 		

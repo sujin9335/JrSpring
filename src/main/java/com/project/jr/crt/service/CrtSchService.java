@@ -19,6 +19,38 @@ public class CrtSchService {
 	public void paging(CrtSchPageDTO pdto) {
 		
 		pdto.setSearch("n");
+		
+		String rcstart = pdto.getHiddenRcStartDate();
+		String rcend = pdto.getHiddenRcEndDate();
+		String start = pdto.getHiddenStartDate();
+		String end = pdto.getHiddenEndDate();
+		
+		if (rcstart == null || rcstart.isEmpty()) {
+			pdto.setHiddenRcStartDate(null);
+			pdto.setHiddenRcEndDate(null);
+		}
+		
+		if (start == null || start.isEmpty()) {
+			pdto.setHiddenStartDate(null);
+			pdto.setHiddenEndDate(null);
+		}
+		/*
+		if (pdto.getHiddenRcStartDate() == null || pdto.getHiddenRcStartDate().isEmpty()) {
+			pdto.setHiddenRcStartDate(null);
+			pdto.setHiddenRcEndDate(null);
+		}
+		
+		if (pdto.getHiddenStartDate() == null || pdto.getHiddenStartDate().isEmpty()) {
+			pdto.setHiddenStartDate(null);
+			pdto.setHiddenEndDate(null);
+		}
+		*/
+		// 검색여부
+		if (pdto.getWord() != null
+				|| (rcstart != null || rcend != null || start != null || end!=null)) {
+			pdto.setSearch("y");
+		}
+		
 		//페이징
 		//현재페이지
 		if (pdto.getPage() == 0) {
@@ -52,23 +84,21 @@ public class CrtSchService {
 					+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
 					+ "	</a></li>");
 		} else {
-
-			if (pdto.getSearch() == null) {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtschlist.do?page=%d'\n"
-						+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
-						+ "	</a></li>", n - 1));
-			} 
+			
+			sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtschlist.do?word=%s&hiddenRcStartDate=%s&hiddenRcEndDate=%s&hiddenStartDate=%s&hiddenEndDate=%s&page=%d'\n"
+					+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
+					+ "	</a></li>", pdto.getWord(), rcstart, rcend, start, end, n - 1));
+			
 		}
-
+		
 		while (!(loop > blockSize || n > pdto.getTotalPage())) {
 
 			if (n == pdto.getPage()) {
 				sb.append(String.format("<li class='page-item active' aria-current='page'><a\n"
 											+ "	class='page-link' href=''>%d</a></li>", n));
 			} else {
-				if (pdto.getSearch() != null) {
-					sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtschlist.do?page=%d'>%d</a></li>", n, n));
-				}
+				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtschlist.do?word=%s&hiddenRcStartDate=%s&hiddenRcEndDate=%s&hiddenStartDate=%s&hiddenEndDate=%s&page=%d'>%d</a></li>", 
+						pdto.getWord(), rcstart, rcend, start, end, n, n));
 			}
 			loop++;
 			n++;
@@ -81,11 +111,9 @@ public class CrtSchService {
 					+ "	aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
 					+ "	</a></li>");
 		} else {
-			//if (pdto.getSearch() == null) {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtschlist.do?page=%d'\n"
+				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtschlist.do?word=%s&hiddenRcStartDate=%s&hiddenRcEndDate=%s&hiddenStartDate=%s&hiddenEndDate=%s&page=%d'\n"
 						+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
-						+ "						</a></li>", n));
-			//} 
+						+ "						</a></li>", pdto.getWord(), rcstart, rcend, start, end, n));
 		}
 		
 		pdto.setPagebar(sb.toString());
