@@ -12,6 +12,11 @@ public class CrtSchPageDTO {
 	private String testStartDate;
 	private String testEndDate;
 	
+	private String hiddenRcStartDate;
+	private String hiddenRcEndDate;
+	private String hiddenStartDate;
+	private String hiddenEndDate;
+	
 	private int page;
 	private int totalCount;
 	private int pageSize; // 페이지 당 글 개수

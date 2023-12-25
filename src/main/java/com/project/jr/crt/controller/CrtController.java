@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.project.jr.crt.model.CrtAcademyDTO;
 import com.project.jr.crt.model.CrtBookLikeDescDTO;
 import com.project.jr.crt.model.CrtDTO;
+import com.project.jr.crt.model.CrtFAQDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
 import com.project.jr.crt.model.CrtPassRateDTO;
@@ -81,10 +82,10 @@ public class CrtController {
 		CrtPassRateDTO crtGraphDto = cservice.crtGraph(crtSeq);
 		List<CrtBookLikeDescDTO> booklist = cservice.booklist(crtSeq);
 		List<CrtAcademyDTO> academylist = cservice.academylist(crtSeq);
+		List<CrtFAQDTO> faqlist = cservice.faqlist(crtSeq);
 		
 		//좋아요 버튼을 누르기 위한 회원 임시값
 		//session.setAttribute("id", "N7sBxUcT");
-		//dto.setId(session.getAttribute("id").toString());
 		model.addAttribute("id", session.getAttribute("id"));
 		
 		model.addAttribute("dto", dto);
@@ -94,6 +95,7 @@ public class CrtController {
 		model.addAttribute("crtGraphDto", crtGraphDto);	//응시자 합격자 차트
 		model.addAttribute("booklist", booklist);		//교재 리스트
 		model.addAttribute("academylist", academylist);	//학원 리스트
+		model.addAttribute("faqlist", faqlist);			//faq 리스트
 		
 		return "crt.crtdetail";
 

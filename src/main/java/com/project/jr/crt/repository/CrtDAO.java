@@ -7,6 +7,7 @@ import com.project.jr.crt.model.CrtAcademyDTO;
 import com.project.jr.crt.model.CrtBookLikeDescDTO;
 import com.project.jr.crt.model.CrtDTO;
 import com.project.jr.crt.model.CrtElaDTO;
+import com.project.jr.crt.model.CrtFAQDTO;
 import com.project.jr.crt.model.CrtLikeDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
@@ -49,5 +50,7 @@ public interface CrtDAO {
 	List<CrtBookLikeDescDTO> booklist(int crtSeq);
 
 	List<CrtAcademyDTO> academylist(int crtSeq);
+
+	List<CrtFAQDTO> faqlist(int crtSeq);
 	
 }

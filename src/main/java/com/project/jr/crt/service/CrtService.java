@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.project.jr.crt.model.CrtAcademyDTO;
 import com.project.jr.crt.model.CrtBookLikeDescDTO;
 import com.project.jr.crt.model.CrtDTO;
+import com.project.jr.crt.model.CrtFAQDTO;
 import com.project.jr.crt.model.CrtListDTO;
 import com.project.jr.crt.model.CrtPageDTO;
 import com.project.jr.crt.model.CrtPassRateDTO;
@@ -52,10 +53,6 @@ public class CrtService {
 		if (pdto.getWord() != null || (pdto.getCrtCtg() != null || pdto.getAgency() != null || pdto.getDifficulty() != null)) {
 			    pdto.setSearch("y");
 		}
-		/*
-		if ((pdto.getColumn() != null && pdto.getWord() != null) || (pdto.getCrtCtg() != null || pdto.getAgency() != null || pdto.getDifficulty() != null)) {
-			pdto.setSearch("y");
-		}*/
 
 		//페이징
 		//현재페이지
@@ -94,18 +91,6 @@ public class CrtService {
 			sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d&word=%s&crtCtg=%s&agency=%s&difficulty=%s'\n"
 					+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
 					+ "	</a></li>", n - 1, pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty()));
-			/*
-			if (pdto.getSearch() == null) {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d'\n"
-						+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
-						+ "	</a></li>", n - 1));
-			} else {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d&word=%s&crtCtg=%s&agency=%s&difficulty=%s'\n"
-						+ "	aria-label='Previous'> <span aria-hidden=\"true\">Prev</span>\n"
-						+ "	</a></li>", n - 1, pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty()));
-			}
-			*/
-
 		}
 
 		while (!(loop > blockSize || n > pdto.getTotalPage())) {
@@ -117,15 +102,6 @@ public class CrtService {
 				
 				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d&word=%s&crtCtg=%s&agency=%s&difficulty=%s'>%d</a></li>", n,
 						pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty(), n));
-				/*
-				if (pdto.getSearch() == null) {
-					sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d'>%d</a></li>", n, n));
-				} else {
-					sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d&word=%s&crtCtg=%s&agency=%s&difficulty=%s'>%d</a></li>", n,
-							pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty(), n));
-					
-				}
-				*/
 			}
 			loop++;
 			n++;
@@ -143,21 +119,6 @@ public class CrtService {
 					+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
 					+ "						</a></li>",
 					n, pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty()));
-			/*
-			if (pdto.getSearch() == null) {
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d'\n"
-						+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
-						+ "						</a></li>", n));
-			} else {
-				sb.append(String.format(" <a href='/jr/crt/crtlist.do?page=%d&column=%s&word=%s'>Next</a>",
-						pdto.getColumn(), pdto.getWord(), n));
-				sb.append(String.format("<li class='page-item'><a class='page-link' href='/jr/crt/crtlist.do?page=%d&word=%s&crtCtg=%s&agency=%s&difficulty=%s'\n"
-						+ "							aria-label='Next'> <span aria-hidden='true'>Next</span>\n"
-						+ "						</a></li>",
-						n, pdto.getWord(), pdto.getCrtCtg(), pdto.getAgency(), pdto.getDifficulty()));
-			}
-			
-			*/
 		}
 		pdto.setPagebar(sb.toString());
 	}	//pageing
@@ -296,7 +257,21 @@ public class CrtService {
 
 	public List<CrtAcademyDTO> academylist(int crtSeq) {
 		List<CrtAcademyDTO> academylist = dao.academylist(crtSeq);
+		
+		// 날짜 가공
+		for (CrtAcademyDTO dto : academylist) {
+			String startdate = dto.getEduStartDate();
+			String enddate = dto.getEduEndDate();
+
+			dto.setEduStartDate(startdate.substring(0, 10));
+			dto.setEduEndDate(enddate.substring(0, 10));
+		}
+		
 		return academylist;
+	}
+
+	public List<CrtFAQDTO> faqlist(int crtSeq) {
+		return dao.faqlist(crtSeq);
 	}
 	
 }

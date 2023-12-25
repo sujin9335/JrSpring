@@ -146,5 +146,9 @@
 		select b.* from (select a.*, rownum as rnum from vwCrtAcademy a where crtSeq = #{crtSeq}) b where rnum between 1 and 3
 	</select>
 	
+	<!-- 자격증 상세페이지 : 자격증 FAQ 조회 -->
+	<select id="faqlist" parameterType="Integer" resultType="com.project.jr.crt.model.CrtFAQDTO">
+		select * from tblcrtfaq where crtseq = #{crtSeq}
+	</select>
 
 </mapper>

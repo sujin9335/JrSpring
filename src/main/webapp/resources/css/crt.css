@@ -93,7 +93,7 @@
 
 /* --------------crtdetail.jsp--------------- */
 
-#kakao-link-btn img{
+#kakaotalk-sharing-btn img{
 	margin: 10px;
 	width: 45px;
 }
@@ -372,7 +372,11 @@
 
 
 /* 추천 학원 */
-
+.academy-wrap {
+	display: flex;
+	flex-direction: column;
+	justify-content:center;
+}
 
 
 /* Q&A */

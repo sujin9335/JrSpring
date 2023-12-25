@@ -3,10 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="<%=request.getContextPath() %>/resources/css/crt.css"
 	rel="stylesheet">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <main>
-	<c:if test="${not empty message}">
-        <script>alert('${message}');location.href='/jr/user/login.do';</script>
-    </c:if>
 	<header class="site-header2" style="padding-top: 70px">
 		<div class="section-overlay2"></div>
 
@@ -56,6 +57,8 @@
 									<span class="input-group-text" id="basic-addon2">
 										<i class="bi bi-calendar"></i></span> 
 										<input type="text" name="daterange" id="daterange1" class="form-control" value="" autocomplete="off"  placeholder="시험 접수 시작일  ~  시험 접수 종료일">
+										<input type="hidden" name="hiddenRcStartDate" id="hiddenRcStartDate" value="">
+										<input type="hidden" name="hiddenRcEndDate" id="hiddenRcEndDate" value="">
 								</div>
 							</div>
 							
@@ -64,6 +67,8 @@
 									<span class="input-group-text" id="basic-addon3">
 										<i class="bi bi-calendar"></i></span> 
 										<input type="text" name="daterange" id="daterange2" class="form-control" value="" autocomplete="off" placeholder="시험 시작일  ~  시험 종료일">
+										<input type="hidden" name="hiddenStartDate" id="hiddenStartDate" value="">
+										<input type="hidden" name="hiddenEndDate" id="hiddenEndDate" value="">
 								</div>
 							</div>
 							
@@ -88,8 +93,6 @@
 			<div class="row">
 
 				<div class="col-lg-6 col-12 mb-lg-4">
-							<h3>전체 결과 총 ${pdto.totalCount}건</h3>
-					<%-- 
 					<c:choose>
 						<c:when test="${pdto.search == null}">
 							<h3>전체 결과 총 ${pdto.totalCount}건</h3>
@@ -98,11 +101,10 @@
 							<h3>검색 결과 총 ${pdto.totalCount}건</h3>
 						</c:when>
 					</c:choose>
-					 --%>
 				</div>
 
 				<!-- 회원 전용 div -->
-				<c:if test="${id != 'null'}">
+				<c:if test="${not empty id}">
 				<div class="col-lg-12 col-12 mb-5">
 					<p class="sub-title">my 좋아요 자격증<span>회원님이 좋아요한 자격증의 최신일정입니다.</span></p>
 					<c:choose>
@@ -244,10 +246,9 @@
 						<hr>
 					</c:forEach>
 					
-					<%-- 
 					<c:if test="${ pdto.totalCount == 0 }">
 						<div>검색 결과가 없습니다.</div>
-					</c:if> --%>
+					</c:if> 
 					<div class="col-lg-12 col-12">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center mt-5 pb-5">
@@ -270,6 +271,69 @@
 
 <script>
 
+
+	$('input[name="daterange"]').click(function(event){
+	   event.preventDefault();
+	   $('input[name="daterange"]').data('daterangepicker').show();
+	});
+
+	
+	$('#selPage').val(${nowPage});
+	
+	$(document).ready(function () {
+      $('#daterange1').daterangepicker({
+          autoUpdateInput: false,
+          locale: {
+              cancelLabel: 'Clear'
+          }
+      });
+
+      $('#daterange1').on('apply.daterangepicker', function (ev, picker) {
+          $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+          $('#hiddenRcStartDate').val(picker.startDate.format('YYYY-MM-DD'));
+          $('#hiddenRcEndDate').val(picker.endDate.format('YYYY-MM-DD'));
+      });
+
+      $('#daterange1').on('cancel.daterangepicker', function () {
+          $(this).val('');
+          $('#hiddenRcStartDate').val('');
+          $('#hiddenRcEndDate').val('');
+      });
+      $('#daterange2').daterangepicker({
+          autoUpdateInput: false,
+          locale: {
+              cancelLabel: 'Clear'
+          }
+      });
+
+      $('#daterange2').on('apply.daterangepicker', function (ev, picker) {
+          $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+          $('#hiddenStartDate').val(picker.startDate.format('YYYY-MM-DD'));
+          $('#hiddenEndDate').val(picker.endDate.format('YYYY-MM-DD'));
+      });
+
+      $('#daterange2').on('cancel.daterangepicker', function () {
+          $(this).val('');
+          $('#hiddenStartDate').val('');
+          $('#hiddenEndDate').val('');
+      });
+      
+      $('#clear-btn').click(function() {        	 
+     	 $('#crtNameText').val('');
+     	 $('#daterange1').val('');
+          $('#daterange2').val('');
+     	 $('#hiddenStartDate').val('');
+          $('#hiddenEndDate').val('');
+     	 
+      });
+  });
+	
+
+	<c:if test="${pdto.search == 'y'}">
+	$('input[name=word]').val('${pdto.word}');
+	$('select[name=hiddenStartDate]').val('${pdto.hiddenStartDate}');
+	$('select[name=hiddenEndDate]').val('${pdto.hiddenEndDate}');
+	</c:if>
 	
 	
 	
