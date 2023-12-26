@@ -130,7 +130,7 @@
 </head>
 <body>
 	<div id="main">
-		<div id="header"><h2>WebSocket <small>홍길동</small></h2></div>
+		<div id="header"><h2>스터디 채팅 <small>홍길동</small></h2></div>
 		<div id="list">
 			<c:forEach items="${list }" var="dto">
 			

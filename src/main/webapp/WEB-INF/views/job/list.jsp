@@ -172,7 +172,7 @@
 			          </thead>
 			          <tbody>
 			          	<c:forEach items="${list}" var="dto">
-			            <tr onclick="location.href='http://localhost:8090/jr/job/detail.do?seq=${dto.jobSeq}';">
+			            <tr onclick="location.href='/jr/job/detail.do?seq=${dto.jobSeq}';">
 			              <td>${dto.jobName }</td>
 			              <td>
 			              	<div><i class="bi bi-person-workspace"></i><b>수행업무</b></div>
