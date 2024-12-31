@@ -63,3 +63,86 @@
 
 ### ⭐️ 관리자 기능
 - 자격증, 교재, 학원, 자격증 시험 일정 등 데이터에 대해 CRUD를 수행할 수 있다.
+
+---
+## 아키텍쳐
+
+### 디렉토리 구조
+```bash
+com/project/jr
+├── main
+│   └── controller
+├── academy
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   ├── repository
+│   └── service
+├── admin
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   ├── repository
+│   └── service
+├── board
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   ├── repository
+│   └── service
+├── book
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   ├── repository
+│   └── service
+├── crt
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   ├── repository
+│   └── service
+├── faq
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   ├── repository
+│   └── service
+├── forbidden
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   └── repository
+├── job
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   └── repository
+├── like
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   ├── repository
+│   └── service
+├── qna
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   └── repository
+├── study
+│   ├── controller
+│   ├── mapper
+│   ├── model
+│   ├── repository
+│   ├── server
+│   └── service
+├── test
+│   ├── mapper
+│   └── repository
+└── user
+    ├── controller
+    ├── mapper
+    ├── model
+    ├── repository
+    └── service
+```
